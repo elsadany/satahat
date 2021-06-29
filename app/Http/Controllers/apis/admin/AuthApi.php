@@ -1,0 +1,54 @@
+<?php
+
+namespace App\Http\Controllers\apis\admin;
+
+use Carbon\Carbon;
+use App\Models\User;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+use Validator;
+use App\Models\Cart;
+
+class AuthApi extends Controller {
+
+
+    function login(Request $request) {
+        $validator = Validator::make($request->all(), [
+                    'email' => 'required|string|email',
+                    'password' => 'required|string',
+                        //'remember_me' => 'boolean'
+        ]);
+        if ($validator->fails())
+            return response()->json(['status' => 500, 'message' => 'Invalide Data', 'errors' => $validator->errors()->all()]);
+        $user = User::where('email', $request->email)->where('type', 4)->first();
+
+        if (!is_object($user) || !Hash::check($request->password, $user->password)) {
+            return response()->json(['status' => 500, 'message' => 'incorrect email or password', 'errors' => ['incorrect email or password']]);
+        }
+
+
+        $tokenResult = $user->createToken('Personal Access Token');
+        $token = $tokenResult->token;
+        if ($request->remember_me)
+            $token->expires_at = Carbon::now()->addWeeks(1);
+        $token->save();
+
+        $response['status'] = 200;
+        $response['message'] = 'success';
+        $response['data'] = [
+            'access_token' => $tokenResult->accessToken,
+            'token_type' => 'Bearer',
+            'expires_at' => Carbon::parse($tokenResult->token->expires_at)->toDateTimeString(),
+            'remember' => $request->remember_me ? true : false,
+            'user' => $user->toArray()
+        ];
+        return response()->json($response);
+    }
+      function myacount(Request $request) {
+        $user = $request->user();
+        $arr = ['status' => 200, 'message' => '', 'data' => $user->toArray()];
+        return response()->json($arr);
+    }
+
+}
