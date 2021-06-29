@@ -22,6 +22,7 @@ Route::group(['namespace' => 'App\Http\Controllers\apis'], function () {
    
         Route::get('banners', 'SelectsController@getBanners');
         Route::get('brands', 'SelectsController@getBrands');
+        Route::get('cities', 'SelectsController@getcities');
         Route::get('jobs', 'SelectsController@getJobs');
                 Route::get('specialists', 'SelectsController@getMainspecialists');
                         Route::get('secondary_specialists', 'SelectsController@getSecondaryspecialists');

@@ -18,6 +18,10 @@ class SelectsController extends Controller {
         $jobs= \App\Models\Job::all();
         return response()->json(['status' => 200, 'data' => $jobs->toArray()]);
     }
+    function getcities(Request $request){
+        $cities= \App\Models\City::all();
+        return response()->json(['status' => 200, 'data' => $cities->toArray()]);
+    }
     function getMainspecialists(Request $request){
     
 

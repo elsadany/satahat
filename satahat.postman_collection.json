@@ -131,6 +131,30 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "cities",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{satahat_url}}/api/cities?language_symbol=ar",
+							"host": [
+								"{{satahat_url}}"
+							],
+							"path": [
+								"api",
+								"cities"
+							],
+							"query": [
+								{
+									"key": "language_symbol",
+									"value": "ar"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
