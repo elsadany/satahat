@@ -107,8 +107,14 @@ Route::group(['namespace' => 'App\Http\Controllers\apis\admin','prefix'=>'backen
           Route::post('banners/edit','BannersController@edit');
           Route::get('banners/show','BannersController@display');
           Route::get('banners/delete','BannersController@delete');
+          
+          //brands
+          Route::get('brands','BrandsController@all');
+          Route::post('brands/create','BrandsController@create');
+          Route::post('brands/edit','BrandsController@edit');
+          Route::post('brands/show','BrandsController@show');
+          Route::post('brands/delete','BrandsController@delete');
 
-       
           //settings
           Route::post('settings/update','AppSettingController@update');
       });
