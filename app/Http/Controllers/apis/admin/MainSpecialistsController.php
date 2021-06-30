@@ -6,13 +6,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Validator;
 
-class BrandsController extends Controller
+class MainSpecialistsController extends Controller
 {
     function all(Request $request) {
-        $brands =new \App\Models\Brand;
+        $main_specialists =new \App\Models\MainSpecialist;
      
-        $brands = $brands->orderBy('id', 'desc')->get();
-        return response()->json(['status' => 200, 'data' => $brands->toArray()]);
+        $main_specialists = $main_specialists->orderBy('id', 'desc')->get();
+        return response()->json(['status' => 200, 'data' => $main_specialists->toArray()]);
     }
 
     function create(Request $request) {
@@ -23,36 +23,36 @@ class BrandsController extends Controller
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
             return response()->json(['status' => 500, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()]);
-        $brand = new \App\Models\Brand();
+        $main_specialist = new \App\Models\MainSpecialist;
      
-        $brand->name_ar = $request->name_ar;
-        $brand->name_en = $request->name_en;
+        $main_specialist->name_ar = $request->name_ar;
+        $main_specialist->name_en = $request->name_en;
         
-        $brand->save();
+        $main_specialist->save();
         return response()->json(['status' => 200, 'message' => 'added']);
     }
 
     function show(Request $request) {
         $rules = [
-            'brand_id' => 'required|exists:brands,id'
+            'main_specialist_id' => 'required|exists:main_specialists,id'
         ];
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()){
             return response()->json(['status' => 500, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()]);
         }else{
-            $brand = \App\Models\Brand::where('id', $request->brand_id)->first();
-            if (!is_object($brand)){
-                return response()->json(['status' => 500, 'message' => 'Invalid Data', 'errors' => ['brand Not Found']]);
+            $main_specialist = \App\Models\MainSpecialist::where('id', $request->main_specialist_id)->first();
+            if (!is_object($main_specialist)){
+                return response()->json(['status' => 500, 'message' => 'Invalid Data', 'errors' => ['main specialist Not Found']]);
             }else{
-                return response()->json(['status' => 200, 'data' => $brand->toArray()]);
+                return response()->json(['status' => 200, 'data' => $main_specialist->toArray()]);
             }
         }
     }
 
     function edit(Request $request) {
         $rules = [
-            'brand_id' => 'required|exists:brands,id',
+            'main_specialist_id' => 'required|exists:main_specialists,id',
             'name_ar' => 'required',
             'name_en' => 'required',
         ];
@@ -61,11 +61,11 @@ class BrandsController extends Controller
         if ($validator->fails()){
             return response()->json(['status' => 500, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()]);
         }else{
-            $brand = \App\Models\Brand::where('id', $request->brand_id)->first();
-            if (!is_object($brand)){
-                return response()->json(['status' => 500, 'message' => 'Invalid Data', 'errors' => ['brand Not Found']]);
+            $main_specialist = \App\Models\MainSpecialist::where('id', $request->main_specialist_id)->first();
+            if (!is_object($main_specialist)){
+                return response()->json(['status' => 500, 'message' => 'Invalid Data', 'errors' => ['main specialist Not Found']]);
             }else{
-                \App\Models\Brand::where('id', $request->brand_id)->update([
+                \App\Models\MainSpecialist::where('id', $request->main_specialist_id)->update([
                     'name_ar' => $request->name_ar,
                     'name_en' => $request->name_en
                 ]);
@@ -77,18 +77,18 @@ class BrandsController extends Controller
 
     function delete(Request $request) {
         $rules = [
-            'brand_id' => 'required|exists:brands,id'
+            'main_specialist_id' => 'required|exists:main_specialists,id'
         ];
 
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()){
             return response()->json(['status' => 500, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()]);
         }else{
-            $brand = \App\Models\Brand::where('id', $request->brand_id)->first();
-            if (!is_object($brand)){
-                return response()->json(['status' => 500, 'message' => 'Invalid Data', 'errors' => ['brand Not Found']]);
+            $main_specialist = \App\Models\MainSpecialist::where('id', $request->main_specialist_id)->first();
+            if (!is_object($main_specialist)){
+                return response()->json(['status' => 500, 'message' => 'Invalid Data', 'errors' => ['main specialist Not Found']]);
             }else{
-                $brand = \App\Models\Brand::where('id', $request->brand_id)->delete();
+                $main_specialist = \App\Models\MainSpecialist::where('id', $request->main_specialist_id)->delete();
                 return response()->json(['status' => 200, 'message' => 'deleted']);
             }
         }

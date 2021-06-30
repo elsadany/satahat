@@ -115,6 +115,35 @@ Route::group(['namespace' => 'App\Http\Controllers\apis\admin','prefix'=>'backen
           Route::post('brands/show','BrandsController@show');
           Route::post('brands/delete','BrandsController@delete');
 
+          //cities
+          Route::get('cities','CitiesController@all');
+          Route::post('cities/create','CitiesController@create');
+          Route::post('cities/edit','CitiesController@edit');
+          Route::post('cities/show','CitiesController@show');
+          Route::post('cities/delete','CitiesController@delete');
+
+          //main specialists
+          Route::get('main-specialists','MainSpecialistsController@all');
+          Route::post('main-specialists/create','MainSpecialistsController@create');
+          Route::post('main-specialists/edit','MainSpecialistsController@edit');
+          Route::post('main-specialists/show','MainSpecialistsController@show');
+          Route::post('main-specialists/delete','MainSpecialistsController@delete');
+
+          //secondary specialists
+          Route::get('secondary-specialists','SecondarySpecialistsController@all');
+          Route::post('secondary-specialists/create','SecondarySpecialistsController@create');
+          Route::post('secondary-specialists/edit','SecondarySpecialistsController@edit');
+          Route::post('secondary-specialists/show','SecondarySpecialistsController@show');
+          Route::post('secondary-specialists/delete','SecondarySpecialistsController@delete');
+
+          //clients (users of type 1)
+          Route::get('clients','ClientsController@all');
+          Route::post('clients/show','ClientsController@show');
+
+          //delivery users (users of type 2)
+          Route::get('deliveries','DeliveriesController@all');
+          Route::post('deliveries/show','DeliveriesController@show');
+
           //settings
           Route::post('settings/update','AppSettingController@update');
       });

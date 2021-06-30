@@ -6,13 +6,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Validator;
 
-class BrandsController extends Controller
+class CitiesController extends Controller
 {
     function all(Request $request) {
-        $brands =new \App\Models\Brand;
+        $cities =new \App\Models\City;
      
-        $brands = $brands->orderBy('id', 'desc')->get();
-        return response()->json(['status' => 200, 'data' => $brands->toArray()]);
+        $cities = $cities->orderBy('id', 'desc')->get();
+        return response()->json(['status' => 200, 'data' => $cities->toArray()]);
     }
 
     function create(Request $request) {
@@ -23,36 +23,36 @@ class BrandsController extends Controller
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
             return response()->json(['status' => 500, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()]);
-        $brand = new \App\Models\Brand();
+        $city = new \App\Models\City;
      
-        $brand->name_ar = $request->name_ar;
-        $brand->name_en = $request->name_en;
+        $city->name_ar = $request->name_ar;
+        $city->name_en = $request->name_en;
         
-        $brand->save();
+        $city->save();
         return response()->json(['status' => 200, 'message' => 'added']);
     }
 
     function show(Request $request) {
         $rules = [
-            'brand_id' => 'required|exists:brands,id'
+            'city_id' => 'required|exists:cities,id'
         ];
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()){
             return response()->json(['status' => 500, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()]);
         }else{
-            $brand = \App\Models\Brand::where('id', $request->brand_id)->first();
-            if (!is_object($brand)){
-                return response()->json(['status' => 500, 'message' => 'Invalid Data', 'errors' => ['brand Not Found']]);
+            $city = \App\Models\City::where('id', $request->city_id)->first();
+            if (!is_object($city)){
+                return response()->json(['status' => 500, 'message' => 'Invalid Data', 'errors' => ['city Not Found']]);
             }else{
-                return response()->json(['status' => 200, 'data' => $brand->toArray()]);
+                return response()->json(['status' => 200, 'data' => $city->toArray()]);
             }
         }
     }
 
     function edit(Request $request) {
         $rules = [
-            'brand_id' => 'required|exists:brands,id',
+            'city_id' => 'required|exists:cities,id',
             'name_ar' => 'required',
             'name_en' => 'required',
         ];
@@ -61,11 +61,11 @@ class BrandsController extends Controller
         if ($validator->fails()){
             return response()->json(['status' => 500, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()]);
         }else{
-            $brand = \App\Models\Brand::where('id', $request->brand_id)->first();
-            if (!is_object($brand)){
-                return response()->json(['status' => 500, 'message' => 'Invalid Data', 'errors' => ['brand Not Found']]);
+            $city = \App\Models\City::where('id', $request->city_id)->first();
+            if (!is_object($city)){
+                return response()->json(['status' => 500, 'message' => 'Invalid Data', 'errors' => ['city Not Found']]);
             }else{
-                \App\Models\Brand::where('id', $request->brand_id)->update([
+                \App\Models\City::where('id', $request->city_id)->update([
                     'name_ar' => $request->name_ar,
                     'name_en' => $request->name_en
                 ]);
@@ -77,18 +77,18 @@ class BrandsController extends Controller
 
     function delete(Request $request) {
         $rules = [
-            'brand_id' => 'required|exists:brands,id'
+            'city_id' => 'required|exists:cities,id'
         ];
 
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()){
             return response()->json(['status' => 500, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()]);
         }else{
-            $brand = \App\Models\Brand::where('id', $request->brand_id)->first();
-            if (!is_object($brand)){
-                return response()->json(['status' => 500, 'message' => 'Invalid Data', 'errors' => ['brand Not Found']]);
+            $city = \App\Models\City::where('id', $request->city_id)->first();
+            if (!is_object($city)){
+                return response()->json(['status' => 500, 'message' => 'Invalid Data', 'errors' => ['city Not Found']]);
             }else{
-                $brand = \App\Models\Brand::where('id', $request->brand_id)->delete();
+                $city = \App\Models\City::where('id', $request->city_id)->delete();
                 return response()->json(['status' => 200, 'message' => 'deleted']);
             }
         }
