@@ -53,6 +53,7 @@ Route::group(['namespace' => 'App\Http\Controllers\apis'], function () {
                 Route::get('orders', 'OrdersApi@userOrders');
               
                 Route::get('orders/show', 'UsersAPI@showOrder');
+                Route::post('rating/add', 'RateApi@add');
                 Route::post('orders/choose-offer', 'OrdersApi@chooseOffer');
                 Route::get('orders/cancel', 'OrdersApi@cancelOrder');
 
