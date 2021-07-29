@@ -26,10 +26,10 @@ class OrdersApi extends Controller {
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
             return response()->json(['status' => 500, 'message' => 'Invalide Data', 'errors' => $validator->errors()->all()]);
-
         $order = new \App\Models\Order();
         $order->user_id = $request->user()->id;
-
+        $order->from_address = $this->getCityFromLatLng($request->from_lat, $request->from_lng);
+        $order->to_address = $this->getCityFromLatLng($request->to_lat, $request->to_lng);
         $order->main_specialist_id = $request->main_specialist_id;
         $order->secondary_specialist_id = $request->secondary_specialist_id;
         $order->from_lat = $request->from_lat;
@@ -56,17 +56,20 @@ class OrdersApi extends Controller {
         $order = \App\Models\Order::where('user_id', $request->user()->id)->where('id', $request->order_id)->first();
         if (!is_object($order))
             return response()->json(['status' => 500, 'errors' => ['not found']]);
-        if ($order->status_id >0)
+        if ($order->status_id > 0)
             return response()->json(['status' => 500, 'errors' => ['it cant be cancelled']]);
 
         $order->status_id = 3;
-        $order->reason=$request->reason;
+        $order->reason = $request->reason;
         $order->save();
         return response()->json(['status' => 200, 'message' => 'success']);
     }
 
     function userOrders(Request $request) {
-        $orders = \App\Models\Order::where('user_id', $request->user()->id)->orderBy('id', 'desc')->paginate(15);
+        $orders = \App\Models\Order::where('user_id', $request->user()->id)->orderBy('id', 'desc');
+        if($request->status_id!='')
+            $orders=$orders->where('status_id',$request->status_id);
+                $orders=$orders->paginate(15);
         return response()->json(['status' => 200, 'data' => $orders->toArray()]);
     }
 
@@ -107,9 +110,15 @@ class OrdersApi extends Controller {
         return $result;
     }
 
-    function newOrders() {
-        $orders= \App\Models\Order::where('status_id',0)->OrderBy('id','desc')->get();
-        return response()->json(['status'=>200,'data'=>$orders->toArray()]);
+    function newOrders(Request $request) {
+        $orders = \App\Models\Order::where('status_id', 0)->OrderBy('id', 'desc');
+        if($request->offer==1)
+        {
+            $ids= \App\Models\Offer::where('delivery_id',$request->user()->id)->pluck('order_id')->toArray();
+           $orders=$orders->whereIn('id',$ids); 
+        }
+                $orders=$orders->get();
+        return response()->json(['status' => 200, 'data' => $orders->toArray()]);
     }
 
     function DeliveryOrders(Request $request) {
@@ -120,48 +129,105 @@ class OrdersApi extends Controller {
         return response()->json(['status' => 200, 'data' => $orders->toArray()]);
     }
 
-    function makeOffer(Request $request){
-        $rules=['order_id'=>'required|exists:orders,id',
-            'offer'=>'required',
-            
-            ];
-           $validator = Validator::make($request->all(), $rules);
+    function makeOffer(Request $request) {
+        $rules = ['order_id' => 'required|exists:orders,id',
+            'offer' => 'required',
+        ];
+        $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
             return response()->json(['status' => 500, 'message' => 'Invalide Data', 'errors' => $validator->errors()->all()]);
 
-        $offer= \App\Models\Offer::where('delivery_id',$request->user()->id)->where('order_id',$request->order_id)->first();
-        if(is_object($offer))
-            return response ()->json (['status'=>500,'errors'=>['You Submitted error before']]);
-        $offer=new \App\Models\Offer();
-        $offer->delivery_id=$request->user()->id;
-        $offer->offer=$request->offer;
-        $offer->order_id=$request->order_id;
+        $offer = \App\Models\Offer::where('delivery_id', $request->user()->id)->where('order_id', $request->order_id)->first();
+        if (is_object($offer))
+            return response()->json(['status' => 500, 'errors' => ['You Submitted error before']]);
+        $offer = new \App\Models\Offer();
+        $offer->delivery_id = $request->user()->id;
+        $offer->offer = $request->offer;
+        $offer->order_id = $request->order_id;
         $offer->save();
-        return response()->json(['status'=>200,'message'=>'success']);
+        return response()->json(['status' => 200, 'message' => 'success']);
     }
-    function chooseOffer(Request $request){
-      $rules=['order_id'=>'required|exists:orders,id',
-            'offer_id'=>'required|exists:offers,id',
-            
-            ];
-           $validator = Validator::make($request->all(), $rules);
+
+    function chooseOffer(Request $request) {
+        $rules = ['order_id' => 'required|exists:orders,id',
+            'offer_id' => 'required|exists:offers,id',
+        ];
+        $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
             return response()->json(['status' => 500, 'message' => 'Invalide Data', 'errors' => $validator->errors()->all()]);
-        $order= \App\Models\Order::where('id',$request->order_id)->where('user_id',$request->user()->id)->first();
-        if(!is_object($order))
-            return response()->json (['status'=>500,'errors'=>['Order Not Found']]);
-        if($order->status_id>0)
-            return response()->json (['status'=>500,'errors'=>['Order has Already Offer']]);
-   $offer= \App\Models\Offer::where('id',$request->offer_id)->where('order_id',$request->order_id)->first();
-   if(!is_object($offer))
-       return response ()->json(['status'=>500,'errors'=>['Offer Not Found']]);
-   $order->offer=$offer->offer;
-   $order->delivery_id=$offer->delivery_id;
-   $order->status_id=1;
-   $order->save();
-   $offer->is_accept=1;
-   $offer->save();
-   return response()->json(['status'=>200,'message'=>'success']);
-   
+        $order = \App\Models\Order::where('id', $request->order_id)->where('user_id', $request->user()->id)->first();
+        if (!is_object($order))
+            return response()->json(['status' => 500, 'errors' => ['Order Not Found']]);
+        if ($order->status_id > 0)
+            return response()->json(['status' => 500, 'errors' => ['Order has Already Offer']]);
+        $offer = \App\Models\Offer::where('id', $request->offer_id)->where('order_id', $request->order_id)->first();
+        if (!is_object($offer))
+            return response()->json(['status' => 500, 'errors' => ['Offer Not Found']]);
+        $order->offer = $offer->offer;
+        $order->delivery_id = $offer->delivery_id;
+        $order->status_id = 1;
+        $order->save();
+        $offer->is_accept = 1;
+        $offer->save();
+        return response()->json(['status' => 200, 'message' => 'success']);
     }
+
+    function finish(Request $request) {
+        $rules = ['order_id' => 'required|exists:orders,id',
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails())
+            return response()->json(['status' => 500, 'message' => 'Invalide Data', 'errors' => $validator->errors()->all()]);
+        $order = \App\Models\Order::where('id', $request->order_id)->where('delivery_id', $request->user()->id)->first();
+        if (!is_object($order))
+            return response()->json(['status' => 500, 'errors' => ['Order Not Found']]);
+
+
+
+        $order->status_id = 2;
+        $order->save();
+
+        return response()->json(['status' => 200, 'message' => 'success']);
+    }
+
+    function getCityFromLatLng($lat, $lng) {
+
+        $endpoint = "https://maps.googleapis.com/maps/api/geocode/json";
+        $client = new \GuzzleHttp\Client();
+
+
+        $response = $client->request('GET', $endpoint, ['query' => [
+                'latlng' => $lat . ',' . $lng,
+                'sensor' => true,
+                'key' => 'AIzaSyAylzC-TDTEVjgHp5EI1ofRN5Jhdrekrhg',
+        ]]);
+
+
+        $statusCode = $response->getStatusCode();
+        $content = json_decode($response->getBody(), true);
+
+        // dd($content);
+        if (key_exists('results', $content) && count($content['results']) >= 3) {
+            return $content['results'][0]['formatted_address'];
+            $last_index = count($content['results']) - 2;
+            $result['country'] = $content['results'][$last_index]['formatted_address'];
+            $governorate = $content['results'][$last_index - 1]['formatted_address'];
+            $governorate = explode(',', $governorate);
+            $result['gover'] = $governorate[0];
+            $city = $content['results'][$last_index - 2]['formatted_address'];
+            $city = explode(',', $city);
+            $result['city'] = $city[0];
+            $location = \App\Models\Location::where('name', $result['city'])->first();
+            if (!is_object($location)) {
+                $location = new \App\Models\Location;
+                $location->name = $result['city'];
+                $location->save();
+            }
+            return $location->id;
+            return $result;
+        }
+
+        return false;
+    }
+
 }

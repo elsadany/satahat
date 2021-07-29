@@ -76,6 +76,7 @@ Route::group(['namespace' => 'App\Http\Controllers\apis'], function () {
             Route::group(['middleware' => ['admin'], 'prefix' => '/backend'], function () {
             
                 Route::get('orders', 'OrdersApi@all');
+                Route::get('orders/finish','OrdersApi@finish');
                 //users
                 Route::get('users', 'UsersApi@all');
                 Route::get('users/active', 'UsersApi@active');
