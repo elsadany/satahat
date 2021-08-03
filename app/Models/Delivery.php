@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Delivery extends Model
 {
     protected $appends=['id_imagePath','carIdImagePath','rating'];
-    protected $with=['brand','rates'];
+    protected $with=['brand','rates','mainspecialist','secondaryspecialist'];
     use HasFactory;
     protected $table='delivery';
     public $timestamps=false;
@@ -37,5 +37,11 @@ class Delivery extends Model
         else{
             return round($this->rates()->sum('rate')/$this->rates()->count());
         }
+    }
+    function mainspecialist(){
+        return $this->belongsTo(MainSpecialist::class,'main_specialist_id');
+    }
+    function secondaryspecialist(){
+        return $this->belongsTo(SecondarySpecialist::class,'secondary_specialist_id');
     }
 }

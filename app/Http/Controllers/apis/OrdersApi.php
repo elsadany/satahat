@@ -28,8 +28,12 @@ class OrdersApi extends Controller {
             return response()->json(['status' => 500, 'message' => 'Invalide Data', 'errors' => $validator->errors()->all()]);
         $order = new \App\Models\Order();
         $order->user_id = $request->user()->id;
-        $order->from_address = $this->getCityFromLatLng($request->from_lat, $request->from_lng);
-        $order->to_address = $this->getCityFromLatLng($request->to_lat, $request->to_lng);
+        $fromdata=$this->getCityFromLatLng($request->from_lat, $request->from_lng);
+        $todata= $this->getCityFromLatLng($request->to_lat, $request->to_lng);
+        $order->from_address =$fromdata['address'] ;
+        $order->to_address =$todata['address'];
+        $order->from_city =$fromdata['city'] ;
+        $order->to_city =$todata['city'];
         $order->main_specialist_id = $request->main_specialist_id;
         $order->secondary_specialist_id = $request->secondary_specialist_id;
         $order->from_lat = $request->from_lat;
@@ -208,7 +212,7 @@ class OrdersApi extends Controller {
 
         // dd($content);
         if (key_exists('results', $content) && count($content['results']) >= 3) {
-            return $content['results'][0]['formatted_address'];
+            $address= $content['results'][0]['formatted_address'];
             $last_index = count($content['results']) - 2;
             $result['country'] = $content['results'][$last_index]['formatted_address'];
             $governorate = $content['results'][$last_index - 1]['formatted_address'];
@@ -217,6 +221,7 @@ class OrdersApi extends Controller {
             $city = $content['results'][$last_index - 2]['formatted_address'];
             $city = explode(',', $city);
             $result['city'] = $city[0];
+            return ['address'=>$address,'city'=>$city[0]];
             $location = \App\Models\Location::where('name', $result['city'])->first();
             if (!is_object($location)) {
                 $location = new \App\Models\Location;
@@ -227,7 +232,7 @@ class OrdersApi extends Controller {
             return $result;
         }
 
-        return false;
+        return  ['address'=>false,'city'=>false];
     }
 
 }

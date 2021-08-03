@@ -94,7 +94,7 @@ class AuthApi extends Controller {
         if ($request->remember_me)
             $token->expires_at = Carbon::now()->addWeeks(1);
         $token->save();
-
+$user= User::find($user->id);
         $response['status'] = 200;
         $response['message'] = 'success';
         $response['data'] = [
@@ -152,6 +152,7 @@ class AuthApi extends Controller {
             'city_id'=>'required|exists:cities,id',
             'id_image'=>'required|image',
             'driving_licence'=>'required|image',
+            'image'=>'required|image',
             'model'=>'required',
             'car_number'=>'required',
             'insurance_number'=>'required',
@@ -166,6 +167,7 @@ class AuthApi extends Controller {
         $user->email = $request->email;
         $user->phone = $request->phone;
         $user->name = $request->name;
+        $user->image= $this->uploadfile($request->image);
         $user->type = 2;
         $user->password = Hash::make($request->password);
         $user->save();
@@ -190,6 +192,7 @@ class AuthApi extends Controller {
 //        if ($request->remember_me)
         $token->expires_at = Carbon::now()->addWeeks(2);
         $token->save();
+$user= User::find($user->id);
 
         $arr['status'] = 200;
         $arr['message'] = 'success';
