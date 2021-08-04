@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "ddca1e5a-ff4a-47b9-8d09-ed34c7bb3a2e",
+		"_postman_id": "34aa2615-b8c3-4dca-9358-28c50dc5923f",
 		"name": "satahat",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -121,30 +121,6 @@
 							"path": [
 								"api",
 								"jobs"
-							],
-							"query": [
-								{
-									"key": "language_symbol",
-									"value": "ar"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "cities",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{satahat_url}}/api/cities?language_symbol=ar",
-							"host": [
-								"{{satahat_url}}"
-							],
-							"path": [
-								"api",
-								"cities"
 							],
 							"query": [
 								{
@@ -314,7 +290,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiYmY2NjRmYTZjZWI0OTI5ZGM0N2YxNDk0ODViZmMxYTVhMGJiYmFmYjJhODcyNDdkM2RlMDIwNWY1OTk1NWRhOWJjZGNlZjNiNWVkNWZhNjYiLCJpYXQiOjE2MjQ5MDM3NDYsIm5iZiI6MTYyNDkwMzc0NiwiZXhwIjoxNjU2NDM5NzQ2LCJzdWIiOiIyIiwic2NvcGVzIjpbXX0.OccdXSLlcKuG-Gh-cT3Qkt00b74zwMVRPPPB5ulg4sTraJW7Jr2dzAutOp_8q8b9jdhgyn29K1V88Ackibe3IeoEK6rs7b32lo8rx2zS6f9qpIET0WydeFne4iVK9DkyRw_g-cBhkB7XoRMfGDPQW-p0TePJVKrYE-a0-ULMfiSKAv8KEyKJouRc21Jk_l8G-DCKweSdzjE81BfU9ylmB03rSjrvc-MwsYSKpObdRsDRMNblJvDK4pOdMIUlXZkzJ3Jy8ImdH61zb8ijvgc0BsUu0BM4M0RXXRLYVdOd2oGOzSAOiFvpzJwMBTBubpvw2p4U-24L4lpWgMaaxzWyIg6WqadeWgzzx-8PbObdEgrH4eoocqpJgpWBmf25B1J3wasb9iXrXVAtPiWKtGpZm4OMp1PT2g7lmIvQRdjqkpm6X7Mpgx6bnrQ8GfQtPfluT_NdZeOet_gZNYSilotjbHmouA_g5mqPJoqTfha--vpcUE_41t0AN6yeWRQx6op8oDwi5C4T9xz3vmYPKQnigr323rJvfNGfiRQNzJ8gM4qPtrC2zivPHcZMmoqVKcVlSMTWQ0LGdQONvdO4J32et8xaJetsoREqwyiXWSjJXadJlDCbe_3cwyb2xYZ_kNwFYurGDWe1fYpnylNkyXAcwaP8YRmH6B1nwK9s971Wv6Q",
+									"value": "{{user_auth}}",
 									"type": "string"
 								}
 							]
@@ -350,7 +326,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiYmY2NjRmYTZjZWI0OTI5ZGM0N2YxNDk0ODViZmMxYTVhMGJiYmFmYjJhODcyNDdkM2RlMDIwNWY1OTk1NWRhOWJjZGNlZjNiNWVkNWZhNjYiLCJpYXQiOjE2MjQ5MDM3NDYsIm5iZiI6MTYyNDkwMzc0NiwiZXhwIjoxNjU2NDM5NzQ2LCJzdWIiOiIyIiwic2NvcGVzIjpbXX0.OccdXSLlcKuG-Gh-cT3Qkt00b74zwMVRPPPB5ulg4sTraJW7Jr2dzAutOp_8q8b9jdhgyn29K1V88Ackibe3IeoEK6rs7b32lo8rx2zS6f9qpIET0WydeFne4iVK9DkyRw_g-cBhkB7XoRMfGDPQW-p0TePJVKrYE-a0-ULMfiSKAv8KEyKJouRc21Jk_l8G-DCKweSdzjE81BfU9ylmB03rSjrvc-MwsYSKpObdRsDRMNblJvDK4pOdMIUlXZkzJ3Jy8ImdH61zb8ijvgc0BsUu0BM4M0RXXRLYVdOd2oGOzSAOiFvpzJwMBTBubpvw2p4U-24L4lpWgMaaxzWyIg6WqadeWgzzx-8PbObdEgrH4eoocqpJgpWBmf25B1J3wasb9iXrXVAtPiWKtGpZm4OMp1PT2g7lmIvQRdjqkpm6X7Mpgx6bnrQ8GfQtPfluT_NdZeOet_gZNYSilotjbHmouA_g5mqPJoqTfha--vpcUE_41t0AN6yeWRQx6op8oDwi5C4T9xz3vmYPKQnigr323rJvfNGfiRQNzJ8gM4qPtrC2zivPHcZMmoqVKcVlSMTWQ0LGdQONvdO4J32et8xaJetsoREqwyiXWSjJXadJlDCbe_3cwyb2xYZ_kNwFYurGDWe1fYpnylNkyXAcwaP8YRmH6B1nwK9s971Wv6Q",
+									"value": "{{user_auth}}",
 									"type": "string"
 								}
 							]
@@ -386,7 +362,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiYmY2NjRmYTZjZWI0OTI5ZGM0N2YxNDk0ODViZmMxYTVhMGJiYmFmYjJhODcyNDdkM2RlMDIwNWY1OTk1NWRhOWJjZGNlZjNiNWVkNWZhNjYiLCJpYXQiOjE2MjQ5MDM3NDYsIm5iZiI6MTYyNDkwMzc0NiwiZXhwIjoxNjU2NDM5NzQ2LCJzdWIiOiIyIiwic2NvcGVzIjpbXX0.OccdXSLlcKuG-Gh-cT3Qkt00b74zwMVRPPPB5ulg4sTraJW7Jr2dzAutOp_8q8b9jdhgyn29K1V88Ackibe3IeoEK6rs7b32lo8rx2zS6f9qpIET0WydeFne4iVK9DkyRw_g-cBhkB7XoRMfGDPQW-p0TePJVKrYE-a0-ULMfiSKAv8KEyKJouRc21Jk_l8G-DCKweSdzjE81BfU9ylmB03rSjrvc-MwsYSKpObdRsDRMNblJvDK4pOdMIUlXZkzJ3Jy8ImdH61zb8ijvgc0BsUu0BM4M0RXXRLYVdOd2oGOzSAOiFvpzJwMBTBubpvw2p4U-24L4lpWgMaaxzWyIg6WqadeWgzzx-8PbObdEgrH4eoocqpJgpWBmf25B1J3wasb9iXrXVAtPiWKtGpZm4OMp1PT2g7lmIvQRdjqkpm6X7Mpgx6bnrQ8GfQtPfluT_NdZeOet_gZNYSilotjbHmouA_g5mqPJoqTfha--vpcUE_41t0AN6yeWRQx6op8oDwi5C4T9xz3vmYPKQnigr323rJvfNGfiRQNzJ8gM4qPtrC2zivPHcZMmoqVKcVlSMTWQ0LGdQONvdO4J32et8xaJetsoREqwyiXWSjJXadJlDCbe_3cwyb2xYZ_kNwFYurGDWe1fYpnylNkyXAcwaP8YRmH6B1nwK9s971Wv6Q",
+									"value": "{{user_auth}}",
 									"type": "string"
 								}
 							]
@@ -425,7 +401,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiYmY2NjRmYTZjZWI0OTI5ZGM0N2YxNDk0ODViZmMxYTVhMGJiYmFmYjJhODcyNDdkM2RlMDIwNWY1OTk1NWRhOWJjZGNlZjNiNWVkNWZhNjYiLCJpYXQiOjE2MjQ5MDM3NDYsIm5iZiI6MTYyNDkwMzc0NiwiZXhwIjoxNjU2NDM5NzQ2LCJzdWIiOiIyIiwic2NvcGVzIjpbXX0.OccdXSLlcKuG-Gh-cT3Qkt00b74zwMVRPPPB5ulg4sTraJW7Jr2dzAutOp_8q8b9jdhgyn29K1V88Ackibe3IeoEK6rs7b32lo8rx2zS6f9qpIET0WydeFne4iVK9DkyRw_g-cBhkB7XoRMfGDPQW-p0TePJVKrYE-a0-ULMfiSKAv8KEyKJouRc21Jk_l8G-DCKweSdzjE81BfU9ylmB03rSjrvc-MwsYSKpObdRsDRMNblJvDK4pOdMIUlXZkzJ3Jy8ImdH61zb8ijvgc0BsUu0BM4M0RXXRLYVdOd2oGOzSAOiFvpzJwMBTBubpvw2p4U-24L4lpWgMaaxzWyIg6WqadeWgzzx-8PbObdEgrH4eoocqpJgpWBmf25B1J3wasb9iXrXVAtPiWKtGpZm4OMp1PT2g7lmIvQRdjqkpm6X7Mpgx6bnrQ8GfQtPfluT_NdZeOet_gZNYSilotjbHmouA_g5mqPJoqTfha--vpcUE_41t0AN6yeWRQx6op8oDwi5C4T9xz3vmYPKQnigr323rJvfNGfiRQNzJ8gM4qPtrC2zivPHcZMmoqVKcVlSMTWQ0LGdQONvdO4J32et8xaJetsoREqwyiXWSjJXadJlDCbe_3cwyb2xYZ_kNwFYurGDWe1fYpnylNkyXAcwaP8YRmH6B1nwK9s971Wv6Q",
+									"value": "{{user_auth}}",
 									"type": "string"
 								}
 							]
@@ -436,13 +412,18 @@
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "password",
+									"key": "old_password",
 									"value": "123456",
 									"type": "text"
 								},
 								{
+									"key": "password",
+									"value": "test123",
+									"type": "text"
+								},
+								{
 									"key": "confirm_password",
-									"value": "123456",
+									"value": "test123",
 									"type": "text"
 								}
 							]
@@ -469,7 +450,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiYmY2NjRmYTZjZWI0OTI5ZGM0N2YxNDk0ODViZmMxYTVhMGJiYmFmYjJhODcyNDdkM2RlMDIwNWY1OTk1NWRhOWJjZGNlZjNiNWVkNWZhNjYiLCJpYXQiOjE2MjQ5MDM3NDYsIm5iZiI6MTYyNDkwMzc0NiwiZXhwIjoxNjU2NDM5NzQ2LCJzdWIiOiIyIiwic2NvcGVzIjpbXX0.OccdXSLlcKuG-Gh-cT3Qkt00b74zwMVRPPPB5ulg4sTraJW7Jr2dzAutOp_8q8b9jdhgyn29K1V88Ackibe3IeoEK6rs7b32lo8rx2zS6f9qpIET0WydeFne4iVK9DkyRw_g-cBhkB7XoRMfGDPQW-p0TePJVKrYE-a0-ULMfiSKAv8KEyKJouRc21Jk_l8G-DCKweSdzjE81BfU9ylmB03rSjrvc-MwsYSKpObdRsDRMNblJvDK4pOdMIUlXZkzJ3Jy8ImdH61zb8ijvgc0BsUu0BM4M0RXXRLYVdOd2oGOzSAOiFvpzJwMBTBubpvw2p4U-24L4lpWgMaaxzWyIg6WqadeWgzzx-8PbObdEgrH4eoocqpJgpWBmf25B1J3wasb9iXrXVAtPiWKtGpZm4OMp1PT2g7lmIvQRdjqkpm6X7Mpgx6bnrQ8GfQtPfluT_NdZeOet_gZNYSilotjbHmouA_g5mqPJoqTfha--vpcUE_41t0AN6yeWRQx6op8oDwi5C4T9xz3vmYPKQnigr323rJvfNGfiRQNzJ8gM4qPtrC2zivPHcZMmoqVKcVlSMTWQ0LGdQONvdO4J32et8xaJetsoREqwyiXWSjJXadJlDCbe_3cwyb2xYZ_kNwFYurGDWe1fYpnylNkyXAcwaP8YRmH6B1nwK9s971Wv6Q",
+									"value": "{{user_auth}}",
 									"type": "string"
 								}
 							]
@@ -542,7 +523,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiYmY2NjRmYTZjZWI0OTI5ZGM0N2YxNDk0ODViZmMxYTVhMGJiYmFmYjJhODcyNDdkM2RlMDIwNWY1OTk1NWRhOWJjZGNlZjNiNWVkNWZhNjYiLCJpYXQiOjE2MjQ5MDM3NDYsIm5iZiI6MTYyNDkwMzc0NiwiZXhwIjoxNjU2NDM5NzQ2LCJzdWIiOiIyIiwic2NvcGVzIjpbXX0.OccdXSLlcKuG-Gh-cT3Qkt00b74zwMVRPPPB5ulg4sTraJW7Jr2dzAutOp_8q8b9jdhgyn29K1V88Ackibe3IeoEK6rs7b32lo8rx2zS6f9qpIET0WydeFne4iVK9DkyRw_g-cBhkB7XoRMfGDPQW-p0TePJVKrYE-a0-ULMfiSKAv8KEyKJouRc21Jk_l8G-DCKweSdzjE81BfU9ylmB03rSjrvc-MwsYSKpObdRsDRMNblJvDK4pOdMIUlXZkzJ3Jy8ImdH61zb8ijvgc0BsUu0BM4M0RXXRLYVdOd2oGOzSAOiFvpzJwMBTBubpvw2p4U-24L4lpWgMaaxzWyIg6WqadeWgzzx-8PbObdEgrH4eoocqpJgpWBmf25B1J3wasb9iXrXVAtPiWKtGpZm4OMp1PT2g7lmIvQRdjqkpm6X7Mpgx6bnrQ8GfQtPfluT_NdZeOet_gZNYSilotjbHmouA_g5mqPJoqTfha--vpcUE_41t0AN6yeWRQx6op8oDwi5C4T9xz3vmYPKQnigr323rJvfNGfiRQNzJ8gM4qPtrC2zivPHcZMmoqVKcVlSMTWQ0LGdQONvdO4J32et8xaJetsoREqwyiXWSjJXadJlDCbe_3cwyb2xYZ_kNwFYurGDWe1fYpnylNkyXAcwaP8YRmH6B1nwK9s971Wv6Q",
+									"value": "{{user_auth}}",
 									"type": "string"
 								}
 							]
@@ -577,7 +558,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiYmY2NjRmYTZjZWI0OTI5ZGM0N2YxNDk0ODViZmMxYTVhMGJiYmFmYjJhODcyNDdkM2RlMDIwNWY1OTk1NWRhOWJjZGNlZjNiNWVkNWZhNjYiLCJpYXQiOjE2MjQ5MDM3NDYsIm5iZiI6MTYyNDkwMzc0NiwiZXhwIjoxNjU2NDM5NzQ2LCJzdWIiOiIyIiwic2NvcGVzIjpbXX0.OccdXSLlcKuG-Gh-cT3Qkt00b74zwMVRPPPB5ulg4sTraJW7Jr2dzAutOp_8q8b9jdhgyn29K1V88Ackibe3IeoEK6rs7b32lo8rx2zS6f9qpIET0WydeFne4iVK9DkyRw_g-cBhkB7XoRMfGDPQW-p0TePJVKrYE-a0-ULMfiSKAv8KEyKJouRc21Jk_l8G-DCKweSdzjE81BfU9ylmB03rSjrvc-MwsYSKpObdRsDRMNblJvDK4pOdMIUlXZkzJ3Jy8ImdH61zb8ijvgc0BsUu0BM4M0RXXRLYVdOd2oGOzSAOiFvpzJwMBTBubpvw2p4U-24L4lpWgMaaxzWyIg6WqadeWgzzx-8PbObdEgrH4eoocqpJgpWBmf25B1J3wasb9iXrXVAtPiWKtGpZm4OMp1PT2g7lmIvQRdjqkpm6X7Mpgx6bnrQ8GfQtPfluT_NdZeOet_gZNYSilotjbHmouA_g5mqPJoqTfha--vpcUE_41t0AN6yeWRQx6op8oDwi5C4T9xz3vmYPKQnigr323rJvfNGfiRQNzJ8gM4qPtrC2zivPHcZMmoqVKcVlSMTWQ0LGdQONvdO4J32et8xaJetsoREqwyiXWSjJXadJlDCbe_3cwyb2xYZ_kNwFYurGDWe1fYpnylNkyXAcwaP8YRmH6B1nwK9s971Wv6Q",
+									"value": "{{user_auth}}",
 									"type": "string"
 								}
 							]
@@ -616,7 +597,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiYmY2NjRmYTZjZWI0OTI5ZGM0N2YxNDk0ODViZmMxYTVhMGJiYmFmYjJhODcyNDdkM2RlMDIwNWY1OTk1NWRhOWJjZGNlZjNiNWVkNWZhNjYiLCJpYXQiOjE2MjQ5MDM3NDYsIm5iZiI6MTYyNDkwMzc0NiwiZXhwIjoxNjU2NDM5NzQ2LCJzdWIiOiIyIiwic2NvcGVzIjpbXX0.OccdXSLlcKuG-Gh-cT3Qkt00b74zwMVRPPPB5ulg4sTraJW7Jr2dzAutOp_8q8b9jdhgyn29K1V88Ackibe3IeoEK6rs7b32lo8rx2zS6f9qpIET0WydeFne4iVK9DkyRw_g-cBhkB7XoRMfGDPQW-p0TePJVKrYE-a0-ULMfiSKAv8KEyKJouRc21Jk_l8G-DCKweSdzjE81BfU9ylmB03rSjrvc-MwsYSKpObdRsDRMNblJvDK4pOdMIUlXZkzJ3Jy8ImdH61zb8ijvgc0BsUu0BM4M0RXXRLYVdOd2oGOzSAOiFvpzJwMBTBubpvw2p4U-24L4lpWgMaaxzWyIg6WqadeWgzzx-8PbObdEgrH4eoocqpJgpWBmf25B1J3wasb9iXrXVAtPiWKtGpZm4OMp1PT2g7lmIvQRdjqkpm6X7Mpgx6bnrQ8GfQtPfluT_NdZeOet_gZNYSilotjbHmouA_g5mqPJoqTfha--vpcUE_41t0AN6yeWRQx6op8oDwi5C4T9xz3vmYPKQnigr323rJvfNGfiRQNzJ8gM4qPtrC2zivPHcZMmoqVKcVlSMTWQ0LGdQONvdO4J32et8xaJetsoREqwyiXWSjJXadJlDCbe_3cwyb2xYZ_kNwFYurGDWe1fYpnylNkyXAcwaP8YRmH6B1nwK9s971Wv6Q",
+									"value": "{{user_auth}}",
 									"type": "string"
 								}
 							]
@@ -651,7 +632,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiYmY2NjRmYTZjZWI0OTI5ZGM0N2YxNDk0ODViZmMxYTVhMGJiYmFmYjJhODcyNDdkM2RlMDIwNWY1OTk1NWRhOWJjZGNlZjNiNWVkNWZhNjYiLCJpYXQiOjE2MjQ5MDM3NDYsIm5iZiI6MTYyNDkwMzc0NiwiZXhwIjoxNjU2NDM5NzQ2LCJzdWIiOiIyIiwic2NvcGVzIjpbXX0.OccdXSLlcKuG-Gh-cT3Qkt00b74zwMVRPPPB5ulg4sTraJW7Jr2dzAutOp_8q8b9jdhgyn29K1V88Ackibe3IeoEK6rs7b32lo8rx2zS6f9qpIET0WydeFne4iVK9DkyRw_g-cBhkB7XoRMfGDPQW-p0TePJVKrYE-a0-ULMfiSKAv8KEyKJouRc21Jk_l8G-DCKweSdzjE81BfU9ylmB03rSjrvc-MwsYSKpObdRsDRMNblJvDK4pOdMIUlXZkzJ3Jy8ImdH61zb8ijvgc0BsUu0BM4M0RXXRLYVdOd2oGOzSAOiFvpzJwMBTBubpvw2p4U-24L4lpWgMaaxzWyIg6WqadeWgzzx-8PbObdEgrH4eoocqpJgpWBmf25B1J3wasb9iXrXVAtPiWKtGpZm4OMp1PT2g7lmIvQRdjqkpm6X7Mpgx6bnrQ8GfQtPfluT_NdZeOet_gZNYSilotjbHmouA_g5mqPJoqTfha--vpcUE_41t0AN6yeWRQx6op8oDwi5C4T9xz3vmYPKQnigr323rJvfNGfiRQNzJ8gM4qPtrC2zivPHcZMmoqVKcVlSMTWQ0LGdQONvdO4J32et8xaJetsoREqwyiXWSjJXadJlDCbe_3cwyb2xYZ_kNwFYurGDWe1fYpnylNkyXAcwaP8YRmH6B1nwK9s971Wv6Q",
+									"value": "{{user_auth}}",
 									"type": "string"
 								}
 							]
@@ -695,7 +676,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiYmY2NjRmYTZjZWI0OTI5ZGM0N2YxNDk0ODViZmMxYTVhMGJiYmFmYjJhODcyNDdkM2RlMDIwNWY1OTk1NWRhOWJjZGNlZjNiNWVkNWZhNjYiLCJpYXQiOjE2MjQ5MDM3NDYsIm5iZiI6MTYyNDkwMzc0NiwiZXhwIjoxNjU2NDM5NzQ2LCJzdWIiOiIyIiwic2NvcGVzIjpbXX0.OccdXSLlcKuG-Gh-cT3Qkt00b74zwMVRPPPB5ulg4sTraJW7Jr2dzAutOp_8q8b9jdhgyn29K1V88Ackibe3IeoEK6rs7b32lo8rx2zS6f9qpIET0WydeFne4iVK9DkyRw_g-cBhkB7XoRMfGDPQW-p0TePJVKrYE-a0-ULMfiSKAv8KEyKJouRc21Jk_l8G-DCKweSdzjE81BfU9ylmB03rSjrvc-MwsYSKpObdRsDRMNblJvDK4pOdMIUlXZkzJ3Jy8ImdH61zb8ijvgc0BsUu0BM4M0RXXRLYVdOd2oGOzSAOiFvpzJwMBTBubpvw2p4U-24L4lpWgMaaxzWyIg6WqadeWgzzx-8PbObdEgrH4eoocqpJgpWBmf25B1J3wasb9iXrXVAtPiWKtGpZm4OMp1PT2g7lmIvQRdjqkpm6X7Mpgx6bnrQ8GfQtPfluT_NdZeOet_gZNYSilotjbHmouA_g5mqPJoqTfha--vpcUE_41t0AN6yeWRQx6op8oDwi5C4T9xz3vmYPKQnigr323rJvfNGfiRQNzJ8gM4qPtrC2zivPHcZMmoqVKcVlSMTWQ0LGdQONvdO4J32et8xaJetsoREqwyiXWSjJXadJlDCbe_3cwyb2xYZ_kNwFYurGDWe1fYpnylNkyXAcwaP8YRmH6B1nwK9s971Wv6Q",
+									"value": "{{user_auth}}",
 									"type": "string"
 								}
 							]
@@ -955,7 +936,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiYmY2NjRmYTZjZWI0OTI5ZGM0N2YxNDk0ODViZmMxYTVhMGJiYmFmYjJhODcyNDdkM2RlMDIwNWY1OTk1NWRhOWJjZGNlZjNiNWVkNWZhNjYiLCJpYXQiOjE2MjQ5MDM3NDYsIm5iZiI6MTYyNDkwMzc0NiwiZXhwIjoxNjU2NDM5NzQ2LCJzdWIiOiIyIiwic2NvcGVzIjpbXX0.OccdXSLlcKuG-Gh-cT3Qkt00b74zwMVRPPPB5ulg4sTraJW7Jr2dzAutOp_8q8b9jdhgyn29K1V88Ackibe3IeoEK6rs7b32lo8rx2zS6f9qpIET0WydeFne4iVK9DkyRw_g-cBhkB7XoRMfGDPQW-p0TePJVKrYE-a0-ULMfiSKAv8KEyKJouRc21Jk_l8G-DCKweSdzjE81BfU9ylmB03rSjrvc-MwsYSKpObdRsDRMNblJvDK4pOdMIUlXZkzJ3Jy8ImdH61zb8ijvgc0BsUu0BM4M0RXXRLYVdOd2oGOzSAOiFvpzJwMBTBubpvw2p4U-24L4lpWgMaaxzWyIg6WqadeWgzzx-8PbObdEgrH4eoocqpJgpWBmf25B1J3wasb9iXrXVAtPiWKtGpZm4OMp1PT2g7lmIvQRdjqkpm6X7Mpgx6bnrQ8GfQtPfluT_NdZeOet_gZNYSilotjbHmouA_g5mqPJoqTfha--vpcUE_41t0AN6yeWRQx6op8oDwi5C4T9xz3vmYPKQnigr323rJvfNGfiRQNzJ8gM4qPtrC2zivPHcZMmoqVKcVlSMTWQ0LGdQONvdO4J32et8xaJetsoREqwyiXWSjJXadJlDCbe_3cwyb2xYZ_kNwFYurGDWe1fYpnylNkyXAcwaP8YRmH6B1nwK9s971Wv6Q",
+									"value": "{{delivery_auth}}",
 									"type": "string"
 								}
 							]
@@ -991,7 +972,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiYmY2NjRmYTZjZWI0OTI5ZGM0N2YxNDk0ODViZmMxYTVhMGJiYmFmYjJhODcyNDdkM2RlMDIwNWY1OTk1NWRhOWJjZGNlZjNiNWVkNWZhNjYiLCJpYXQiOjE2MjQ5MDM3NDYsIm5iZiI6MTYyNDkwMzc0NiwiZXhwIjoxNjU2NDM5NzQ2LCJzdWIiOiIyIiwic2NvcGVzIjpbXX0.OccdXSLlcKuG-Gh-cT3Qkt00b74zwMVRPPPB5ulg4sTraJW7Jr2dzAutOp_8q8b9jdhgyn29K1V88Ackibe3IeoEK6rs7b32lo8rx2zS6f9qpIET0WydeFne4iVK9DkyRw_g-cBhkB7XoRMfGDPQW-p0TePJVKrYE-a0-ULMfiSKAv8KEyKJouRc21Jk_l8G-DCKweSdzjE81BfU9ylmB03rSjrvc-MwsYSKpObdRsDRMNblJvDK4pOdMIUlXZkzJ3Jy8ImdH61zb8ijvgc0BsUu0BM4M0RXXRLYVdOd2oGOzSAOiFvpzJwMBTBubpvw2p4U-24L4lpWgMaaxzWyIg6WqadeWgzzx-8PbObdEgrH4eoocqpJgpWBmf25B1J3wasb9iXrXVAtPiWKtGpZm4OMp1PT2g7lmIvQRdjqkpm6X7Mpgx6bnrQ8GfQtPfluT_NdZeOet_gZNYSilotjbHmouA_g5mqPJoqTfha--vpcUE_41t0AN6yeWRQx6op8oDwi5C4T9xz3vmYPKQnigr323rJvfNGfiRQNzJ8gM4qPtrC2zivPHcZMmoqVKcVlSMTWQ0LGdQONvdO4J32et8xaJetsoREqwyiXWSjJXadJlDCbe_3cwyb2xYZ_kNwFYurGDWe1fYpnylNkyXAcwaP8YRmH6B1nwK9s971Wv6Q",
+									"value": "{{delivery_auth}}",
 									"type": "string"
 								}
 							]
@@ -1027,7 +1008,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiYmY2NjRmYTZjZWI0OTI5ZGM0N2YxNDk0ODViZmMxYTVhMGJiYmFmYjJhODcyNDdkM2RlMDIwNWY1OTk1NWRhOWJjZGNlZjNiNWVkNWZhNjYiLCJpYXQiOjE2MjQ5MDM3NDYsIm5iZiI6MTYyNDkwMzc0NiwiZXhwIjoxNjU2NDM5NzQ2LCJzdWIiOiIyIiwic2NvcGVzIjpbXX0.OccdXSLlcKuG-Gh-cT3Qkt00b74zwMVRPPPB5ulg4sTraJW7Jr2dzAutOp_8q8b9jdhgyn29K1V88Ackibe3IeoEK6rs7b32lo8rx2zS6f9qpIET0WydeFne4iVK9DkyRw_g-cBhkB7XoRMfGDPQW-p0TePJVKrYE-a0-ULMfiSKAv8KEyKJouRc21Jk_l8G-DCKweSdzjE81BfU9ylmB03rSjrvc-MwsYSKpObdRsDRMNblJvDK4pOdMIUlXZkzJ3Jy8ImdH61zb8ijvgc0BsUu0BM4M0RXXRLYVdOd2oGOzSAOiFvpzJwMBTBubpvw2p4U-24L4lpWgMaaxzWyIg6WqadeWgzzx-8PbObdEgrH4eoocqpJgpWBmf25B1J3wasb9iXrXVAtPiWKtGpZm4OMp1PT2g7lmIvQRdjqkpm6X7Mpgx6bnrQ8GfQtPfluT_NdZeOet_gZNYSilotjbHmouA_g5mqPJoqTfha--vpcUE_41t0AN6yeWRQx6op8oDwi5C4T9xz3vmYPKQnigr323rJvfNGfiRQNzJ8gM4qPtrC2zivPHcZMmoqVKcVlSMTWQ0LGdQONvdO4J32et8xaJetsoREqwyiXWSjJXadJlDCbe_3cwyb2xYZ_kNwFYurGDWe1fYpnylNkyXAcwaP8YRmH6B1nwK9s971Wv6Q",
+									"value": "{{delivery_auth}}",
 									"type": "string"
 								}
 							]
@@ -1066,7 +1047,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiYmY2NjRmYTZjZWI0OTI5ZGM0N2YxNDk0ODViZmMxYTVhMGJiYmFmYjJhODcyNDdkM2RlMDIwNWY1OTk1NWRhOWJjZGNlZjNiNWVkNWZhNjYiLCJpYXQiOjE2MjQ5MDM3NDYsIm5iZiI6MTYyNDkwMzc0NiwiZXhwIjoxNjU2NDM5NzQ2LCJzdWIiOiIyIiwic2NvcGVzIjpbXX0.OccdXSLlcKuG-Gh-cT3Qkt00b74zwMVRPPPB5ulg4sTraJW7Jr2dzAutOp_8q8b9jdhgyn29K1V88Ackibe3IeoEK6rs7b32lo8rx2zS6f9qpIET0WydeFne4iVK9DkyRw_g-cBhkB7XoRMfGDPQW-p0TePJVKrYE-a0-ULMfiSKAv8KEyKJouRc21Jk_l8G-DCKweSdzjE81BfU9ylmB03rSjrvc-MwsYSKpObdRsDRMNblJvDK4pOdMIUlXZkzJ3Jy8ImdH61zb8ijvgc0BsUu0BM4M0RXXRLYVdOd2oGOzSAOiFvpzJwMBTBubpvw2p4U-24L4lpWgMaaxzWyIg6WqadeWgzzx-8PbObdEgrH4eoocqpJgpWBmf25B1J3wasb9iXrXVAtPiWKtGpZm4OMp1PT2g7lmIvQRdjqkpm6X7Mpgx6bnrQ8GfQtPfluT_NdZeOet_gZNYSilotjbHmouA_g5mqPJoqTfha--vpcUE_41t0AN6yeWRQx6op8oDwi5C4T9xz3vmYPKQnigr323rJvfNGfiRQNzJ8gM4qPtrC2zivPHcZMmoqVKcVlSMTWQ0LGdQONvdO4J32et8xaJetsoREqwyiXWSjJXadJlDCbe_3cwyb2xYZ_kNwFYurGDWe1fYpnylNkyXAcwaP8YRmH6B1nwK9s971Wv6Q",
+									"value": "{{delivery_auth}}",
 									"type": "string"
 								}
 							]
@@ -1077,13 +1058,18 @@
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "password",
+									"key": "old_password",
 									"value": "123456",
 									"type": "text"
 								},
 								{
+									"key": "password",
+									"value": "test123",
+									"type": "text"
+								},
+								{
 									"key": "confirm_password",
-									"value": "123456",
+									"value": "test123",
 									"type": "text"
 								}
 							]
@@ -1110,7 +1096,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiOGU4MjRhOTU4NDk5OGU2MGZhMWM3NzA4M2IzZDRjMTM0OTI4MjI5Y2M5ZDRmMDk1NjUxZGM2MWNmM2IzYWY0OTY1MmNkOWNlYzllYmI3MWMiLCJpYXQiOjE2MjQ5NzExNDMsIm5iZiI6MTYyNDk3MTE0MywiZXhwIjoxNjU2NTA3MTQzLCJzdWIiOiI0Iiwic2NvcGVzIjpbXX0.H7uAe-3hVRiZHQ5rrWh2pPyYnZP4cLQ6iWc588jz5xSfWgRugM851gKS9Jlg62-y-HZ8b9PhmqAXmOt5NRLkauUrlMiyLQ-irVe2iVfzfSE1rWiSMu4aQZO30lMPqRRZRGbOC4ENDz95l8dFOtbXT_cD0sg7qEZDjOYubNXdSMGjnRpuMA057yD7WlpA2w-zJ5L7XBD7VBYOK5gq6DC6AiW98B7mC9wbhb6pyD7T3D7APB_HIE8NCvHfrNUA2j3xzdGN_T4R3Ufk6k8DL2PACtbcPQ4uoA-YE1LiyJZ9zLv5CnySNjLd1Mbgc_XTiRLPClLhh3ItIv8NU9-X1BLcLrW4_ruQiFGbvBzn6vnzJ-oDUxTKoywgkzB1hG2DgGnH2v8aHq9NbDhMLWkxf3H-XMl7SdhkV_b1ZZvnNQN2zvlerOxya2r4Z9fijYsYj8c5WoQFnPNTIvBfahM5hl0Tfz7ef34ybYWzgzR4wayOKz6BZuvE6hRyRoPOGfgYG7TsnMvNhZfMbXN72x0kPUZS3RglE_n5zQnVWp1q-SwFOq7S--DOBjVWIISKqCs-XhmRlyr0FuWP9aJWA4RO2fg4Qf2lCgu6R1x2oMjgucYrZy7iY7DZfKBxYIbGv2uZ7DVcHhUOw0DCLz0pV4FlvJJstEormZxSuuzdJtDdaipcwXs",
+									"value": "{{delivery_auth}}",
 									"type": "string"
 								}
 							]
@@ -1143,7 +1129,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiOGU4MjRhOTU4NDk5OGU2MGZhMWM3NzA4M2IzZDRjMTM0OTI4MjI5Y2M5ZDRmMDk1NjUxZGM2MWNmM2IzYWY0OTY1MmNkOWNlYzllYmI3MWMiLCJpYXQiOjE2MjQ5NzExNDMsIm5iZiI6MTYyNDk3MTE0MywiZXhwIjoxNjU2NTA3MTQzLCJzdWIiOiI0Iiwic2NvcGVzIjpbXX0.H7uAe-3hVRiZHQ5rrWh2pPyYnZP4cLQ6iWc588jz5xSfWgRugM851gKS9Jlg62-y-HZ8b9PhmqAXmOt5NRLkauUrlMiyLQ-irVe2iVfzfSE1rWiSMu4aQZO30lMPqRRZRGbOC4ENDz95l8dFOtbXT_cD0sg7qEZDjOYubNXdSMGjnRpuMA057yD7WlpA2w-zJ5L7XBD7VBYOK5gq6DC6AiW98B7mC9wbhb6pyD7T3D7APB_HIE8NCvHfrNUA2j3xzdGN_T4R3Ufk6k8DL2PACtbcPQ4uoA-YE1LiyJZ9zLv5CnySNjLd1Mbgc_XTiRLPClLhh3ItIv8NU9-X1BLcLrW4_ruQiFGbvBzn6vnzJ-oDUxTKoywgkzB1hG2DgGnH2v8aHq9NbDhMLWkxf3H-XMl7SdhkV_b1ZZvnNQN2zvlerOxya2r4Z9fijYsYj8c5WoQFnPNTIvBfahM5hl0Tfz7ef34ybYWzgzR4wayOKz6BZuvE6hRyRoPOGfgYG7TsnMvNhZfMbXN72x0kPUZS3RglE_n5zQnVWp1q-SwFOq7S--DOBjVWIISKqCs-XhmRlyr0FuWP9aJWA4RO2fg4Qf2lCgu6R1x2oMjgucYrZy7iY7DZfKBxYIbGv2uZ7DVcHhUOw0DCLz0pV4FlvJJstEormZxSuuzdJtDdaipcwXs",
+									"value": "{{delivery_auth}}",
 									"type": "string"
 								}
 							]
@@ -1182,7 +1168,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiOGU4MjRhOTU4NDk5OGU2MGZhMWM3NzA4M2IzZDRjMTM0OTI4MjI5Y2M5ZDRmMDk1NjUxZGM2MWNmM2IzYWY0OTY1MmNkOWNlYzllYmI3MWMiLCJpYXQiOjE2MjQ5NzExNDMsIm5iZiI6MTYyNDk3MTE0MywiZXhwIjoxNjU2NTA3MTQzLCJzdWIiOiI0Iiwic2NvcGVzIjpbXX0.H7uAe-3hVRiZHQ5rrWh2pPyYnZP4cLQ6iWc588jz5xSfWgRugM851gKS9Jlg62-y-HZ8b9PhmqAXmOt5NRLkauUrlMiyLQ-irVe2iVfzfSE1rWiSMu4aQZO30lMPqRRZRGbOC4ENDz95l8dFOtbXT_cD0sg7qEZDjOYubNXdSMGjnRpuMA057yD7WlpA2w-zJ5L7XBD7VBYOK5gq6DC6AiW98B7mC9wbhb6pyD7T3D7APB_HIE8NCvHfrNUA2j3xzdGN_T4R3Ufk6k8DL2PACtbcPQ4uoA-YE1LiyJZ9zLv5CnySNjLd1Mbgc_XTiRLPClLhh3ItIv8NU9-X1BLcLrW4_ruQiFGbvBzn6vnzJ-oDUxTKoywgkzB1hG2DgGnH2v8aHq9NbDhMLWkxf3H-XMl7SdhkV_b1ZZvnNQN2zvlerOxya2r4Z9fijYsYj8c5WoQFnPNTIvBfahM5hl0Tfz7ef34ybYWzgzR4wayOKz6BZuvE6hRyRoPOGfgYG7TsnMvNhZfMbXN72x0kPUZS3RglE_n5zQnVWp1q-SwFOq7S--DOBjVWIISKqCs-XhmRlyr0FuWP9aJWA4RO2fg4Qf2lCgu6R1x2oMjgucYrZy7iY7DZfKBxYIbGv2uZ7DVcHhUOw0DCLz0pV4FlvJJstEormZxSuuzdJtDdaipcwXs",
+									"value": "{{delivery_auth}}",
 									"type": "string"
 								}
 							]
@@ -1226,7 +1212,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiOGU4MjRhOTU4NDk5OGU2MGZhMWM3NzA4M2IzZDRjMTM0OTI4MjI5Y2M5ZDRmMDk1NjUxZGM2MWNmM2IzYWY0OTY1MmNkOWNlYzllYmI3MWMiLCJpYXQiOjE2MjQ5NzExNDMsIm5iZiI6MTYyNDk3MTE0MywiZXhwIjoxNjU2NTA3MTQzLCJzdWIiOiI0Iiwic2NvcGVzIjpbXX0.H7uAe-3hVRiZHQ5rrWh2pPyYnZP4cLQ6iWc588jz5xSfWgRugM851gKS9Jlg62-y-HZ8b9PhmqAXmOt5NRLkauUrlMiyLQ-irVe2iVfzfSE1rWiSMu4aQZO30lMPqRRZRGbOC4ENDz95l8dFOtbXT_cD0sg7qEZDjOYubNXdSMGjnRpuMA057yD7WlpA2w-zJ5L7XBD7VBYOK5gq6DC6AiW98B7mC9wbhb6pyD7T3D7APB_HIE8NCvHfrNUA2j3xzdGN_T4R3Ufk6k8DL2PACtbcPQ4uoA-YE1LiyJZ9zLv5CnySNjLd1Mbgc_XTiRLPClLhh3ItIv8NU9-X1BLcLrW4_ruQiFGbvBzn6vnzJ-oDUxTKoywgkzB1hG2DgGnH2v8aHq9NbDhMLWkxf3H-XMl7SdhkV_b1ZZvnNQN2zvlerOxya2r4Z9fijYsYj8c5WoQFnPNTIvBfahM5hl0Tfz7ef34ybYWzgzR4wayOKz6BZuvE6hRyRoPOGfgYG7TsnMvNhZfMbXN72x0kPUZS3RglE_n5zQnVWp1q-SwFOq7S--DOBjVWIISKqCs-XhmRlyr0FuWP9aJWA4RO2fg4Qf2lCgu6R1x2oMjgucYrZy7iY7DZfKBxYIbGv2uZ7DVcHhUOw0DCLz0pV4FlvJJstEormZxSuuzdJtDdaipcwXs",
+									"value": "{{delivery_auth}}",
 									"type": "string"
 								}
 							]
@@ -1301,7 +1287,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiOGU4MjRhOTU4NDk5OGU2MGZhMWM3NzA4M2IzZDRjMTM0OTI4MjI5Y2M5ZDRmMDk1NjUxZGM2MWNmM2IzYWY0OTY1MmNkOWNlYzllYmI3MWMiLCJpYXQiOjE2MjQ5NzExNDMsIm5iZiI6MTYyNDk3MTE0MywiZXhwIjoxNjU2NTA3MTQzLCJzdWIiOiI0Iiwic2NvcGVzIjpbXX0.H7uAe-3hVRiZHQ5rrWh2pPyYnZP4cLQ6iWc588jz5xSfWgRugM851gKS9Jlg62-y-HZ8b9PhmqAXmOt5NRLkauUrlMiyLQ-irVe2iVfzfSE1rWiSMu4aQZO30lMPqRRZRGbOC4ENDz95l8dFOtbXT_cD0sg7qEZDjOYubNXdSMGjnRpuMA057yD7WlpA2w-zJ5L7XBD7VBYOK5gq6DC6AiW98B7mC9wbhb6pyD7T3D7APB_HIE8NCvHfrNUA2j3xzdGN_T4R3Ufk6k8DL2PACtbcPQ4uoA-YE1LiyJZ9zLv5CnySNjLd1Mbgc_XTiRLPClLhh3ItIv8NU9-X1BLcLrW4_ruQiFGbvBzn6vnzJ-oDUxTKoywgkzB1hG2DgGnH2v8aHq9NbDhMLWkxf3H-XMl7SdhkV_b1ZZvnNQN2zvlerOxya2r4Z9fijYsYj8c5WoQFnPNTIvBfahM5hl0Tfz7ef34ybYWzgzR4wayOKz6BZuvE6hRyRoPOGfgYG7TsnMvNhZfMbXN72x0kPUZS3RglE_n5zQnVWp1q-SwFOq7S--DOBjVWIISKqCs-XhmRlyr0FuWP9aJWA4RO2fg4Qf2lCgu6R1x2oMjgucYrZy7iY7DZfKBxYIbGv2uZ7DVcHhUOw0DCLz0pV4FlvJJstEormZxSuuzdJtDdaipcwXs",
+									"value": "{{delivery_auth}}",
 									"type": "string"
 								}
 							]
@@ -1366,7 +1352,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiOGU4MjRhOTU4NDk5OGU2MGZhMWM3NzA4M2IzZDRjMTM0OTI4MjI5Y2M5ZDRmMDk1NjUxZGM2MWNmM2IzYWY0OTY1MmNkOWNlYzllYmI3MWMiLCJpYXQiOjE2MjQ5NzExNDMsIm5iZiI6MTYyNDk3MTE0MywiZXhwIjoxNjU2NTA3MTQzLCJzdWIiOiI0Iiwic2NvcGVzIjpbXX0.H7uAe-3hVRiZHQ5rrWh2pPyYnZP4cLQ6iWc588jz5xSfWgRugM851gKS9Jlg62-y-HZ8b9PhmqAXmOt5NRLkauUrlMiyLQ-irVe2iVfzfSE1rWiSMu4aQZO30lMPqRRZRGbOC4ENDz95l8dFOtbXT_cD0sg7qEZDjOYubNXdSMGjnRpuMA057yD7WlpA2w-zJ5L7XBD7VBYOK5gq6DC6AiW98B7mC9wbhb6pyD7T3D7APB_HIE8NCvHfrNUA2j3xzdGN_T4R3Ufk6k8DL2PACtbcPQ4uoA-YE1LiyJZ9zLv5CnySNjLd1Mbgc_XTiRLPClLhh3ItIv8NU9-X1BLcLrW4_ruQiFGbvBzn6vnzJ-oDUxTKoywgkzB1hG2DgGnH2v8aHq9NbDhMLWkxf3H-XMl7SdhkV_b1ZZvnNQN2zvlerOxya2r4Z9fijYsYj8c5WoQFnPNTIvBfahM5hl0Tfz7ef34ybYWzgzR4wayOKz6BZuvE6hRyRoPOGfgYG7TsnMvNhZfMbXN72x0kPUZS3RglE_n5zQnVWp1q-SwFOq7S--DOBjVWIISKqCs-XhmRlyr0FuWP9aJWA4RO2fg4Qf2lCgu6R1x2oMjgucYrZy7iY7DZfKBxYIbGv2uZ7DVcHhUOw0DCLz0pV4FlvJJstEormZxSuuzdJtDdaipcwXs",
+									"value": "{{delivery_auth}}",
 									"type": "string"
 								}
 							]
@@ -1421,13 +1407,20 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMjY4NDlkYTQzZjE2NzQzZDI4ZWE3OTU2N2ZjNzZiY2JlODM2MDNkOTVkOTY1MzA2MzM5MWQxMDk1NWFkM2I3MTliMTk0MDIyMmU5ZGI3NzkiLCJpYXQiOjE2MjQ5NzE5OTgsIm5iZiI6MTYyNDk3MTk5OCwiZXhwIjoxNjU2NTA3OTk4LCJzdWIiOiI1Iiwic2NvcGVzIjpbXX0.CgarnPKvv1KXuWG-Ms6cd8W6X3MPhOYdMQY5H754jyIHgziIarQrEgfFa9aRRCkK212oeqHEIDpOOhMGygsM_4NbR7VKws3ufqWSOugrv3g-xfWrlhqoueswNnhnZmJtekAsDArKzdr8_TlJhojWnckL4y1UnoNV_bAj6yIzco-0zzqaTIsoxnVQmuGHE9Rxp8MqAkXnTYeuQE3bWAaOQqfshPp0L3_aPMIJFv_iW81d6lNTPCH8xgIIg103IGFSV8IBiTopVDe52UlAcdJZzQgiuBrW3qSrHipGMfzpAk5zLxLhoPAJgSQDdoDdMu1GZIVaSb93_CKrysu3zofs_6yElgBiObK99cfZ_kWrI4PjYP7YL421c0P9h01O11QnUuTbniJWL6VTOPsNcvesgTdXm7Q4MChm5tW_tlokx0vWpTDRx6ROSmidE1uChZIu2yK_HA_fTXUxy7O1-RZRDpiIQUdzo6-k4DU_YOb8LoKoNiy6qvY7fOvnk-2qFCvarzStCkcCzKiqjdXU3J1bdLE8dD8oOX6xr9QTPdPmFGzl5PmEiWJvqF3-p5VUtfWq4H6Ok1Fxl8FomxK6U8ryqyZoXGF_W5upReZTWh5mvkvTNieTXZzyjsTR6i02nA_XL9N5ixdMmtN-1AT8XmenMP6VbRPairOuoPJgIWxXLX4",
+											"value": "{{admin_auth}}",
 											"type": "string"
 										}
 									]
 								},
 								"method": "GET",
-								"header": [],
+								"header": [
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
 								"body": {
 									"mode": "formdata",
 									"formdata": []
@@ -1454,7 +1447,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMjY4NDlkYTQzZjE2NzQzZDI4ZWE3OTU2N2ZjNzZiY2JlODM2MDNkOTVkOTY1MzA2MzM5MWQxMDk1NWFkM2I3MTliMTk0MDIyMmU5ZGI3NzkiLCJpYXQiOjE2MjQ5NzE5OTgsIm5iZiI6MTYyNDk3MTk5OCwiZXhwIjoxNjU2NTA3OTk4LCJzdWIiOiI1Iiwic2NvcGVzIjpbXX0.CgarnPKvv1KXuWG-Ms6cd8W6X3MPhOYdMQY5H754jyIHgziIarQrEgfFa9aRRCkK212oeqHEIDpOOhMGygsM_4NbR7VKws3ufqWSOugrv3g-xfWrlhqoueswNnhnZmJtekAsDArKzdr8_TlJhojWnckL4y1UnoNV_bAj6yIzco-0zzqaTIsoxnVQmuGHE9Rxp8MqAkXnTYeuQE3bWAaOQqfshPp0L3_aPMIJFv_iW81d6lNTPCH8xgIIg103IGFSV8IBiTopVDe52UlAcdJZzQgiuBrW3qSrHipGMfzpAk5zLxLhoPAJgSQDdoDdMu1GZIVaSb93_CKrysu3zofs_6yElgBiObK99cfZ_kWrI4PjYP7YL421c0P9h01O11QnUuTbniJWL6VTOPsNcvesgTdXm7Q4MChm5tW_tlokx0vWpTDRx6ROSmidE1uChZIu2yK_HA_fTXUxy7O1-RZRDpiIQUdzo6-k4DU_YOb8LoKoNiy6qvY7fOvnk-2qFCvarzStCkcCzKiqjdXU3J1bdLE8dD8oOX6xr9QTPdPmFGzl5PmEiWJvqF3-p5VUtfWq4H6Ok1Fxl8FomxK6U8ryqyZoXGF_W5upReZTWh5mvkvTNieTXZzyjsTR6i02nA_XL9N5ixdMmtN-1AT8XmenMP6VbRPairOuoPJgIWxXLX4",
+											"value": "{{admin_auth}}",
 											"type": "string"
 										}
 									]
@@ -1514,7 +1507,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMjY4NDlkYTQzZjE2NzQzZDI4ZWE3OTU2N2ZjNzZiY2JlODM2MDNkOTVkOTY1MzA2MzM5MWQxMDk1NWFkM2I3MTliMTk0MDIyMmU5ZGI3NzkiLCJpYXQiOjE2MjQ5NzE5OTgsIm5iZiI6MTYyNDk3MTk5OCwiZXhwIjoxNjU2NTA3OTk4LCJzdWIiOiI1Iiwic2NvcGVzIjpbXX0.CgarnPKvv1KXuWG-Ms6cd8W6X3MPhOYdMQY5H754jyIHgziIarQrEgfFa9aRRCkK212oeqHEIDpOOhMGygsM_4NbR7VKws3ufqWSOugrv3g-xfWrlhqoueswNnhnZmJtekAsDArKzdr8_TlJhojWnckL4y1UnoNV_bAj6yIzco-0zzqaTIsoxnVQmuGHE9Rxp8MqAkXnTYeuQE3bWAaOQqfshPp0L3_aPMIJFv_iW81d6lNTPCH8xgIIg103IGFSV8IBiTopVDe52UlAcdJZzQgiuBrW3qSrHipGMfzpAk5zLxLhoPAJgSQDdoDdMu1GZIVaSb93_CKrysu3zofs_6yElgBiObK99cfZ_kWrI4PjYP7YL421c0P9h01O11QnUuTbniJWL6VTOPsNcvesgTdXm7Q4MChm5tW_tlokx0vWpTDRx6ROSmidE1uChZIu2yK_HA_fTXUxy7O1-RZRDpiIQUdzo6-k4DU_YOb8LoKoNiy6qvY7fOvnk-2qFCvarzStCkcCzKiqjdXU3J1bdLE8dD8oOX6xr9QTPdPmFGzl5PmEiWJvqF3-p5VUtfWq4H6Ok1Fxl8FomxK6U8ryqyZoXGF_W5upReZTWh5mvkvTNieTXZzyjsTR6i02nA_XL9N5ixdMmtN-1AT8XmenMP6VbRPairOuoPJgIWxXLX4",
+											"value": "{{admin_auth}}",
 											"type": "string"
 										}
 									]
@@ -1582,7 +1575,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMjY4NDlkYTQzZjE2NzQzZDI4ZWE3OTU2N2ZjNzZiY2JlODM2MDNkOTVkOTY1MzA2MzM5MWQxMDk1NWFkM2I3MTliMTk0MDIyMmU5ZGI3NzkiLCJpYXQiOjE2MjQ5NzE5OTgsIm5iZiI6MTYyNDk3MTk5OCwiZXhwIjoxNjU2NTA3OTk4LCJzdWIiOiI1Iiwic2NvcGVzIjpbXX0.CgarnPKvv1KXuWG-Ms6cd8W6X3MPhOYdMQY5H754jyIHgziIarQrEgfFa9aRRCkK212oeqHEIDpOOhMGygsM_4NbR7VKws3ufqWSOugrv3g-xfWrlhqoueswNnhnZmJtekAsDArKzdr8_TlJhojWnckL4y1UnoNV_bAj6yIzco-0zzqaTIsoxnVQmuGHE9Rxp8MqAkXnTYeuQE3bWAaOQqfshPp0L3_aPMIJFv_iW81d6lNTPCH8xgIIg103IGFSV8IBiTopVDe52UlAcdJZzQgiuBrW3qSrHipGMfzpAk5zLxLhoPAJgSQDdoDdMu1GZIVaSb93_CKrysu3zofs_6yElgBiObK99cfZ_kWrI4PjYP7YL421c0P9h01O11QnUuTbniJWL6VTOPsNcvesgTdXm7Q4MChm5tW_tlokx0vWpTDRx6ROSmidE1uChZIu2yK_HA_fTXUxy7O1-RZRDpiIQUdzo6-k4DU_YOb8LoKoNiy6qvY7fOvnk-2qFCvarzStCkcCzKiqjdXU3J1bdLE8dD8oOX6xr9QTPdPmFGzl5PmEiWJvqF3-p5VUtfWq4H6Ok1Fxl8FomxK6U8ryqyZoXGF_W5upReZTWh5mvkvTNieTXZzyjsTR6i02nA_XL9N5ixdMmtN-1AT8XmenMP6VbRPairOuoPJgIWxXLX4",
+											"value": "{{admin_auth}}",
 											"type": "string"
 										}
 									]
@@ -1609,6 +1602,1148 @@
 											"key": "banner_id",
 											"value": "1"
 										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "brands",
+					"item": [
+						{
+							"name": "index",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin_auth}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{satahat_url}}/api/backend/brands",
+									"host": [
+										"{{satahat_url}}"
+									],
+									"path": [
+										"api",
+										"backend",
+										"brands"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "show brand by_id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin_auth}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "brand_id",
+											"value": "3",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{satahat_url}}/api/backend/brands/show",
+									"host": [
+										"{{satahat_url}}"
+									],
+									"path": [
+										"api",
+										"backend",
+										"brands",
+										"show"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "add",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin_auth}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/D:/drawable-hdpi/Ellipse 498.png"
+										},
+										{
+											"key": "name_ar",
+											"value": "مرسيدس",
+											"type": "text"
+										},
+										{
+											"key": "name_en",
+											"value": "mercedes",
+											"type": "text"
+										},
+										{
+											"key": "",
+											"value": "",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "",
+											"value": "",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{satahat_url}}/api/backend/brands/create",
+									"host": [
+										"{{satahat_url}}"
+									],
+									"path": [
+										"api",
+										"backend",
+										"brands",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "edit",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin_auth}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/D:/drawable-hdpi/Ellipse 498.png"
+										},
+										{
+											"key": "title_ar",
+											"value": "تست",
+											"type": "text"
+										},
+										{
+											"key": "brand_id",
+											"value": "3",
+											"type": "text"
+										},
+										{
+											"key": "name_ar",
+											"value": "تويوتا",
+											"type": "text"
+										},
+										{
+											"key": "name_en",
+											"value": "Toyota",
+											"type": "text"
+										},
+										{
+											"key": "",
+											"value": "",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{satahat_url}}/api/backend/brands/edit",
+									"host": [
+										"{{satahat_url}}"
+									],
+									"path": [
+										"api",
+										"backend",
+										"brands",
+										"edit"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin_auth}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "brand_id",
+											"value": "4",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{satahat_url}}/api/backend/brands/delete",
+									"host": [
+										"{{satahat_url}}"
+									],
+									"path": [
+										"api",
+										"backend",
+										"brands",
+										"delete"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "main specialists",
+					"item": [
+						{
+							"name": "show all main specialists",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin_auth}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{satahat_url}}/api/backend/main-specialists",
+									"host": [
+										"{{satahat_url}}"
+									],
+									"path": [
+										"api",
+										"backend",
+										"main-specialists"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "show main_specialist_by_id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin_auth}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "main_specialist_id",
+											"value": "1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{satahat_url}}/api/backend/main-specialists/show",
+									"host": [
+										"{{satahat_url}}"
+									],
+									"path": [
+										"api",
+										"backend",
+										"main-specialists",
+										"show"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "add",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin_auth}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/D:/drawable-hdpi/Ellipse 498.png"
+										},
+										{
+											"key": "name_ar",
+											"value": "عجلات",
+											"type": "text"
+										},
+										{
+											"key": "name_en",
+											"value": "wheels",
+											"type": "text"
+										},
+										{
+											"key": "",
+											"value": "",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "",
+											"value": "",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{satahat_url}}/api/backend/main-specialists/create",
+									"host": [
+										"{{satahat_url}}"
+									],
+									"path": [
+										"api",
+										"backend",
+										"main-specialists",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "edit",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin_auth}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/D:/drawable-hdpi/Ellipse 498.png"
+										},
+										{
+											"key": "title_ar",
+											"value": "تست",
+											"type": "text"
+										},
+										{
+											"key": "main_specialist_id",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "name_ar",
+											"value": "عجلات",
+											"type": "text"
+										},
+										{
+											"key": "name_en",
+											"value": "wheels",
+											"type": "text"
+										},
+										{
+											"key": "",
+											"value": "",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{satahat_url}}/api/backend/main-specialists/edit",
+									"host": [
+										"{{satahat_url}}"
+									],
+									"path": [
+										"api",
+										"backend",
+										"main-specialists",
+										"edit"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin_auth}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "main_specialist_id",
+											"value": "3",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{satahat_url}}/api/backend/main-specialists/delete",
+									"host": [
+										"{{satahat_url}}"
+									],
+									"path": [
+										"api",
+										"backend",
+										"main-specialists",
+										"delete"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "secondary specialists",
+					"item": [
+						{
+							"name": "show all secondary specialists",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin_auth}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{satahat_url}}/api/backend/secondary-specialists",
+									"host": [
+										"{{satahat_url}}"
+									],
+									"path": [
+										"api",
+										"backend",
+										"secondary-specialists"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "show secondary_specialist_by_id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin_auth}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "secondary_specialist_id",
+											"value": "1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{satahat_url}}/api/backend/secondary-specialists/show",
+									"host": [
+										"{{satahat_url}}"
+									],
+									"path": [
+										"api",
+										"backend",
+										"secondary-specialists",
+										"show"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "add",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin_auth}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/D:/drawable-hdpi/Ellipse 498.png"
+										},
+										{
+											"key": "name_ar",
+											"value": "لاب توب",
+											"type": "text"
+										},
+										{
+											"key": "name_en",
+											"value": "labtop",
+											"type": "text"
+										},
+										{
+											"key": "main_specialist_id",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/C:/Users/Saeid/Downloads/test.jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{satahat_url}}/api/backend/secondary-specialists/create",
+									"host": [
+										"{{satahat_url}}"
+									],
+									"path": [
+										"api",
+										"backend",
+										"secondary-specialists",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "edit",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin_auth}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/D:/drawable-hdpi/Ellipse 498.png"
+										},
+										{
+											"key": "title_ar",
+											"value": "تست",
+											"type": "text"
+										},
+										{
+											"key": "secondary_specialist_id",
+											"value": "3",
+											"type": "text"
+										},
+										{
+											"key": "name_ar",
+											"value": "سيارة",
+											"type": "text"
+										},
+										{
+											"key": "name_en",
+											"value": "car",
+											"type": "text"
+										},
+										{
+											"key": "main_specialist_id",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/C:/Users/Saeid/Downloads/car.jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{satahat_url}}/api/backend/secondary-specialists/edit",
+									"host": [
+										"{{satahat_url}}"
+									],
+									"path": [
+										"api",
+										"backend",
+										"secondary-specialists",
+										"edit"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin_auth}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "secondary_specialist_id",
+											"value": "4",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{satahat_url}}/api/backend/secondary-specialists/delete",
+									"host": [
+										"{{satahat_url}}"
+									],
+									"path": [
+										"api",
+										"backend",
+										"secondary-specialists",
+										"delete"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "cities",
+					"item": [
+						{
+							"name": "index",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin_auth}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{satahat_url}}/api/backend/cities",
+									"host": [
+										"{{satahat_url}}"
+									],
+									"path": [
+										"api",
+										"backend",
+										"cities"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "show city_by_id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin_auth}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "city_id",
+											"value": "4",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{satahat_url}}/api/backend/cities/show",
+									"host": [
+										"{{satahat_url}}"
+									],
+									"path": [
+										"api",
+										"backend",
+										"cities",
+										"show"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "add",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin_auth}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/D:/drawable-hdpi/Ellipse 498.png"
+										},
+										{
+											"key": "name_ar",
+											"value": "الدمام",
+											"type": "text"
+										},
+										{
+											"key": "name_en",
+											"value": "dammam",
+											"type": "text"
+										},
+										{
+											"key": "",
+											"value": "",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "",
+											"value": "",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{satahat_url}}/api/backend/cities/create",
+									"host": [
+										"{{satahat_url}}"
+									],
+									"path": [
+										"api",
+										"backend",
+										"cities",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "edit",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin_auth}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/D:/drawable-hdpi/Ellipse 498.png"
+										},
+										{
+											"key": "title_ar",
+											"value": "تست",
+											"type": "text"
+										},
+										{
+											"key": "city_id",
+											"value": "5",
+											"type": "text"
+										},
+										{
+											"key": "name_ar",
+											"value": "القطيف",
+											"type": "text"
+										},
+										{
+											"key": "name_en",
+											"value": "َQattif",
+											"type": "text"
+										},
+										{
+											"key": "",
+											"value": "",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{satahat_url}}/api/backend/cities/edit",
+									"host": [
+										"{{satahat_url}}"
+									],
+									"path": [
+										"api",
+										"backend",
+										"cities",
+										"edit"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin_auth}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "city_id",
+											"value": "4",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{satahat_url}}/api/backend/cities/delete",
+									"host": [
+										"{{satahat_url}}"
+									],
+									"path": [
+										"api",
+										"backend",
+										"cities",
+										"delete"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "clients",
+					"item": [
+						{
+							"name": "show all clients",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin_auth}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{satahat_url}}/api/backend/clients",
+									"host": [
+										"{{satahat_url}}"
+									],
+									"path": [
+										"api",
+										"backend",
+										"clients"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "show client_by_id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{admin_auth}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "client_id",
+											"value": "2",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{satahat_url}}/api/backend/clients/show",
+									"host": [
+										"{{satahat_url}}"
+									],
+									"path": [
+										"api",
+										"backend",
+										"clients",
+										"show"
 									]
 								}
 							},
@@ -1649,8 +2784,90 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "user reset password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "phone",
+									"value": "01114591647",
+									"type": "text"
+								},
+								{
+									"key": "confirmation_code",
+									"value": "5555",
+									"type": "text"
+								},
+								{
+									"key": "new_password",
+									"value": "test1234",
+									"type": "text"
+								},
+								{
+									"key": "confirm_new_password",
+									"value": "test1234",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{satahat_url}}/api/users/reset-password",
+							"host": [
+								"{{satahat_url}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"reset-password"
+							]
+						}
+					},
+					"response": []
 				}
 			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "satahat_url",
+			"value": "localhost:8000"
+		},
+		{
+			"key": "user_auth",
+			"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIzIiwianRpIjoiMDFmYTlkYWVhM2U2NjZiZGU1MmFmOTZhNzJkMTE3ZmVkNWVkZTE2ZmRhYTljZTdiYWRmM2JjNjNlZWNhNDlkZTJiNzE1YTk0NDc2MWQwNzgiLCJpYXQiOjE2MjgwNjkyMTksIm5iZiI6MTYyODA2OTIxOSwiZXhwIjoxNjU5NjA1MjE5LCJzdWIiOiIyIiwic2NvcGVzIjpbXX0.dJ4EfJz6te3qlAkmCx2rEn0PiH76sFwKiQvFDOltZlrRu4vAxhLXPgJXsMvO5HRlOacmoLmcCHyAlIHO9GAVg8Ja-Qj27EjvHM9UCzV-Z_TBbYBPmeu5xXAPvGZ8BNLatJ4B8YMDDCQlP-w4pTido43unHQdU12PnAYQwTtl_7bsVwBkLqr6DAjiSr1fFgD90sgM1C8plBgxbDytqX7GCn84Sh8j7uKA3x7d5yGMEWFu1OB2dv2QlSaqg7F5ONG8IdAiypLPHfOY4O3qgEXrEvF-gauTOonJgNs882yCAqBlwg_8PXo7jc_ohlpzyGRI9WFl8Tsdfh6X-Ts53xdt1KJLEu8I-bnec4mFmKCk1aAsIQ-cTLtKazBVjN-s2bOSRF0kV1tmMjbqH2vs84g_33yqtjRPEssc7wcn8G2vDEY0BwfObH1UlgLU6cj9Ttn_TGxft1GVMpaa-XjRrBZpN-ezM5X0a8WZB8_xtIuqjRNgYp6bH6g3FZBhn5OPFEQoHuzQJrK9jl5MPkr_xhHPc_ohxZ-4X5kV7P0FuhqI9oJJLNs0Svk_QejMOcKGtQSNVTmu0t211_NIEuG3tDJCML7gOUPtv5FeyOTFQlmtzITel9ZJEZrmutqZS7LFOCUrm7y7Htj13GUGhaA3XwpMqm6uqJCsotxIX1rjHZhbDpY"
+		},
+		{
+			"key": "admin_auth",
+			"value": ""
+		},
+		{
+			"key": "delivery_auth",
+			"value": ""
 		}
 	]
 }

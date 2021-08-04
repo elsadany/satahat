@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\OrdersResource;
+use Illuminate\Support\Facades\Auth;
 
 class UsersAPI extends Controller {
 
@@ -235,26 +236,69 @@ class UsersAPI extends Controller {
              $user= User::find($request->user()->id);
              return response()->json(['status'=>200,'data'=>$user->toArray()]);
     }
-            function updatePassword(Request $request) {
+    function updatePassword(Request $request) {
 
         $rules = [
+            'old_password' => 'required|string',
             'password' => 'required|string',
             'confirm_password' => 'required|same:password'
         ];
-        $validator = \Validator::make($request->all(), $rules);
+        $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
+            $arr = ['status' => 400, 'message' => $validator->errors()->all()[0], 'errors' => $validator->errors()->all()];
+            return response()->json($arr, 400);
+        }
 
-            $arr = ['status' => 500, 'message' => $validator->errors()->all()[0], 'errors' => $validator->errors()->all()];
+        $check_password = User::where([
+            'id' => Auth::user()->id,
+        ])->first();
 
-            return response()->json($arr);
+        if(!password_verify($request->old_password, $check_password->password)){
+            $arr = ['status' => 400, 'message' => 'wrong old password', 'errors' => $validator->errors()->all()];
+            return response()->json($arr, 400);
         }
 
         $user = $request->user();
         $user->password = Hash::make($request->password);
         $user->save();
         $arr = ['status' => 200, 'message' => 'password changed successfully', 'data' => ''];
-        return response()->json($arr);
+        return response()->json($arr, 200);
+    }
+
+    public function resetPassword(Request $request){
+        $rules = [
+            'phone' => 'required|exists:users,phone',
+            'confirmation_code' => 'required|string',
+            'new_password' => 'required|string',
+            'confirm_new_password' => 'required|same:new_password'
+        ];
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            $arr = ['status' => 400, 'message' => $validator->errors()->all()[0], 'errors' => $validator->errors()->all()];
+            return response()->json($arr, 400);
+        }
+
+        if($request->confirmation_code != '5555'){
+            $arr = ['status' => 400, 'message' => 'invalid confirmation code', 'errors' => $validator->errors()->all()];
+            return response()->json($arr, 400);
+        }
+
+        $check_phone = User::where([
+            'phone' => $request->phone,
+        ])->first();
+        
+        if(!is_object($check_phone)){
+            $arr = ['status' => 404, 'message' => 'invalid phone number', 'errors' => $validator->errors()->all()];
+            return response()->json($arr, 404);
+        }
+
+        User::where('id', $check_phone->id)->update([
+            'password' => Hash::make($request->new_password)
+        ]);
+        $arr = ['status' => 200, 'message' => 'password updated successfully', 'errors' => $validator->errors()->all()];
+        return response()->json($arr, 200);
     }
 
     public function logout(Request $request) {
