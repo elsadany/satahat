@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "ddca1e5a-ff4a-47b9-8d09-ed34c7bb3a2e",
+		"_postman_id": "7c1dfe05-9368-47b5-a496-96eb909f02fa",
 		"name": "satahat",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -121,30 +121,6 @@
 							"path": [
 								"api",
 								"jobs"
-							],
-							"query": [
-								{
-									"key": "language_symbol",
-									"value": "ar"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "cities",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{satahat_url}}/api/cities?language_symbol=ar",
-							"host": [
-								"{{satahat_url}}"
-							],
-							"path": [
-								"api",
-								"cities"
 							],
 							"query": [
 								{
@@ -741,6 +717,55 @@
 								"api",
 								"users",
 								"update-profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user rates  add",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiYzFmMGI0ODdhZWU0MWUxM2QyOTY0YWI3MzA3MDJlNmRkNmJhMWVjNTQ0ODAwZWMyYzRiNTRiYzhiYjkwZTllY2E0ZWZkNjczMGVhMTI0NDAiLCJpYXQiOjE2Mjc0ODEyNTgsIm5iZiI6MTYyNzQ4MTI1OCwiZXhwIjoxNjU5MDE3MjU4LCJzdWIiOiIyIiwic2NvcGVzIjpbXX0.rPKeAaZd7uS8yJVtARyLYe8jZlglHIs21CvkCV0qKfupJBDW4pFarNTytYnH-defKZYGGm3MbzmxhpV56aSqdjuCJA8PL07UuQXsrEJLhqeAAky0yybwK-_jWNoJmI13Dx6Gv-dxlySpUDaoaNQ6i_W9_CjnioK6E1Wbxtpi0Z5uQBVa25TZ_NZgLk_QcyRG-U8w_YbmOnH-kKR5RbBQ05fXdN-WKGNi7Ix1ypNBDDTJPxF2i-4q84P3PVZAtEBvJEKVkZ0MPPMnywZ_-fRvRemhdvkiqdIQux13j9swQojNBFlQywFkPeisDj-TN4Hq67OmNy64hhIy32lLIkXN7O6Rr8n4T-Z7kzmsAgjXSTSCnR3GrRaCGdtuA6bNRpca4A_53h5fzZY-zoZCTlSyfUc5T1_-RbfQNt9F-fC1Mf6AgRrIPDLAtiTMSbQRZkMWPW4JdNGbg9SVDu_IYd1m3D-EE-4tR0kZsAQlnFTaZKiX40W3X6al-M0LftQzCKnyBHK_SgAkG3p-wO4xj2-yaCijZkADBLIRiTbqo8yyJsKvz4-Em9orDJKGiLdlRfGisbX97PrrHZSA1nLqo6hDvWq3LaAD90gnO4RQ88zi7qkWrU9rsg8D6Fugl2HUGyWbR2jUkV2YI_-F31Vl4J2O8y2lk7But9mRvZ_h-EjcE8s",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "delivery_id",
+									"value": "4",
+									"type": "text"
+								},
+								{
+									"key": "rate",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "coment",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{satahat_url}}/api/rating/add",
+							"host": [
+								"{{satahat_url}}"
+							],
+							"path": [
+								"api",
+								"rating",
+								"add"
 							]
 						}
 					},
@@ -1421,13 +1446,20 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMjY4NDlkYTQzZjE2NzQzZDI4ZWE3OTU2N2ZjNzZiY2JlODM2MDNkOTVkOTY1MzA2MzM5MWQxMDk1NWFkM2I3MTliMTk0MDIyMmU5ZGI3NzkiLCJpYXQiOjE2MjQ5NzE5OTgsIm5iZiI6MTYyNDk3MTk5OCwiZXhwIjoxNjU2NTA3OTk4LCJzdWIiOiI1Iiwic2NvcGVzIjpbXX0.CgarnPKvv1KXuWG-Ms6cd8W6X3MPhOYdMQY5H754jyIHgziIarQrEgfFa9aRRCkK212oeqHEIDpOOhMGygsM_4NbR7VKws3ufqWSOugrv3g-xfWrlhqoueswNnhnZmJtekAsDArKzdr8_TlJhojWnckL4y1UnoNV_bAj6yIzco-0zzqaTIsoxnVQmuGHE9Rxp8MqAkXnTYeuQE3bWAaOQqfshPp0L3_aPMIJFv_iW81d6lNTPCH8xgIIg103IGFSV8IBiTopVDe52UlAcdJZzQgiuBrW3qSrHipGMfzpAk5zLxLhoPAJgSQDdoDdMu1GZIVaSb93_CKrysu3zofs_6yElgBiObK99cfZ_kWrI4PjYP7YL421c0P9h01O11QnUuTbniJWL6VTOPsNcvesgTdXm7Q4MChm5tW_tlokx0vWpTDRx6ROSmidE1uChZIu2yK_HA_fTXUxy7O1-RZRDpiIQUdzo6-k4DU_YOb8LoKoNiy6qvY7fOvnk-2qFCvarzStCkcCzKiqjdXU3J1bdLE8dD8oOX6xr9QTPdPmFGzl5PmEiWJvqF3-p5VUtfWq4H6Ok1Fxl8FomxK6U8ryqyZoXGF_W5upReZTWh5mvkvTNieTXZzyjsTR6i02nA_XL9N5ixdMmtN-1AT8XmenMP6VbRPairOuoPJgIWxXLX4",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI1IiwianRpIjoiODdhMWQ2YzkzODA2OTg3OWM3ZDJlNWMyMzA0NjkwY2E2MTQ2YWI5NjQ3ZGI0YTEzNzZhOTMxOWRkM2M2NjE0ZjgyNWM0MDg3ODMxZDRiODIiLCJpYXQiOjE2MjQ5NzcyNTMsIm5iZiI6MTYyNDk3NzI1MywiZXhwIjoxNjU2NTEzMjUyLCJzdWIiOiI1Iiwic2NvcGVzIjpbXX0.L5zCK3kMtH49wZaZLcwUR8pIuNv6iQ4wl3_7TPKHQXerfDgBneMpqhdbu_TklJAMOs1ISnLGBXyixpxqU0qsplIsZYzP-06Kkbju49E2530LNVI73hfP18G126XpBC8aYQYSq1pfXm29Hj5u3rQmK6c9ZNzFtR7L-T6LAv3xDmeMelkYjcjgG1mWiMOmEhvA-P-6PKWVmeft6pdx55RaZZTgdolEn4LilsROWwR7qsR3CAAuprgU0OCTL2fT-qbCA4vV3orPTAgdip7zqV3YDATusqWpHaSwXiy-bkzGOnsXUhyyUta_dWNb2M6Cg0RijMon_IhkddtOfiQIzBNLN8p2Mj7ka9Pv45TWDD1xo_dvPEn7igGUaAurfNROt7QYFmmRIsPtt8vYisEd6KwVa7XWzii3wV7WdlkyFTyEjoAZjbruQaqB0_ACFQxdbh6aRWxQr_5uW4iFiLpsw2tqNi0XsjTubSbLElKAaizEdYupJyYovNL5CwouKxCO23OsWREDY5LVpnzrvxSd0v23VdrVVQYDDPdOHyorWr4VDmElsT54eeePE0jwLDbYm62FrFOsdUM4XG1wzapWtZje5mLCj2X1HQkaJiRdisDj9naguTR8dOeE6iNd0ZprJRvzHkmBrjd6EPBouPUiazRW9V3bVpnFqp_7Ks82rdbT-lg",
 											"type": "string"
 										}
 									]
 								},
 								"method": "GET",
-								"header": [],
+								"header": [
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
 								"body": {
 									"mode": "formdata",
 									"formdata": []
@@ -1454,7 +1486,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMjY4NDlkYTQzZjE2NzQzZDI4ZWE3OTU2N2ZjNzZiY2JlODM2MDNkOTVkOTY1MzA2MzM5MWQxMDk1NWFkM2I3MTliMTk0MDIyMmU5ZGI3NzkiLCJpYXQiOjE2MjQ5NzE5OTgsIm5iZiI6MTYyNDk3MTk5OCwiZXhwIjoxNjU2NTA3OTk4LCJzdWIiOiI1Iiwic2NvcGVzIjpbXX0.CgarnPKvv1KXuWG-Ms6cd8W6X3MPhOYdMQY5H754jyIHgziIarQrEgfFa9aRRCkK212oeqHEIDpOOhMGygsM_4NbR7VKws3ufqWSOugrv3g-xfWrlhqoueswNnhnZmJtekAsDArKzdr8_TlJhojWnckL4y1UnoNV_bAj6yIzco-0zzqaTIsoxnVQmuGHE9Rxp8MqAkXnTYeuQE3bWAaOQqfshPp0L3_aPMIJFv_iW81d6lNTPCH8xgIIg103IGFSV8IBiTopVDe52UlAcdJZzQgiuBrW3qSrHipGMfzpAk5zLxLhoPAJgSQDdoDdMu1GZIVaSb93_CKrysu3zofs_6yElgBiObK99cfZ_kWrI4PjYP7YL421c0P9h01O11QnUuTbniJWL6VTOPsNcvesgTdXm7Q4MChm5tW_tlokx0vWpTDRx6ROSmidE1uChZIu2yK_HA_fTXUxy7O1-RZRDpiIQUdzo6-k4DU_YOb8LoKoNiy6qvY7fOvnk-2qFCvarzStCkcCzKiqjdXU3J1bdLE8dD8oOX6xr9QTPdPmFGzl5PmEiWJvqF3-p5VUtfWq4H6Ok1Fxl8FomxK6U8ryqyZoXGF_W5upReZTWh5mvkvTNieTXZzyjsTR6i02nA_XL9N5ixdMmtN-1AT8XmenMP6VbRPairOuoPJgIWxXLX4",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI1IiwianRpIjoiODdhMWQ2YzkzODA2OTg3OWM3ZDJlNWMyMzA0NjkwY2E2MTQ2YWI5NjQ3ZGI0YTEzNzZhOTMxOWRkM2M2NjE0ZjgyNWM0MDg3ODMxZDRiODIiLCJpYXQiOjE2MjQ5NzcyNTMsIm5iZiI6MTYyNDk3NzI1MywiZXhwIjoxNjU2NTEzMjUyLCJzdWIiOiI1Iiwic2NvcGVzIjpbXX0.L5zCK3kMtH49wZaZLcwUR8pIuNv6iQ4wl3_7TPKHQXerfDgBneMpqhdbu_TklJAMOs1ISnLGBXyixpxqU0qsplIsZYzP-06Kkbju49E2530LNVI73hfP18G126XpBC8aYQYSq1pfXm29Hj5u3rQmK6c9ZNzFtR7L-T6LAv3xDmeMelkYjcjgG1mWiMOmEhvA-P-6PKWVmeft6pdx55RaZZTgdolEn4LilsROWwR7qsR3CAAuprgU0OCTL2fT-qbCA4vV3orPTAgdip7zqV3YDATusqWpHaSwXiy-bkzGOnsXUhyyUta_dWNb2M6Cg0RijMon_IhkddtOfiQIzBNLN8p2Mj7ka9Pv45TWDD1xo_dvPEn7igGUaAurfNROt7QYFmmRIsPtt8vYisEd6KwVa7XWzii3wV7WdlkyFTyEjoAZjbruQaqB0_ACFQxdbh6aRWxQr_5uW4iFiLpsw2tqNi0XsjTubSbLElKAaizEdYupJyYovNL5CwouKxCO23OsWREDY5LVpnzrvxSd0v23VdrVVQYDDPdOHyorWr4VDmElsT54eeePE0jwLDbYm62FrFOsdUM4XG1wzapWtZje5mLCj2X1HQkaJiRdisDj9naguTR8dOeE6iNd0ZprJRvzHkmBrjd6EPBouPUiazRW9V3bVpnFqp_7Ks82rdbT-lg",
 											"type": "string"
 										}
 									]
@@ -1609,6 +1641,1142 @@
 											"key": "banner_id",
 											"value": "1"
 										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "brands",
+					"item": [
+						{
+							"name": "index",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI1IiwianRpIjoiODdhMWQ2YzkzODA2OTg3OWM3ZDJlNWMyMzA0NjkwY2E2MTQ2YWI5NjQ3ZGI0YTEzNzZhOTMxOWRkM2M2NjE0ZjgyNWM0MDg3ODMxZDRiODIiLCJpYXQiOjE2MjQ5NzcyNTMsIm5iZiI6MTYyNDk3NzI1MywiZXhwIjoxNjU2NTEzMjUyLCJzdWIiOiI1Iiwic2NvcGVzIjpbXX0.L5zCK3kMtH49wZaZLcwUR8pIuNv6iQ4wl3_7TPKHQXerfDgBneMpqhdbu_TklJAMOs1ISnLGBXyixpxqU0qsplIsZYzP-06Kkbju49E2530LNVI73hfP18G126XpBC8aYQYSq1pfXm29Hj5u3rQmK6c9ZNzFtR7L-T6LAv3xDmeMelkYjcjgG1mWiMOmEhvA-P-6PKWVmeft6pdx55RaZZTgdolEn4LilsROWwR7qsR3CAAuprgU0OCTL2fT-qbCA4vV3orPTAgdip7zqV3YDATusqWpHaSwXiy-bkzGOnsXUhyyUta_dWNb2M6Cg0RijMon_IhkddtOfiQIzBNLN8p2Mj7ka9Pv45TWDD1xo_dvPEn7igGUaAurfNROt7QYFmmRIsPtt8vYisEd6KwVa7XWzii3wV7WdlkyFTyEjoAZjbruQaqB0_ACFQxdbh6aRWxQr_5uW4iFiLpsw2tqNi0XsjTubSbLElKAaizEdYupJyYovNL5CwouKxCO23OsWREDY5LVpnzrvxSd0v23VdrVVQYDDPdOHyorWr4VDmElsT54eeePE0jwLDbYm62FrFOsdUM4XG1wzapWtZje5mLCj2X1HQkaJiRdisDj9naguTR8dOeE6iNd0ZprJRvzHkmBrjd6EPBouPUiazRW9V3bVpnFqp_7Ks82rdbT-lg",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{satahat_url}}/api/backend/brands",
+									"host": [
+										"{{satahat_url}}"
+									],
+									"path": [
+										"api",
+										"backend",
+										"brands"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "show brand by_id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI1IiwianRpIjoiODdhMWQ2YzkzODA2OTg3OWM3ZDJlNWMyMzA0NjkwY2E2MTQ2YWI5NjQ3ZGI0YTEzNzZhOTMxOWRkM2M2NjE0ZjgyNWM0MDg3ODMxZDRiODIiLCJpYXQiOjE2MjQ5NzcyNTMsIm5iZiI6MTYyNDk3NzI1MywiZXhwIjoxNjU2NTEzMjUyLCJzdWIiOiI1Iiwic2NvcGVzIjpbXX0.L5zCK3kMtH49wZaZLcwUR8pIuNv6iQ4wl3_7TPKHQXerfDgBneMpqhdbu_TklJAMOs1ISnLGBXyixpxqU0qsplIsZYzP-06Kkbju49E2530LNVI73hfP18G126XpBC8aYQYSq1pfXm29Hj5u3rQmK6c9ZNzFtR7L-T6LAv3xDmeMelkYjcjgG1mWiMOmEhvA-P-6PKWVmeft6pdx55RaZZTgdolEn4LilsROWwR7qsR3CAAuprgU0OCTL2fT-qbCA4vV3orPTAgdip7zqV3YDATusqWpHaSwXiy-bkzGOnsXUhyyUta_dWNb2M6Cg0RijMon_IhkddtOfiQIzBNLN8p2Mj7ka9Pv45TWDD1xo_dvPEn7igGUaAurfNROt7QYFmmRIsPtt8vYisEd6KwVa7XWzii3wV7WdlkyFTyEjoAZjbruQaqB0_ACFQxdbh6aRWxQr_5uW4iFiLpsw2tqNi0XsjTubSbLElKAaizEdYupJyYovNL5CwouKxCO23OsWREDY5LVpnzrvxSd0v23VdrVVQYDDPdOHyorWr4VDmElsT54eeePE0jwLDbYm62FrFOsdUM4XG1wzapWtZje5mLCj2X1HQkaJiRdisDj9naguTR8dOeE6iNd0ZprJRvzHkmBrjd6EPBouPUiazRW9V3bVpnFqp_7Ks82rdbT-lg",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "brand_id",
+											"value": "3",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{satahat_url}}/api/backend/brands/show",
+									"host": [
+										"{{satahat_url}}"
+									],
+									"path": [
+										"api",
+										"backend",
+										"brands",
+										"show"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "add",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI1IiwianRpIjoiODdhMWQ2YzkzODA2OTg3OWM3ZDJlNWMyMzA0NjkwY2E2MTQ2YWI5NjQ3ZGI0YTEzNzZhOTMxOWRkM2M2NjE0ZjgyNWM0MDg3ODMxZDRiODIiLCJpYXQiOjE2MjQ5NzcyNTMsIm5iZiI6MTYyNDk3NzI1MywiZXhwIjoxNjU2NTEzMjUyLCJzdWIiOiI1Iiwic2NvcGVzIjpbXX0.L5zCK3kMtH49wZaZLcwUR8pIuNv6iQ4wl3_7TPKHQXerfDgBneMpqhdbu_TklJAMOs1ISnLGBXyixpxqU0qsplIsZYzP-06Kkbju49E2530LNVI73hfP18G126XpBC8aYQYSq1pfXm29Hj5u3rQmK6c9ZNzFtR7L-T6LAv3xDmeMelkYjcjgG1mWiMOmEhvA-P-6PKWVmeft6pdx55RaZZTgdolEn4LilsROWwR7qsR3CAAuprgU0OCTL2fT-qbCA4vV3orPTAgdip7zqV3YDATusqWpHaSwXiy-bkzGOnsXUhyyUta_dWNb2M6Cg0RijMon_IhkddtOfiQIzBNLN8p2Mj7ka9Pv45TWDD1xo_dvPEn7igGUaAurfNROt7QYFmmRIsPtt8vYisEd6KwVa7XWzii3wV7WdlkyFTyEjoAZjbruQaqB0_ACFQxdbh6aRWxQr_5uW4iFiLpsw2tqNi0XsjTubSbLElKAaizEdYupJyYovNL5CwouKxCO23OsWREDY5LVpnzrvxSd0v23VdrVVQYDDPdOHyorWr4VDmElsT54eeePE0jwLDbYm62FrFOsdUM4XG1wzapWtZje5mLCj2X1HQkaJiRdisDj9naguTR8dOeE6iNd0ZprJRvzHkmBrjd6EPBouPUiazRW9V3bVpnFqp_7Ks82rdbT-lg",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/D:/drawable-hdpi/Ellipse 498.png"
+										},
+										{
+											"key": "name_ar",
+											"value": "مرسيدس",
+											"type": "text"
+										},
+										{
+											"key": "name_en",
+											"value": "mercedes",
+											"type": "text"
+										},
+										{
+											"key": "",
+											"value": "",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{satahat_url}}/api/backend/brands/create",
+									"host": [
+										"{{satahat_url}}"
+									],
+									"path": [
+										"api",
+										"backend",
+										"brands",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "edit",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI1IiwianRpIjoiODdhMWQ2YzkzODA2OTg3OWM3ZDJlNWMyMzA0NjkwY2E2MTQ2YWI5NjQ3ZGI0YTEzNzZhOTMxOWRkM2M2NjE0ZjgyNWM0MDg3ODMxZDRiODIiLCJpYXQiOjE2MjQ5NzcyNTMsIm5iZiI6MTYyNDk3NzI1MywiZXhwIjoxNjU2NTEzMjUyLCJzdWIiOiI1Iiwic2NvcGVzIjpbXX0.L5zCK3kMtH49wZaZLcwUR8pIuNv6iQ4wl3_7TPKHQXerfDgBneMpqhdbu_TklJAMOs1ISnLGBXyixpxqU0qsplIsZYzP-06Kkbju49E2530LNVI73hfP18G126XpBC8aYQYSq1pfXm29Hj5u3rQmK6c9ZNzFtR7L-T6LAv3xDmeMelkYjcjgG1mWiMOmEhvA-P-6PKWVmeft6pdx55RaZZTgdolEn4LilsROWwR7qsR3CAAuprgU0OCTL2fT-qbCA4vV3orPTAgdip7zqV3YDATusqWpHaSwXiy-bkzGOnsXUhyyUta_dWNb2M6Cg0RijMon_IhkddtOfiQIzBNLN8p2Mj7ka9Pv45TWDD1xo_dvPEn7igGUaAurfNROt7QYFmmRIsPtt8vYisEd6KwVa7XWzii3wV7WdlkyFTyEjoAZjbruQaqB0_ACFQxdbh6aRWxQr_5uW4iFiLpsw2tqNi0XsjTubSbLElKAaizEdYupJyYovNL5CwouKxCO23OsWREDY5LVpnzrvxSd0v23VdrVVQYDDPdOHyorWr4VDmElsT54eeePE0jwLDbYm62FrFOsdUM4XG1wzapWtZje5mLCj2X1HQkaJiRdisDj9naguTR8dOeE6iNd0ZprJRvzHkmBrjd6EPBouPUiazRW9V3bVpnFqp_7Ks82rdbT-lg",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/D:/drawable-hdpi/Ellipse 498.png"
+										},
+										{
+											"key": "title_ar",
+											"value": "تست",
+											"type": "text"
+										},
+										{
+											"key": "brand_id",
+											"value": "3",
+											"type": "text"
+										},
+										{
+											"key": "name_ar",
+											"value": "تويوتا",
+											"type": "text"
+										},
+										{
+											"key": "name_en",
+											"value": "Toyota",
+											"type": "text"
+										},
+										{
+											"key": "",
+											"value": "",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{satahat_url}}/api/backend/brands/edit",
+									"host": [
+										"{{satahat_url}}"
+									],
+									"path": [
+										"api",
+										"backend",
+										"brands",
+										"edit"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI1IiwianRpIjoiODdhMWQ2YzkzODA2OTg3OWM3ZDJlNWMyMzA0NjkwY2E2MTQ2YWI5NjQ3ZGI0YTEzNzZhOTMxOWRkM2M2NjE0ZjgyNWM0MDg3ODMxZDRiODIiLCJpYXQiOjE2MjQ5NzcyNTMsIm5iZiI6MTYyNDk3NzI1MywiZXhwIjoxNjU2NTEzMjUyLCJzdWIiOiI1Iiwic2NvcGVzIjpbXX0.L5zCK3kMtH49wZaZLcwUR8pIuNv6iQ4wl3_7TPKHQXerfDgBneMpqhdbu_TklJAMOs1ISnLGBXyixpxqU0qsplIsZYzP-06Kkbju49E2530LNVI73hfP18G126XpBC8aYQYSq1pfXm29Hj5u3rQmK6c9ZNzFtR7L-T6LAv3xDmeMelkYjcjgG1mWiMOmEhvA-P-6PKWVmeft6pdx55RaZZTgdolEn4LilsROWwR7qsR3CAAuprgU0OCTL2fT-qbCA4vV3orPTAgdip7zqV3YDATusqWpHaSwXiy-bkzGOnsXUhyyUta_dWNb2M6Cg0RijMon_IhkddtOfiQIzBNLN8p2Mj7ka9Pv45TWDD1xo_dvPEn7igGUaAurfNROt7QYFmmRIsPtt8vYisEd6KwVa7XWzii3wV7WdlkyFTyEjoAZjbruQaqB0_ACFQxdbh6aRWxQr_5uW4iFiLpsw2tqNi0XsjTubSbLElKAaizEdYupJyYovNL5CwouKxCO23OsWREDY5LVpnzrvxSd0v23VdrVVQYDDPdOHyorWr4VDmElsT54eeePE0jwLDbYm62FrFOsdUM4XG1wzapWtZje5mLCj2X1HQkaJiRdisDj9naguTR8dOeE6iNd0ZprJRvzHkmBrjd6EPBouPUiazRW9V3bVpnFqp_7Ks82rdbT-lg",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "brand_id",
+											"value": "4",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{satahat_url}}/api/backend/brands/delete",
+									"host": [
+										"{{satahat_url}}"
+									],
+									"path": [
+										"api",
+										"backend",
+										"brands",
+										"delete"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "main specialists",
+					"item": [
+						{
+							"name": "show all main specialists",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI1IiwianRpIjoiODdhMWQ2YzkzODA2OTg3OWM3ZDJlNWMyMzA0NjkwY2E2MTQ2YWI5NjQ3ZGI0YTEzNzZhOTMxOWRkM2M2NjE0ZjgyNWM0MDg3ODMxZDRiODIiLCJpYXQiOjE2MjQ5NzcyNTMsIm5iZiI6MTYyNDk3NzI1MywiZXhwIjoxNjU2NTEzMjUyLCJzdWIiOiI1Iiwic2NvcGVzIjpbXX0.L5zCK3kMtH49wZaZLcwUR8pIuNv6iQ4wl3_7TPKHQXerfDgBneMpqhdbu_TklJAMOs1ISnLGBXyixpxqU0qsplIsZYzP-06Kkbju49E2530LNVI73hfP18G126XpBC8aYQYSq1pfXm29Hj5u3rQmK6c9ZNzFtR7L-T6LAv3xDmeMelkYjcjgG1mWiMOmEhvA-P-6PKWVmeft6pdx55RaZZTgdolEn4LilsROWwR7qsR3CAAuprgU0OCTL2fT-qbCA4vV3orPTAgdip7zqV3YDATusqWpHaSwXiy-bkzGOnsXUhyyUta_dWNb2M6Cg0RijMon_IhkddtOfiQIzBNLN8p2Mj7ka9Pv45TWDD1xo_dvPEn7igGUaAurfNROt7QYFmmRIsPtt8vYisEd6KwVa7XWzii3wV7WdlkyFTyEjoAZjbruQaqB0_ACFQxdbh6aRWxQr_5uW4iFiLpsw2tqNi0XsjTubSbLElKAaizEdYupJyYovNL5CwouKxCO23OsWREDY5LVpnzrvxSd0v23VdrVVQYDDPdOHyorWr4VDmElsT54eeePE0jwLDbYm62FrFOsdUM4XG1wzapWtZje5mLCj2X1HQkaJiRdisDj9naguTR8dOeE6iNd0ZprJRvzHkmBrjd6EPBouPUiazRW9V3bVpnFqp_7Ks82rdbT-lg",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{satahat_url}}/api/backend/main-specialists",
+									"host": [
+										"{{satahat_url}}"
+									],
+									"path": [
+										"api",
+										"backend",
+										"main-specialists"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "show main_specialist_by_id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI1IiwianRpIjoiODdhMWQ2YzkzODA2OTg3OWM3ZDJlNWMyMzA0NjkwY2E2MTQ2YWI5NjQ3ZGI0YTEzNzZhOTMxOWRkM2M2NjE0ZjgyNWM0MDg3ODMxZDRiODIiLCJpYXQiOjE2MjQ5NzcyNTMsIm5iZiI6MTYyNDk3NzI1MywiZXhwIjoxNjU2NTEzMjUyLCJzdWIiOiI1Iiwic2NvcGVzIjpbXX0.L5zCK3kMtH49wZaZLcwUR8pIuNv6iQ4wl3_7TPKHQXerfDgBneMpqhdbu_TklJAMOs1ISnLGBXyixpxqU0qsplIsZYzP-06Kkbju49E2530LNVI73hfP18G126XpBC8aYQYSq1pfXm29Hj5u3rQmK6c9ZNzFtR7L-T6LAv3xDmeMelkYjcjgG1mWiMOmEhvA-P-6PKWVmeft6pdx55RaZZTgdolEn4LilsROWwR7qsR3CAAuprgU0OCTL2fT-qbCA4vV3orPTAgdip7zqV3YDATusqWpHaSwXiy-bkzGOnsXUhyyUta_dWNb2M6Cg0RijMon_IhkddtOfiQIzBNLN8p2Mj7ka9Pv45TWDD1xo_dvPEn7igGUaAurfNROt7QYFmmRIsPtt8vYisEd6KwVa7XWzii3wV7WdlkyFTyEjoAZjbruQaqB0_ACFQxdbh6aRWxQr_5uW4iFiLpsw2tqNi0XsjTubSbLElKAaizEdYupJyYovNL5CwouKxCO23OsWREDY5LVpnzrvxSd0v23VdrVVQYDDPdOHyorWr4VDmElsT54eeePE0jwLDbYm62FrFOsdUM4XG1wzapWtZje5mLCj2X1HQkaJiRdisDj9naguTR8dOeE6iNd0ZprJRvzHkmBrjd6EPBouPUiazRW9V3bVpnFqp_7Ks82rdbT-lg",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "main_specialist_id",
+											"value": "1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{satahat_url}}/api/backend/main-specialists/show",
+									"host": [
+										"{{satahat_url}}"
+									],
+									"path": [
+										"api",
+										"backend",
+										"main-specialists",
+										"show"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "add",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI1IiwianRpIjoiODdhMWQ2YzkzODA2OTg3OWM3ZDJlNWMyMzA0NjkwY2E2MTQ2YWI5NjQ3ZGI0YTEzNzZhOTMxOWRkM2M2NjE0ZjgyNWM0MDg3ODMxZDRiODIiLCJpYXQiOjE2MjQ5NzcyNTMsIm5iZiI6MTYyNDk3NzI1MywiZXhwIjoxNjU2NTEzMjUyLCJzdWIiOiI1Iiwic2NvcGVzIjpbXX0.L5zCK3kMtH49wZaZLcwUR8pIuNv6iQ4wl3_7TPKHQXerfDgBneMpqhdbu_TklJAMOs1ISnLGBXyixpxqU0qsplIsZYzP-06Kkbju49E2530LNVI73hfP18G126XpBC8aYQYSq1pfXm29Hj5u3rQmK6c9ZNzFtR7L-T6LAv3xDmeMelkYjcjgG1mWiMOmEhvA-P-6PKWVmeft6pdx55RaZZTgdolEn4LilsROWwR7qsR3CAAuprgU0OCTL2fT-qbCA4vV3orPTAgdip7zqV3YDATusqWpHaSwXiy-bkzGOnsXUhyyUta_dWNb2M6Cg0RijMon_IhkddtOfiQIzBNLN8p2Mj7ka9Pv45TWDD1xo_dvPEn7igGUaAurfNROt7QYFmmRIsPtt8vYisEd6KwVa7XWzii3wV7WdlkyFTyEjoAZjbruQaqB0_ACFQxdbh6aRWxQr_5uW4iFiLpsw2tqNi0XsjTubSbLElKAaizEdYupJyYovNL5CwouKxCO23OsWREDY5LVpnzrvxSd0v23VdrVVQYDDPdOHyorWr4VDmElsT54eeePE0jwLDbYm62FrFOsdUM4XG1wzapWtZje5mLCj2X1HQkaJiRdisDj9naguTR8dOeE6iNd0ZprJRvzHkmBrjd6EPBouPUiazRW9V3bVpnFqp_7Ks82rdbT-lg",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/D:/drawable-hdpi/Ellipse 498.png"
+										},
+										{
+											"key": "name_ar",
+											"value": "عجلات",
+											"type": "text"
+										},
+										{
+											"key": "name_en",
+											"value": "wheels",
+											"type": "text"
+										},
+										{
+											"key": "",
+											"value": "",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "",
+											"value": "",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{satahat_url}}/api/backend/main-specialists/create",
+									"host": [
+										"{{satahat_url}}"
+									],
+									"path": [
+										"api",
+										"backend",
+										"main-specialists",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "edit",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI1IiwianRpIjoiODdhMWQ2YzkzODA2OTg3OWM3ZDJlNWMyMzA0NjkwY2E2MTQ2YWI5NjQ3ZGI0YTEzNzZhOTMxOWRkM2M2NjE0ZjgyNWM0MDg3ODMxZDRiODIiLCJpYXQiOjE2MjQ5NzcyNTMsIm5iZiI6MTYyNDk3NzI1MywiZXhwIjoxNjU2NTEzMjUyLCJzdWIiOiI1Iiwic2NvcGVzIjpbXX0.L5zCK3kMtH49wZaZLcwUR8pIuNv6iQ4wl3_7TPKHQXerfDgBneMpqhdbu_TklJAMOs1ISnLGBXyixpxqU0qsplIsZYzP-06Kkbju49E2530LNVI73hfP18G126XpBC8aYQYSq1pfXm29Hj5u3rQmK6c9ZNzFtR7L-T6LAv3xDmeMelkYjcjgG1mWiMOmEhvA-P-6PKWVmeft6pdx55RaZZTgdolEn4LilsROWwR7qsR3CAAuprgU0OCTL2fT-qbCA4vV3orPTAgdip7zqV3YDATusqWpHaSwXiy-bkzGOnsXUhyyUta_dWNb2M6Cg0RijMon_IhkddtOfiQIzBNLN8p2Mj7ka9Pv45TWDD1xo_dvPEn7igGUaAurfNROt7QYFmmRIsPtt8vYisEd6KwVa7XWzii3wV7WdlkyFTyEjoAZjbruQaqB0_ACFQxdbh6aRWxQr_5uW4iFiLpsw2tqNi0XsjTubSbLElKAaizEdYupJyYovNL5CwouKxCO23OsWREDY5LVpnzrvxSd0v23VdrVVQYDDPdOHyorWr4VDmElsT54eeePE0jwLDbYm62FrFOsdUM4XG1wzapWtZje5mLCj2X1HQkaJiRdisDj9naguTR8dOeE6iNd0ZprJRvzHkmBrjd6EPBouPUiazRW9V3bVpnFqp_7Ks82rdbT-lg",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/D:/drawable-hdpi/Ellipse 498.png"
+										},
+										{
+											"key": "title_ar",
+											"value": "تست",
+											"type": "text"
+										},
+										{
+											"key": "main_specialist_id",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "name_ar",
+											"value": "عجلات",
+											"type": "text"
+										},
+										{
+											"key": "name_en",
+											"value": "wheels",
+											"type": "text"
+										},
+										{
+											"key": "",
+											"value": "",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{satahat_url}}/api/backend/main-specialists/edit",
+									"host": [
+										"{{satahat_url}}"
+									],
+									"path": [
+										"api",
+										"backend",
+										"main-specialists",
+										"edit"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI1IiwianRpIjoiODdhMWQ2YzkzODA2OTg3OWM3ZDJlNWMyMzA0NjkwY2E2MTQ2YWI5NjQ3ZGI0YTEzNzZhOTMxOWRkM2M2NjE0ZjgyNWM0MDg3ODMxZDRiODIiLCJpYXQiOjE2MjQ5NzcyNTMsIm5iZiI6MTYyNDk3NzI1MywiZXhwIjoxNjU2NTEzMjUyLCJzdWIiOiI1Iiwic2NvcGVzIjpbXX0.L5zCK3kMtH49wZaZLcwUR8pIuNv6iQ4wl3_7TPKHQXerfDgBneMpqhdbu_TklJAMOs1ISnLGBXyixpxqU0qsplIsZYzP-06Kkbju49E2530LNVI73hfP18G126XpBC8aYQYSq1pfXm29Hj5u3rQmK6c9ZNzFtR7L-T6LAv3xDmeMelkYjcjgG1mWiMOmEhvA-P-6PKWVmeft6pdx55RaZZTgdolEn4LilsROWwR7qsR3CAAuprgU0OCTL2fT-qbCA4vV3orPTAgdip7zqV3YDATusqWpHaSwXiy-bkzGOnsXUhyyUta_dWNb2M6Cg0RijMon_IhkddtOfiQIzBNLN8p2Mj7ka9Pv45TWDD1xo_dvPEn7igGUaAurfNROt7QYFmmRIsPtt8vYisEd6KwVa7XWzii3wV7WdlkyFTyEjoAZjbruQaqB0_ACFQxdbh6aRWxQr_5uW4iFiLpsw2tqNi0XsjTubSbLElKAaizEdYupJyYovNL5CwouKxCO23OsWREDY5LVpnzrvxSd0v23VdrVVQYDDPdOHyorWr4VDmElsT54eeePE0jwLDbYm62FrFOsdUM4XG1wzapWtZje5mLCj2X1HQkaJiRdisDj9naguTR8dOeE6iNd0ZprJRvzHkmBrjd6EPBouPUiazRW9V3bVpnFqp_7Ks82rdbT-lg",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "main_specialist_id",
+											"value": "3",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{satahat_url}}/api/backend/main-specialists/delete",
+									"host": [
+										"{{satahat_url}}"
+									],
+									"path": [
+										"api",
+										"backend",
+										"main-specialists",
+										"delete"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "secondary specialists",
+					"item": [
+						{
+							"name": "show all secondary specialists",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI1IiwianRpIjoiODdhMWQ2YzkzODA2OTg3OWM3ZDJlNWMyMzA0NjkwY2E2MTQ2YWI5NjQ3ZGI0YTEzNzZhOTMxOWRkM2M2NjE0ZjgyNWM0MDg3ODMxZDRiODIiLCJpYXQiOjE2MjQ5NzcyNTMsIm5iZiI6MTYyNDk3NzI1MywiZXhwIjoxNjU2NTEzMjUyLCJzdWIiOiI1Iiwic2NvcGVzIjpbXX0.L5zCK3kMtH49wZaZLcwUR8pIuNv6iQ4wl3_7TPKHQXerfDgBneMpqhdbu_TklJAMOs1ISnLGBXyixpxqU0qsplIsZYzP-06Kkbju49E2530LNVI73hfP18G126XpBC8aYQYSq1pfXm29Hj5u3rQmK6c9ZNzFtR7L-T6LAv3xDmeMelkYjcjgG1mWiMOmEhvA-P-6PKWVmeft6pdx55RaZZTgdolEn4LilsROWwR7qsR3CAAuprgU0OCTL2fT-qbCA4vV3orPTAgdip7zqV3YDATusqWpHaSwXiy-bkzGOnsXUhyyUta_dWNb2M6Cg0RijMon_IhkddtOfiQIzBNLN8p2Mj7ka9Pv45TWDD1xo_dvPEn7igGUaAurfNROt7QYFmmRIsPtt8vYisEd6KwVa7XWzii3wV7WdlkyFTyEjoAZjbruQaqB0_ACFQxdbh6aRWxQr_5uW4iFiLpsw2tqNi0XsjTubSbLElKAaizEdYupJyYovNL5CwouKxCO23OsWREDY5LVpnzrvxSd0v23VdrVVQYDDPdOHyorWr4VDmElsT54eeePE0jwLDbYm62FrFOsdUM4XG1wzapWtZje5mLCj2X1HQkaJiRdisDj9naguTR8dOeE6iNd0ZprJRvzHkmBrjd6EPBouPUiazRW9V3bVpnFqp_7Ks82rdbT-lg",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{satahat_url}}/api/backend/secondary-specialists",
+									"host": [
+										"{{satahat_url}}"
+									],
+									"path": [
+										"api",
+										"backend",
+										"secondary-specialists"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "show secondary_specialist_by_id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI1IiwianRpIjoiODdhMWQ2YzkzODA2OTg3OWM3ZDJlNWMyMzA0NjkwY2E2MTQ2YWI5NjQ3ZGI0YTEzNzZhOTMxOWRkM2M2NjE0ZjgyNWM0MDg3ODMxZDRiODIiLCJpYXQiOjE2MjQ5NzcyNTMsIm5iZiI6MTYyNDk3NzI1MywiZXhwIjoxNjU2NTEzMjUyLCJzdWIiOiI1Iiwic2NvcGVzIjpbXX0.L5zCK3kMtH49wZaZLcwUR8pIuNv6iQ4wl3_7TPKHQXerfDgBneMpqhdbu_TklJAMOs1ISnLGBXyixpxqU0qsplIsZYzP-06Kkbju49E2530LNVI73hfP18G126XpBC8aYQYSq1pfXm29Hj5u3rQmK6c9ZNzFtR7L-T6LAv3xDmeMelkYjcjgG1mWiMOmEhvA-P-6PKWVmeft6pdx55RaZZTgdolEn4LilsROWwR7qsR3CAAuprgU0OCTL2fT-qbCA4vV3orPTAgdip7zqV3YDATusqWpHaSwXiy-bkzGOnsXUhyyUta_dWNb2M6Cg0RijMon_IhkddtOfiQIzBNLN8p2Mj7ka9Pv45TWDD1xo_dvPEn7igGUaAurfNROt7QYFmmRIsPtt8vYisEd6KwVa7XWzii3wV7WdlkyFTyEjoAZjbruQaqB0_ACFQxdbh6aRWxQr_5uW4iFiLpsw2tqNi0XsjTubSbLElKAaizEdYupJyYovNL5CwouKxCO23OsWREDY5LVpnzrvxSd0v23VdrVVQYDDPdOHyorWr4VDmElsT54eeePE0jwLDbYm62FrFOsdUM4XG1wzapWtZje5mLCj2X1HQkaJiRdisDj9naguTR8dOeE6iNd0ZprJRvzHkmBrjd6EPBouPUiazRW9V3bVpnFqp_7Ks82rdbT-lg",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "secondary_specialist_id",
+											"value": "1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{satahat_url}}/api/backend/secondary-specialists/show",
+									"host": [
+										"{{satahat_url}}"
+									],
+									"path": [
+										"api",
+										"backend",
+										"secondary-specialists",
+										"show"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "add",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI1IiwianRpIjoiODdhMWQ2YzkzODA2OTg3OWM3ZDJlNWMyMzA0NjkwY2E2MTQ2YWI5NjQ3ZGI0YTEzNzZhOTMxOWRkM2M2NjE0ZjgyNWM0MDg3ODMxZDRiODIiLCJpYXQiOjE2MjQ5NzcyNTMsIm5iZiI6MTYyNDk3NzI1MywiZXhwIjoxNjU2NTEzMjUyLCJzdWIiOiI1Iiwic2NvcGVzIjpbXX0.L5zCK3kMtH49wZaZLcwUR8pIuNv6iQ4wl3_7TPKHQXerfDgBneMpqhdbu_TklJAMOs1ISnLGBXyixpxqU0qsplIsZYzP-06Kkbju49E2530LNVI73hfP18G126XpBC8aYQYSq1pfXm29Hj5u3rQmK6c9ZNzFtR7L-T6LAv3xDmeMelkYjcjgG1mWiMOmEhvA-P-6PKWVmeft6pdx55RaZZTgdolEn4LilsROWwR7qsR3CAAuprgU0OCTL2fT-qbCA4vV3orPTAgdip7zqV3YDATusqWpHaSwXiy-bkzGOnsXUhyyUta_dWNb2M6Cg0RijMon_IhkddtOfiQIzBNLN8p2Mj7ka9Pv45TWDD1xo_dvPEn7igGUaAurfNROt7QYFmmRIsPtt8vYisEd6KwVa7XWzii3wV7WdlkyFTyEjoAZjbruQaqB0_ACFQxdbh6aRWxQr_5uW4iFiLpsw2tqNi0XsjTubSbLElKAaizEdYupJyYovNL5CwouKxCO23OsWREDY5LVpnzrvxSd0v23VdrVVQYDDPdOHyorWr4VDmElsT54eeePE0jwLDbYm62FrFOsdUM4XG1wzapWtZje5mLCj2X1HQkaJiRdisDj9naguTR8dOeE6iNd0ZprJRvzHkmBrjd6EPBouPUiazRW9V3bVpnFqp_7Ks82rdbT-lg",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/D:/drawable-hdpi/Ellipse 498.png"
+										},
+										{
+											"key": "name_ar",
+											"value": "لاب توب",
+											"type": "text"
+										},
+										{
+											"key": "name_en",
+											"value": "labtop",
+											"type": "text"
+										},
+										{
+											"key": "main_specialist_id",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/C:/Users/Saeid/Downloads/test.jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{satahat_url}}/api/backend/secondary-specialists/create",
+									"host": [
+										"{{satahat_url}}"
+									],
+									"path": [
+										"api",
+										"backend",
+										"secondary-specialists",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "edit",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI1IiwianRpIjoiODdhMWQ2YzkzODA2OTg3OWM3ZDJlNWMyMzA0NjkwY2E2MTQ2YWI5NjQ3ZGI0YTEzNzZhOTMxOWRkM2M2NjE0ZjgyNWM0MDg3ODMxZDRiODIiLCJpYXQiOjE2MjQ5NzcyNTMsIm5iZiI6MTYyNDk3NzI1MywiZXhwIjoxNjU2NTEzMjUyLCJzdWIiOiI1Iiwic2NvcGVzIjpbXX0.L5zCK3kMtH49wZaZLcwUR8pIuNv6iQ4wl3_7TPKHQXerfDgBneMpqhdbu_TklJAMOs1ISnLGBXyixpxqU0qsplIsZYzP-06Kkbju49E2530LNVI73hfP18G126XpBC8aYQYSq1pfXm29Hj5u3rQmK6c9ZNzFtR7L-T6LAv3xDmeMelkYjcjgG1mWiMOmEhvA-P-6PKWVmeft6pdx55RaZZTgdolEn4LilsROWwR7qsR3CAAuprgU0OCTL2fT-qbCA4vV3orPTAgdip7zqV3YDATusqWpHaSwXiy-bkzGOnsXUhyyUta_dWNb2M6Cg0RijMon_IhkddtOfiQIzBNLN8p2Mj7ka9Pv45TWDD1xo_dvPEn7igGUaAurfNROt7QYFmmRIsPtt8vYisEd6KwVa7XWzii3wV7WdlkyFTyEjoAZjbruQaqB0_ACFQxdbh6aRWxQr_5uW4iFiLpsw2tqNi0XsjTubSbLElKAaizEdYupJyYovNL5CwouKxCO23OsWREDY5LVpnzrvxSd0v23VdrVVQYDDPdOHyorWr4VDmElsT54eeePE0jwLDbYm62FrFOsdUM4XG1wzapWtZje5mLCj2X1HQkaJiRdisDj9naguTR8dOeE6iNd0ZprJRvzHkmBrjd6EPBouPUiazRW9V3bVpnFqp_7Ks82rdbT-lg",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/D:/drawable-hdpi/Ellipse 498.png"
+										},
+										{
+											"key": "title_ar",
+											"value": "تست",
+											"type": "text"
+										},
+										{
+											"key": "secondary_specialist_id",
+											"value": "3",
+											"type": "text"
+										},
+										{
+											"key": "name_ar",
+											"value": "سيارة",
+											"type": "text"
+										},
+										{
+											"key": "name_en",
+											"value": "car",
+											"type": "text"
+										},
+										{
+											"key": "main_specialist_id",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/C:/Users/Saeid/Downloads/car.jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{satahat_url}}/api/backend/secondary-specialists/edit",
+									"host": [
+										"{{satahat_url}}"
+									],
+									"path": [
+										"api",
+										"backend",
+										"secondary-specialists",
+										"edit"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI1IiwianRpIjoiODdhMWQ2YzkzODA2OTg3OWM3ZDJlNWMyMzA0NjkwY2E2MTQ2YWI5NjQ3ZGI0YTEzNzZhOTMxOWRkM2M2NjE0ZjgyNWM0MDg3ODMxZDRiODIiLCJpYXQiOjE2MjQ5NzcyNTMsIm5iZiI6MTYyNDk3NzI1MywiZXhwIjoxNjU2NTEzMjUyLCJzdWIiOiI1Iiwic2NvcGVzIjpbXX0.L5zCK3kMtH49wZaZLcwUR8pIuNv6iQ4wl3_7TPKHQXerfDgBneMpqhdbu_TklJAMOs1ISnLGBXyixpxqU0qsplIsZYzP-06Kkbju49E2530LNVI73hfP18G126XpBC8aYQYSq1pfXm29Hj5u3rQmK6c9ZNzFtR7L-T6LAv3xDmeMelkYjcjgG1mWiMOmEhvA-P-6PKWVmeft6pdx55RaZZTgdolEn4LilsROWwR7qsR3CAAuprgU0OCTL2fT-qbCA4vV3orPTAgdip7zqV3YDATusqWpHaSwXiy-bkzGOnsXUhyyUta_dWNb2M6Cg0RijMon_IhkddtOfiQIzBNLN8p2Mj7ka9Pv45TWDD1xo_dvPEn7igGUaAurfNROt7QYFmmRIsPtt8vYisEd6KwVa7XWzii3wV7WdlkyFTyEjoAZjbruQaqB0_ACFQxdbh6aRWxQr_5uW4iFiLpsw2tqNi0XsjTubSbLElKAaizEdYupJyYovNL5CwouKxCO23OsWREDY5LVpnzrvxSd0v23VdrVVQYDDPdOHyorWr4VDmElsT54eeePE0jwLDbYm62FrFOsdUM4XG1wzapWtZje5mLCj2X1HQkaJiRdisDj9naguTR8dOeE6iNd0ZprJRvzHkmBrjd6EPBouPUiazRW9V3bVpnFqp_7Ks82rdbT-lg",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "secondary_specialist_id",
+											"value": "4",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{satahat_url}}/api/backend/secondary-specialists/delete",
+									"host": [
+										"{{satahat_url}}"
+									],
+									"path": [
+										"api",
+										"backend",
+										"secondary-specialists",
+										"delete"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "cities",
+					"item": [
+						{
+							"name": "index",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI1IiwianRpIjoiODdhMWQ2YzkzODA2OTg3OWM3ZDJlNWMyMzA0NjkwY2E2MTQ2YWI5NjQ3ZGI0YTEzNzZhOTMxOWRkM2M2NjE0ZjgyNWM0MDg3ODMxZDRiODIiLCJpYXQiOjE2MjQ5NzcyNTMsIm5iZiI6MTYyNDk3NzI1MywiZXhwIjoxNjU2NTEzMjUyLCJzdWIiOiI1Iiwic2NvcGVzIjpbXX0.L5zCK3kMtH49wZaZLcwUR8pIuNv6iQ4wl3_7TPKHQXerfDgBneMpqhdbu_TklJAMOs1ISnLGBXyixpxqU0qsplIsZYzP-06Kkbju49E2530LNVI73hfP18G126XpBC8aYQYSq1pfXm29Hj5u3rQmK6c9ZNzFtR7L-T6LAv3xDmeMelkYjcjgG1mWiMOmEhvA-P-6PKWVmeft6pdx55RaZZTgdolEn4LilsROWwR7qsR3CAAuprgU0OCTL2fT-qbCA4vV3orPTAgdip7zqV3YDATusqWpHaSwXiy-bkzGOnsXUhyyUta_dWNb2M6Cg0RijMon_IhkddtOfiQIzBNLN8p2Mj7ka9Pv45TWDD1xo_dvPEn7igGUaAurfNROt7QYFmmRIsPtt8vYisEd6KwVa7XWzii3wV7WdlkyFTyEjoAZjbruQaqB0_ACFQxdbh6aRWxQr_5uW4iFiLpsw2tqNi0XsjTubSbLElKAaizEdYupJyYovNL5CwouKxCO23OsWREDY5LVpnzrvxSd0v23VdrVVQYDDPdOHyorWr4VDmElsT54eeePE0jwLDbYm62FrFOsdUM4XG1wzapWtZje5mLCj2X1HQkaJiRdisDj9naguTR8dOeE6iNd0ZprJRvzHkmBrjd6EPBouPUiazRW9V3bVpnFqp_7Ks82rdbT-lg",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{satahat_url}}/api/backend/cities",
+									"host": [
+										"{{satahat_url}}"
+									],
+									"path": [
+										"api",
+										"backend",
+										"cities"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "show city_by_id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI1IiwianRpIjoiODdhMWQ2YzkzODA2OTg3OWM3ZDJlNWMyMzA0NjkwY2E2MTQ2YWI5NjQ3ZGI0YTEzNzZhOTMxOWRkM2M2NjE0ZjgyNWM0MDg3ODMxZDRiODIiLCJpYXQiOjE2MjQ5NzcyNTMsIm5iZiI6MTYyNDk3NzI1MywiZXhwIjoxNjU2NTEzMjUyLCJzdWIiOiI1Iiwic2NvcGVzIjpbXX0.L5zCK3kMtH49wZaZLcwUR8pIuNv6iQ4wl3_7TPKHQXerfDgBneMpqhdbu_TklJAMOs1ISnLGBXyixpxqU0qsplIsZYzP-06Kkbju49E2530LNVI73hfP18G126XpBC8aYQYSq1pfXm29Hj5u3rQmK6c9ZNzFtR7L-T6LAv3xDmeMelkYjcjgG1mWiMOmEhvA-P-6PKWVmeft6pdx55RaZZTgdolEn4LilsROWwR7qsR3CAAuprgU0OCTL2fT-qbCA4vV3orPTAgdip7zqV3YDATusqWpHaSwXiy-bkzGOnsXUhyyUta_dWNb2M6Cg0RijMon_IhkddtOfiQIzBNLN8p2Mj7ka9Pv45TWDD1xo_dvPEn7igGUaAurfNROt7QYFmmRIsPtt8vYisEd6KwVa7XWzii3wV7WdlkyFTyEjoAZjbruQaqB0_ACFQxdbh6aRWxQr_5uW4iFiLpsw2tqNi0XsjTubSbLElKAaizEdYupJyYovNL5CwouKxCO23OsWREDY5LVpnzrvxSd0v23VdrVVQYDDPdOHyorWr4VDmElsT54eeePE0jwLDbYm62FrFOsdUM4XG1wzapWtZje5mLCj2X1HQkaJiRdisDj9naguTR8dOeE6iNd0ZprJRvzHkmBrjd6EPBouPUiazRW9V3bVpnFqp_7Ks82rdbT-lg",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "city_id",
+											"value": "4",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{satahat_url}}/api/backend/cities/show",
+									"host": [
+										"{{satahat_url}}"
+									],
+									"path": [
+										"api",
+										"backend",
+										"cities",
+										"show"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "add",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI1IiwianRpIjoiODdhMWQ2YzkzODA2OTg3OWM3ZDJlNWMyMzA0NjkwY2E2MTQ2YWI5NjQ3ZGI0YTEzNzZhOTMxOWRkM2M2NjE0ZjgyNWM0MDg3ODMxZDRiODIiLCJpYXQiOjE2MjQ5NzcyNTMsIm5iZiI6MTYyNDk3NzI1MywiZXhwIjoxNjU2NTEzMjUyLCJzdWIiOiI1Iiwic2NvcGVzIjpbXX0.L5zCK3kMtH49wZaZLcwUR8pIuNv6iQ4wl3_7TPKHQXerfDgBneMpqhdbu_TklJAMOs1ISnLGBXyixpxqU0qsplIsZYzP-06Kkbju49E2530LNVI73hfP18G126XpBC8aYQYSq1pfXm29Hj5u3rQmK6c9ZNzFtR7L-T6LAv3xDmeMelkYjcjgG1mWiMOmEhvA-P-6PKWVmeft6pdx55RaZZTgdolEn4LilsROWwR7qsR3CAAuprgU0OCTL2fT-qbCA4vV3orPTAgdip7zqV3YDATusqWpHaSwXiy-bkzGOnsXUhyyUta_dWNb2M6Cg0RijMon_IhkddtOfiQIzBNLN8p2Mj7ka9Pv45TWDD1xo_dvPEn7igGUaAurfNROt7QYFmmRIsPtt8vYisEd6KwVa7XWzii3wV7WdlkyFTyEjoAZjbruQaqB0_ACFQxdbh6aRWxQr_5uW4iFiLpsw2tqNi0XsjTubSbLElKAaizEdYupJyYovNL5CwouKxCO23OsWREDY5LVpnzrvxSd0v23VdrVVQYDDPdOHyorWr4VDmElsT54eeePE0jwLDbYm62FrFOsdUM4XG1wzapWtZje5mLCj2X1HQkaJiRdisDj9naguTR8dOeE6iNd0ZprJRvzHkmBrjd6EPBouPUiazRW9V3bVpnFqp_7Ks82rdbT-lg",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/D:/drawable-hdpi/Ellipse 498.png"
+										},
+										{
+											"key": "name_ar",
+											"value": "الدمام",
+											"type": "text"
+										},
+										{
+											"key": "name_en",
+											"value": "dammam",
+											"type": "text"
+										},
+										{
+											"key": "",
+											"value": "",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "",
+											"value": "",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{satahat_url}}/api/backend/cities/create",
+									"host": [
+										"{{satahat_url}}"
+									],
+									"path": [
+										"api",
+										"backend",
+										"cities",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "edit",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI1IiwianRpIjoiODdhMWQ2YzkzODA2OTg3OWM3ZDJlNWMyMzA0NjkwY2E2MTQ2YWI5NjQ3ZGI0YTEzNzZhOTMxOWRkM2M2NjE0ZjgyNWM0MDg3ODMxZDRiODIiLCJpYXQiOjE2MjQ5NzcyNTMsIm5iZiI6MTYyNDk3NzI1MywiZXhwIjoxNjU2NTEzMjUyLCJzdWIiOiI1Iiwic2NvcGVzIjpbXX0.L5zCK3kMtH49wZaZLcwUR8pIuNv6iQ4wl3_7TPKHQXerfDgBneMpqhdbu_TklJAMOs1ISnLGBXyixpxqU0qsplIsZYzP-06Kkbju49E2530LNVI73hfP18G126XpBC8aYQYSq1pfXm29Hj5u3rQmK6c9ZNzFtR7L-T6LAv3xDmeMelkYjcjgG1mWiMOmEhvA-P-6PKWVmeft6pdx55RaZZTgdolEn4LilsROWwR7qsR3CAAuprgU0OCTL2fT-qbCA4vV3orPTAgdip7zqV3YDATusqWpHaSwXiy-bkzGOnsXUhyyUta_dWNb2M6Cg0RijMon_IhkddtOfiQIzBNLN8p2Mj7ka9Pv45TWDD1xo_dvPEn7igGUaAurfNROt7QYFmmRIsPtt8vYisEd6KwVa7XWzii3wV7WdlkyFTyEjoAZjbruQaqB0_ACFQxdbh6aRWxQr_5uW4iFiLpsw2tqNi0XsjTubSbLElKAaizEdYupJyYovNL5CwouKxCO23OsWREDY5LVpnzrvxSd0v23VdrVVQYDDPdOHyorWr4VDmElsT54eeePE0jwLDbYm62FrFOsdUM4XG1wzapWtZje5mLCj2X1HQkaJiRdisDj9naguTR8dOeE6iNd0ZprJRvzHkmBrjd6EPBouPUiazRW9V3bVpnFqp_7Ks82rdbT-lg",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/D:/drawable-hdpi/Ellipse 498.png"
+										},
+										{
+											"key": "title_ar",
+											"value": "تست",
+											"type": "text"
+										},
+										{
+											"key": "city_id",
+											"value": "5",
+											"type": "text"
+										},
+										{
+											"key": "name_ar",
+											"value": "القطيف",
+											"type": "text"
+										},
+										{
+											"key": "name_en",
+											"value": "َQattif",
+											"type": "text"
+										},
+										{
+											"key": "",
+											"value": "",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{satahat_url}}/api/backend/cities/edit",
+									"host": [
+										"{{satahat_url}}"
+									],
+									"path": [
+										"api",
+										"backend",
+										"cities",
+										"edit"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI1IiwianRpIjoiODdhMWQ2YzkzODA2OTg3OWM3ZDJlNWMyMzA0NjkwY2E2MTQ2YWI5NjQ3ZGI0YTEzNzZhOTMxOWRkM2M2NjE0ZjgyNWM0MDg3ODMxZDRiODIiLCJpYXQiOjE2MjQ5NzcyNTMsIm5iZiI6MTYyNDk3NzI1MywiZXhwIjoxNjU2NTEzMjUyLCJzdWIiOiI1Iiwic2NvcGVzIjpbXX0.L5zCK3kMtH49wZaZLcwUR8pIuNv6iQ4wl3_7TPKHQXerfDgBneMpqhdbu_TklJAMOs1ISnLGBXyixpxqU0qsplIsZYzP-06Kkbju49E2530LNVI73hfP18G126XpBC8aYQYSq1pfXm29Hj5u3rQmK6c9ZNzFtR7L-T6LAv3xDmeMelkYjcjgG1mWiMOmEhvA-P-6PKWVmeft6pdx55RaZZTgdolEn4LilsROWwR7qsR3CAAuprgU0OCTL2fT-qbCA4vV3orPTAgdip7zqV3YDATusqWpHaSwXiy-bkzGOnsXUhyyUta_dWNb2M6Cg0RijMon_IhkddtOfiQIzBNLN8p2Mj7ka9Pv45TWDD1xo_dvPEn7igGUaAurfNROt7QYFmmRIsPtt8vYisEd6KwVa7XWzii3wV7WdlkyFTyEjoAZjbruQaqB0_ACFQxdbh6aRWxQr_5uW4iFiLpsw2tqNi0XsjTubSbLElKAaizEdYupJyYovNL5CwouKxCO23OsWREDY5LVpnzrvxSd0v23VdrVVQYDDPdOHyorWr4VDmElsT54eeePE0jwLDbYm62FrFOsdUM4XG1wzapWtZje5mLCj2X1HQkaJiRdisDj9naguTR8dOeE6iNd0ZprJRvzHkmBrjd6EPBouPUiazRW9V3bVpnFqp_7Ks82rdbT-lg",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "city_id",
+											"value": "4",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{satahat_url}}/api/backend/cities/delete",
+									"host": [
+										"{{satahat_url}}"
+									],
+									"path": [
+										"api",
+										"backend",
+										"cities",
+										"delete"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "clients",
+					"item": [
+						{
+							"name": "show all clients",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI1IiwianRpIjoiODdhMWQ2YzkzODA2OTg3OWM3ZDJlNWMyMzA0NjkwY2E2MTQ2YWI5NjQ3ZGI0YTEzNzZhOTMxOWRkM2M2NjE0ZjgyNWM0MDg3ODMxZDRiODIiLCJpYXQiOjE2MjQ5NzcyNTMsIm5iZiI6MTYyNDk3NzI1MywiZXhwIjoxNjU2NTEzMjUyLCJzdWIiOiI1Iiwic2NvcGVzIjpbXX0.L5zCK3kMtH49wZaZLcwUR8pIuNv6iQ4wl3_7TPKHQXerfDgBneMpqhdbu_TklJAMOs1ISnLGBXyixpxqU0qsplIsZYzP-06Kkbju49E2530LNVI73hfP18G126XpBC8aYQYSq1pfXm29Hj5u3rQmK6c9ZNzFtR7L-T6LAv3xDmeMelkYjcjgG1mWiMOmEhvA-P-6PKWVmeft6pdx55RaZZTgdolEn4LilsROWwR7qsR3CAAuprgU0OCTL2fT-qbCA4vV3orPTAgdip7zqV3YDATusqWpHaSwXiy-bkzGOnsXUhyyUta_dWNb2M6Cg0RijMon_IhkddtOfiQIzBNLN8p2Mj7ka9Pv45TWDD1xo_dvPEn7igGUaAurfNROt7QYFmmRIsPtt8vYisEd6KwVa7XWzii3wV7WdlkyFTyEjoAZjbruQaqB0_ACFQxdbh6aRWxQr_5uW4iFiLpsw2tqNi0XsjTubSbLElKAaizEdYupJyYovNL5CwouKxCO23OsWREDY5LVpnzrvxSd0v23VdrVVQYDDPdOHyorWr4VDmElsT54eeePE0jwLDbYm62FrFOsdUM4XG1wzapWtZje5mLCj2X1HQkaJiRdisDj9naguTR8dOeE6iNd0ZprJRvzHkmBrjd6EPBouPUiazRW9V3bVpnFqp_7Ks82rdbT-lg",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{satahat_url}}/api/backend/clients",
+									"host": [
+										"{{satahat_url}}"
+									],
+									"path": [
+										"api",
+										"backend",
+										"clients"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "show client_by_id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI1IiwianRpIjoiODdhMWQ2YzkzODA2OTg3OWM3ZDJlNWMyMzA0NjkwY2E2MTQ2YWI5NjQ3ZGI0YTEzNzZhOTMxOWRkM2M2NjE0ZjgyNWM0MDg3ODMxZDRiODIiLCJpYXQiOjE2MjQ5NzcyNTMsIm5iZiI6MTYyNDk3NzI1MywiZXhwIjoxNjU2NTEzMjUyLCJzdWIiOiI1Iiwic2NvcGVzIjpbXX0.L5zCK3kMtH49wZaZLcwUR8pIuNv6iQ4wl3_7TPKHQXerfDgBneMpqhdbu_TklJAMOs1ISnLGBXyixpxqU0qsplIsZYzP-06Kkbju49E2530LNVI73hfP18G126XpBC8aYQYSq1pfXm29Hj5u3rQmK6c9ZNzFtR7L-T6LAv3xDmeMelkYjcjgG1mWiMOmEhvA-P-6PKWVmeft6pdx55RaZZTgdolEn4LilsROWwR7qsR3CAAuprgU0OCTL2fT-qbCA4vV3orPTAgdip7zqV3YDATusqWpHaSwXiy-bkzGOnsXUhyyUta_dWNb2M6Cg0RijMon_IhkddtOfiQIzBNLN8p2Mj7ka9Pv45TWDD1xo_dvPEn7igGUaAurfNROt7QYFmmRIsPtt8vYisEd6KwVa7XWzii3wV7WdlkyFTyEjoAZjbruQaqB0_ACFQxdbh6aRWxQr_5uW4iFiLpsw2tqNi0XsjTubSbLElKAaizEdYupJyYovNL5CwouKxCO23OsWREDY5LVpnzrvxSd0v23VdrVVQYDDPdOHyorWr4VDmElsT54eeePE0jwLDbYm62FrFOsdUM4XG1wzapWtZje5mLCj2X1HQkaJiRdisDj9naguTR8dOeE6iNd0ZprJRvzHkmBrjd6EPBouPUiazRW9V3bVpnFqp_7Ks82rdbT-lg",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "client_id",
+											"value": "2",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{satahat_url}}/api/backend/clients/show",
+									"host": [
+										"{{satahat_url}}"
+									],
+									"path": [
+										"api",
+										"backend",
+										"clients",
+										"show"
 									]
 								}
 							},
