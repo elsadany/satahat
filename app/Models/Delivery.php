@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Delivery extends Model
 {
-    protected $appends=['id_imagePath','carIdImagePath','rating'];
+    protected $appends=['id_imagePath','driving_licenseImagePath','rating'];
     protected $with=['brand','rates','mainspecialist','secondaryspecialist'];
     use HasFactory;
     protected $table='delivery';
@@ -16,14 +16,20 @@ class Delivery extends Model
     protected $guarded=['id'];
     
     function getIdImagePathAttribute(){
-        if($this->id_image!='')
-            url($this->image_id);
-        return '';
+        if ($this->id_image != '') {
+            if (strpos($this->id_image, "http") !== false)
+                return $this->id_image;
+            else if (strstr($this->id_image,'uploads'))
+                return url($this->id_image);   
+        }
     }
-    function getCarIdImagePathAttribute(){
-        if($this->car_id_image!='')
-            url($this->image_id);
-        return '';
+    function getDrivingLicenseImagePathAttribute(){
+        if ($this->driving_license != '') {
+            if (strpos($this->driving_license, "http") !== false)
+                return $this->driving_license;
+            else if (strstr($this->driving_license,'uploads'))
+                return url($this->driving_license);   
+        }
     }
     function brand(){
         return $this->belongsTo(Brand::class,'brand_id');
