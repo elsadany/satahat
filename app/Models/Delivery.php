@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Delivery extends Model
 {
-    protected $appends=['id_imagePath','driving_licenseImagePath','rating'];
+    protected $appends=['id_imagePath','driving_licenceImagePath','rating'];
     protected $with=['brand','rates','mainspecialist','secondaryspecialist'];
     use HasFactory;
     protected $table='delivery';
@@ -23,12 +23,12 @@ class Delivery extends Model
                 return url($this->id_image);   
         }
     }
-    function getDrivingLicenseImagePathAttribute(){
-        if ($this->driving_license != '') {
-            if (strpos($this->driving_license, "http") !== false)
-                return $this->driving_license;
-            else if (strstr($this->driving_license,'uploads'))
-                return url($this->driving_license);   
+    function getDrivingLicenceImagePathAttribute(){
+        if ($this->driving_licence != '') {
+            if (strpos($this->driving_licence, "http") !== false)
+                return $this->driving_licence;
+            else if (strstr($this->driving_licence,'uploads'))
+                return url($this->driving_licence);   
         }
     }
     function brand(){
