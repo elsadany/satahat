@@ -36,6 +36,8 @@ Route::group(['namespace' => 'App\Http\Controllers\apis'], function () {
         Route::post('delivery/register', 'AuthApi@delivaryRegister');
         Route::post('users/login', 'AuthApi@login');
 
+        Route::post('users/reset-password', 'UsersAPI@resetPassword');
+
         Route::group(['middleware' => ['auth:api']], function () {
             Route::get('users/myaccount', 'UsersAPI@myacount');
             Route::get('users/notifications', 'UsersAPI@notifications');
