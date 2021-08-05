@@ -590,6 +590,40 @@
 					"response": []
 				},
 				{
+					"name": "user Orders finish",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_auth}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rayhnak_url}}/orders/finish?order_id=3",
+							"host": [
+								"{{rayhnak_url}}"
+							],
+							"path": [
+								"orders",
+								"finish"
+							],
+							"query": [
+								{
+									"key": "order_id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "user Orders show",
 					"request": {
 						"auth": {
@@ -801,12 +835,12 @@
 								},
 								{
 									"key": "phone",
-									"value": "01114591641",
+									"value": "011145916",
 									"type": "text"
 								},
 								{
 									"key": "email",
-									"value": "eng.ahmedelsadany2@gmail.com",
+									"value": "ahmed2@gmail.com",
 									"type": "text"
 								},
 								{
@@ -822,7 +856,7 @@
 								{
 									"key": "id_image",
 									"type": "file",
-									"src": "/D:/drawable-hdpi/Ellipse 498.png"
+									"src": "/C:/Users/Saeid/Downloads/imgs/car.jpg"
 								},
 								{
 									"key": "main_specialist_id",
@@ -847,7 +881,7 @@
 								{
 									"key": "licence_image",
 									"type": "file",
-									"src": "/D:/drawable-hdpi/Ellipse 498.png"
+									"src": "/C:/Users/Saeid/Downloads/imgs/laptop.jpg"
 								},
 								{
 									"key": "insurance_number",
@@ -858,7 +892,8 @@
 									"key": "authorize_image",
 									"description": "optional",
 									"type": "file",
-									"src": []
+									"src": [],
+									"disabled": true
 								},
 								{
 									"key": "model",
@@ -868,11 +903,26 @@
 								{
 									"key": "driving_licence",
 									"type": "file",
-									"src": "/D:/drawable-hdpi/Ellipse 498.png"
+									"src": "/C:/Users/Saeid/Downloads/imgs/laptop.jpg"
 								},
 								{
 									"key": "city_id",
 									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/Saeid/Downloads/imgs/laptop.jpg"
+								},
+								{
+									"key": "iban_id",
+									"value": "345435345",
+									"type": "text"
+								},
+								{
+									"key": "bank_name",
+									"value": "QNB",
 									"type": "text"
 								}
 							]
@@ -1716,7 +1766,7 @@
 										{
 											"key": "image",
 											"type": "file",
-											"src": "/D:/drawable-hdpi/Ellipse 498.png"
+											"src": "/C:/Users/Saeid/Downloads/imgs/car2.jpg"
 										},
 										{
 											"key": "name_ar",
@@ -1727,12 +1777,6 @@
 											"key": "name_en",
 											"value": "mercedes",
 											"type": "text"
-										},
-										{
-											"key": "",
-											"value": "",
-											"type": "text",
-											"disabled": true
 										},
 										{
 											"key": "",
@@ -2251,7 +2295,7 @@
 										},
 										{
 											"key": "name_en",
-											"value": "labtop",
+											"value": "laptop",
 											"type": "text"
 										},
 										{
@@ -2262,7 +2306,7 @@
 										{
 											"key": "image",
 											"type": "file",
-											"src": "/C:/Users/Saeid/Downloads/test.jpg"
+											"src": "/C:/Users/Saeid/Downloads/imgs/laptop.jpg"
 										}
 									]
 								},
@@ -2504,11 +2548,6 @@
 								"body": {
 									"mode": "formdata",
 									"formdata": [
-										{
-											"key": "image",
-											"type": "file",
-											"src": "/D:/drawable-hdpi/Ellipse 498.png"
-										},
 										{
 											"key": "name_ar",
 											"value": "الدمام",
@@ -2784,52 +2823,52 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "user reset password",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "phone",
-									"value": "01114591647",
-									"type": "text"
-								},
-								{
-									"key": "confirmation_code",
-									"value": "5555",
-									"type": "text"
-								},
-								{
-									"key": "new_password",
-									"value": "test1234",
-									"type": "text"
-								},
-								{
-									"key": "confirm_new_password",
-									"value": "test1234",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{satahat_url}}/api/users/reset-password",
-							"host": [
-								"{{satahat_url}}"
-							],
-							"path": [
-								"api",
-								"users",
-								"reset-password"
-							]
-						}
-					},
-					"response": []
 				}
 			]
+		},
+		{
+			"name": "user reset password",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "phone",
+							"value": "01114591647",
+							"type": "text"
+						},
+						{
+							"key": "confirmation_code",
+							"value": "5555",
+							"type": "text"
+						},
+						{
+							"key": "new_password",
+							"value": "test1234",
+							"type": "text"
+						},
+						{
+							"key": "confirm_new_password",
+							"value": "test1234",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{satahat_url}}/api/users/reset-password",
+					"host": [
+						"{{satahat_url}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"reset-password"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [
@@ -2863,7 +2902,7 @@
 		},
 		{
 			"key": "admin_auth",
-			"value": ""
+			"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiOTliMjA3ZmU4ZjU3ZTg3MGMzMzk4ZWMxYWFjZmFiODdjMjIxOGNkOTY0NjAwNzkxNDM0NWNlNWIzNGNmM2Y2ZWJjZTkwOWVhMzZmZjI1MGQiLCJpYXQiOjE2MjgxNjA5NjksIm5iZiI6MTYyODE2MDk2OSwiZXhwIjoxNjU5Njk2OTY5LCJzdWIiOiI1Iiwic2NvcGVzIjpbXX0.WWfDauBbnLXBPf5dE_IB2-ZpPWoUVTwUQAJX5zVnhPN7d_vv1QwPJeas4plK77s58l1kc_rHNnZzYtczOAiJJMFMDiWnbCWmfLj__7y9GVotmq2okWM3MSJiL95m-qTF_XaOGxQtjNtBabUcyAoa43fj6xtvMH6dE_wuVyyxVMrmeM6nop_7eqqM9Es1nwYg5dVy8Qb565WBVfarOAWb5v98ZPO9YtrgrZ3qTAfJl6_Q2w_aJHnBCOUD0g7V-Oz5fuRT_u8373jm7-KpHZ50jPeyYUepQs2WxcRRBso3V2tbZoEUIVmc7CiB6FY9T_mKzLLlu3I2m7CwCb5-2X3SKfTFLWWqB61IBFjvKijKTRRcLj4obPbinHfqRF6cd_ibwZ49fLdXWKgF8OrRY3UF0mtE9I5h6XXE2zQaKO26gVuSE7qSC7gt02ro2w7hysf4Hfhvo_mCWDssId4zBrOn389Wwd_SklhL5fH_Dh_zF64zXNVjTU_ypr784vdO1Yj7cLKWdvEw1Q5U5sBr2sTa66dOsJO0Ew48NHGUvTPKCXLZuVNj0OrXdJvQjWEAURpI7Zm8YMaQSbv04ZhHKwd1c_nk6RLa1_6abp5FyRII5J4qrDG80OVCFV66OrQCPsgBvCQJBpfiKgYwzSHMLIMTmIOC91b9WGCzJo_S467poiQ"
 		},
 		{
 			"key": "delivery_auth",

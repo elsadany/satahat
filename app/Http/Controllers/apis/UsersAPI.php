@@ -470,7 +470,7 @@ class UsersAPI extends Controller {
         $filename = $this->generateRandom($length = 15);
         $filename = $filename . '.' . $exten;
         $file->move($newdir, $filename);
-        return $path . '/' . $filename;
+        return $newdir . '/' . $filename;
     }
 
     private function generateRandom($length = 11) {
