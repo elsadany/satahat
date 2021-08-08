@@ -28,10 +28,15 @@ class AuthApi extends Controller {
         $phone->phone = $request->phone;
         $phone->save();
         $user = User::where('phone', $request->phone)->first();
-        if (!is_object($user))
-            return response()->json(['status' => 404, 'message' => 'phone not found'], 404);
-        else
-            return response()->json(['status' => 201, 'message' => 'success'], 201);
+        // if (is_object($user))
+        //     return response()->json(['status' => 404, 'message' => 'phone is already used'], 404);
+        // else
+            // return response()->json(['status' => 201, 'message' => 'success'], 201);
+        return response()->json([
+            'status' => 201, 
+            'message' => 'success', 
+            'verification_code' =>  $phone->code
+        ], 201);
     }
 
     function confirm(Request $request) {
@@ -54,7 +59,7 @@ class AuthApi extends Controller {
         \App\Models\PhoneCode::where('phone', $request->phone)->delete();
 
         $response['status'] = 200;
-        $response['message'] = 'success';
+        $response['message'] = 'phone is confirmed successfully';
 
         return response()->json($response, 200);
     }
@@ -110,7 +115,7 @@ class AuthApi extends Controller {
         $user = User::where('phone', $request->phone)->first();
 
         if (!is_object($user) || !Hash::check($request->password, $user->password)) {
-            return response()->json(['status' => 404, 'message' => 'incorrect email or password', 'errors' => ['incorrect email or password']]);
+            return response()->json(['status' => 404, 'message' => 'incorrect email or password', 'errors' => ['incorrect email or password']], 404);
         }
 
 
