@@ -24,19 +24,19 @@ class UsersAPI extends Controller {
         }
         $users = $users->paginate(20);
         $arr = ['status' => 200, 'message' => '', 'data' => $users->toArray()];
-        return response()->json($arr);
+        return response()->json($arr, 200);
     }
 
     function myacount(Request $request) {
         $user = $request->user();
         $arr = ['status' => 200, 'message' => '', 'data' => $user->toArray()];
-        return response()->json($arr);
+        return response()->json($arr, 200);
     }
 
     function notifications(Request $request) {
         $user = $request->user();
         $arr = ['status' => 200, 'message' => '', 'data' => \App\Models\Notification::all()->toArray()];
-        return response()->json($arr);
+        return response()->json($arr, 200);
     }
 
     function readNotifications(Request $request) {
@@ -44,13 +44,13 @@ class UsersAPI extends Controller {
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
-            return response()->json(['status' => 500, 'message' => 'Invalide Data', 'errors' => $validator->errors()->all()]);
+            return response()->json(['status' => 422, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()], 422);
         $user = $request->user();
         $notification = \App\Models\Notification::find($request->notification_id);
         $notification->is_read = 1;
         $notification->save();
         $arr = ['status' => 200, 'message' => '', 'message' => 'success'];
-        return response()->json($arr);
+        return response()->json($arr, 200);
     }
 
     function active(Request $request) {
@@ -59,13 +59,13 @@ class UsersAPI extends Controller {
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
-            return response()->json(['status' => 500, 'message' => 'Invalide Data', 'errors' => $validator->errors()->all()]);
+            return response()->json(['status' => 422, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()], 422);
 
         $user = User::find($request->user_id);
         $user->active = $request->active;
         $user->save();
         $arr = ['status' => 200, 'message' => 'success'];
-        return response()->json($arr);
+        return response()->json($arr, 200);
     }
 
     function special(Request $request) {
@@ -74,19 +74,18 @@ class UsersAPI extends Controller {
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
-            return response()->json(['status' => 500, 'message' => 'Invalide Data', 'errors' => $validator->errors()->all()]);
+            return response()->json(['status' => 422, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()], 422);
 
         $user = \App\Models\Family::where('user_id', $request->user_id)->first();
         $user->special = $request->special;
         $user->save();
         $arr = ['status' => 200, 'message' => 'success'];
-        return response()->json($arr);
+        return response()->json($arr, 200);
     }
 
     function updateProfile(Request $request) {
         $rules = [
             'name' => 'required',
-          
             'email' => 'required',
             'phone' => 'required',
             'job_id' => 'required|exists:jobs,id'
@@ -98,7 +97,7 @@ class UsersAPI extends Controller {
             $rules['phone'] = 'required|unique:users,phone';
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
-            return response()->json(['status' => 500, 'message' => 'Invalide Data', 'errors' => $validator->errors()->all()]);
+            return response()->json(['status' => 422, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()], 422);
         $user = $request->user();
         $user->name = $request->name;
         $user->email = $request->email;
@@ -115,7 +114,7 @@ class UsersAPI extends Controller {
         $client->job_id = $request->job_id;
         $client->save();
         $arr = ['status' => 200, 'message' => 'success', 'data' => $user->toArray()];
-        return response()->json($arr);
+        return response()->json($arr, 200);
     }
 
     function updateMaintanerProfile(Request $request) {
@@ -133,7 +132,7 @@ class UsersAPI extends Controller {
             $rules['phone'] = 'required|unique:users,phone';
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
-            return response()->json(['status' => 500, 'message' => 'Invalide Data', 'errors' => $validator->errors()->all()]);
+            return response()->json(['status' => 422, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()], 422);
         $user = $request->user();
         $user->name = $request->name;
         $user->email = $request->email;
@@ -149,7 +148,7 @@ class UsersAPI extends Controller {
 
         $maintaner->save();
         $arr = ['status' => 200, 'message' => 'success', 'data' => $user->toArray()];
-        return response()->json($arr);
+        return response()->json($arr, 200);
     }
 
     function updateDeliveryProfile(Request $request) {
@@ -157,8 +156,8 @@ class UsersAPI extends Controller {
             'name' => 'required',
             'email' => 'required',
             'phone' => 'required',
-          'main_specialist_id'=>'required|exists:main_specialists,id',
-          'secondary_specialist_id'=>'required|exists:secondary_specialists,id',
+            'main_specialist_id'=>'required|exists:main_specialists,id',
+            'secondary_specialist_id'=>'required|exists:secondary_specialists,id',
             'city_id' => 'required|exists:cities,id'
         ];
 
@@ -168,7 +167,7 @@ class UsersAPI extends Controller {
             $rules['phone'] = 'required|unique:users,phone';
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
-            return response()->json(['status' => 500, 'message' => 'Invalide Data', 'errors' => $validator->errors()->all()]);
+            return response()->json(['status' => 422, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()], 422);
         $user = $request->user();
         $user->name = $request->name;
         $user->email = $request->email;
@@ -190,7 +189,7 @@ class UsersAPI extends Controller {
         
         $delivery->save();
         $arr = ['status' => 200, 'message' => 'success', 'data' => $user->toArray()];
-        return response()->json($arr);
+        return response()->json($arr, 200);
     }
 
     function updateDeliveryCar(Request $request){
@@ -198,13 +197,13 @@ class UsersAPI extends Controller {
             'brand_id' => 'required|exists:brands,id',
             'model' => 'required',
             'car_number' => 'required',
-          'insurance_number'=>'required',
+            'insurance_number'=>'required',
         ];
 
         
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
-            return response()->json(['status' => 500, 'message' => 'Invalide Data', 'errors' => $validator->errors()->all()]);  
+            return response()->json(['status' => 422, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()], 422);  
              $delivery = \App\Models\Delivery::find($request->user()->id);
              $delivery->brand_id=$request->brand_id;
              $delivery->model=$request->model;
@@ -216,7 +215,7 @@ class UsersAPI extends Controller {
             $delivery->authorize_image = $this->uploadfile($request->authorize_image);
              $delivery->save();
              $user= User::find($request->user()->id);
-             return response()->json(['status'=>200,'data'=>$user->toArray()]);
+             return response()->json(['status'=>200,'data'=>$user->toArray()], 200);
     }
     function updateDeliverybank(Request $request){
         $rules = [
@@ -228,13 +227,13 @@ class UsersAPI extends Controller {
             $rules['iban_id'] = 'required|unique:delivery,iban_id';
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
-            return response()->json(['status' => 500, 'message' => 'Invalide Data', 'errors' => $validator->errors()->all()]);  
+            return response()->json(['status' => 422, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()], 422);  
              $delivery = \App\Models\Delivery::find($request->user()->id);
            $delivery->iban_id=$request->iban_id;
            $delivery->bank_name=$request->bank_name;
              $delivery->save();
              $user= User::find($request->user()->id);
-             return response()->json(['status'=>200,'data'=>$user->toArray()]);
+             return response()->json(['status'=>200,'data'=>$user->toArray()], 200);
     }
     function updatePassword(Request $request) {
 
@@ -246,8 +245,8 @@ class UsersAPI extends Controller {
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
-            $arr = ['status' => 400, 'message' => $validator->errors()->all()[0], 'errors' => $validator->errors()->all()];
-            return response()->json($arr, 400);
+            $arr = ['status' => 422, 'message' => $validator->errors()->all()[0], 'errors' => $validator->errors()->all()];
+            return response()->json($arr, 422);
         }
 
         $check_password = User::where([
@@ -255,8 +254,8 @@ class UsersAPI extends Controller {
         ])->first();
 
         if(!password_verify($request->old_password, $check_password->password)){
-            $arr = ['status' => 400, 'message' => 'wrong old password', 'errors' => $validator->errors()->all()];
-            return response()->json($arr, 400);
+            $arr = ['status' => 404, 'message' => 'wrong old password', 'errors' => $validator->errors()->all()];
+            return response()->json($arr, 404);
         }
 
         $user = $request->user();
@@ -276,13 +275,13 @@ class UsersAPI extends Controller {
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
-            $arr = ['status' => 400, 'message' => $validator->errors()->all()[0], 'errors' => $validator->errors()->all()];
-            return response()->json($arr, 400);
+            $arr = ['status' => 422, 'message' => $validator->errors()->all()[0], 'errors' => $validator->errors()->all()];
+            return response()->json($arr, 422);
         }
 
         if($request->confirmation_code != '5555'){
-            $arr = ['status' => 400, 'message' => 'invalid confirmation code', 'errors' => $validator->errors()->all()];
-            return response()->json($arr, 400);
+            $arr = ['status' => 404, 'message' => 'invalid confirmation code', 'errors' => $validator->errors()->all()];
+            return response()->json($arr, 404);
         }
 
         $check_phone = User::where([
@@ -304,8 +303,7 @@ class UsersAPI extends Controller {
     public function logout(Request $request) {
         $request->user()->token()->revoke();
         $arr = ['status' => 200, 'message' => 'Successfully logged out'];
-        return response()->json(
-                        $arr);
+        return response()->json($arr, 200);
     }
 
     function getAdreesses(Request $request) {
@@ -313,7 +311,7 @@ class UsersAPI extends Controller {
                     'status' => 200,
                     'message' => trans('messages.success'),
                     'data' => Address::where('user_id', auth()->guard('api')->user()->id)->get()
-        ]);
+        ], 200);
     }
 
     function addAdreess(Request $request) {
@@ -327,7 +325,7 @@ class UsersAPI extends Controller {
         ]);
 
         if ($v->fails())
-            return response()->json(['status' => 500, 'message' => trans('messages.invalide_data'), 'errors' => $v->errors()->all()]);
+            return response()->json(['status' => 422, 'message' => trans('messages.invalide_data'), 'errors' => $v->errors()->all()], 422);
 
         $address = new Address;
         $address->city_id = $request->city_id;
@@ -340,10 +338,10 @@ class UsersAPI extends Controller {
         $address->save();
 
         return response()->json([
-                    'status' => 200,
+                    'status' => 201,
                     'message' => trans('messages.success'),
                     'data' => Address::where('user_id', auth()->guard('api')->user()->id)->get()
-        ]);
+        ], 201);
     }
 
     function updateDeviceId(Request $request) {
@@ -352,11 +350,11 @@ class UsersAPI extends Controller {
         ]);
 
         if ($v->fails())
-            return response()->json(['status' => 500, 'message' => trans('messages.invalide_data'), 'errors' => $v->errors()->all()]);
+            return response()->json(['status' => 422, 'message' => trans('messages.invalide_data'), 'errors' => $v->errors()->all()], 422);
         $user = auth()->guard('api')->user();
         $user->device_id = $request->device_id;
         $user->save();
-        return response()->json(['status' => 200, 'message' => 'success']);
+        return response()->json(['status' => 200, 'message' => 'success'], 200);
     }
 
     function updateAdrress(Request $request) {
@@ -371,11 +369,11 @@ class UsersAPI extends Controller {
         ]);
 
         if ($v->fails())
-            return response()->json(['status' => false, 'message' => trans('messages.invalide_data'), 'errors' => $v->errors()->all()]);
+            return response()->json(['status' => 422, 'message' => trans('messages.invalide_data'), 'errors' => $v->errors()->all()], 422);
 
         $address = Address::where('id', $request->address_id)->where('user_id', $request->user()->id)->first();
         if (!is_object($address))
-            return response()->json(['status' => 500, 'message' => trans('messages.invalide_data'), 'errors' => ['not found']]);
+            return response()->json(['status' => 404, 'message' => trans('messages.invalide_data'), 'errors' => ['not found']], 404);
 
         $address->city_id = $request->city_id;
         $address->address_name = $request->address_name;
@@ -389,7 +387,7 @@ class UsersAPI extends Controller {
                     'status' => 200,
                     'message' => trans('messages.success'),
                     'data' => Address::where('user_id', auth()->guard('api')->user()->id)->get()
-        ]);
+        ], 200);
     }
 
     function orders(Request $request) {
@@ -398,7 +396,7 @@ class UsersAPI extends Controller {
                     'status' => 200,
                     'message' => trans('messages.success'),
                     'data' => $orders->toArray()
-        ]);
+        ], 200);
     }
 
     function showOrder(Request $request) {
@@ -407,20 +405,20 @@ class UsersAPI extends Controller {
                     'status' => 200,
                     'message' => trans('messages.success'),
                     'data' => $order
-        ]);
+        ], 200);
     }
 
     function cancelOrder(Request $request) {
         $order = \App\Models\Order::where('id', $request->order_id)->where('user_id', $request->user()->id)->first();
         if (!is_object($order))
-            return response()->json(['status' => 500, 'errors' => ['Order Not Found']]);
+            return response()->json(['status' => 404, 'errors' => ['Order Not Found']], 404);
         if ($order->status_id > 0)
-            return response()->json(['status' => 500, 'errors' => ['Order cant Not canceled now']]);
+            return response()->json(['status' => 404, 'errors' => ['Order cant Not canceled now']], 404);
         \App\Models\Order::where('id', $request->order_id)->where('user_id', $request->user()->id)->delete();
         return response()->json([
                     'status' => 200,
                     'message' => 'success',
-        ]);
+        ], 200);
     }
 
     function deleteAdrress(Request $request) {
@@ -429,11 +427,11 @@ class UsersAPI extends Controller {
         ]);
 
         if ($v->fails())
-            return response()->json(['status' => 500, 'message' => trans('messages.invalide_data'), 'errors' => $v->errors()->all()]);
+            return response()->json(['status' => 422, 'message' => trans('messages.invalide_data'), 'errors' => $v->errors()->all()], 422);
 
         $address = Address::where('id', $request->address_id)->where('user_id', $request->user()->id)->first();
         if (!is_object($address))
-            return response()->json(['status' => 500, 'message' => trans('messages.invalide_data'), 'errors' => ['not found']]);
+            return response()->json(['status' => 404, 'message' => trans('messages.invalide_data'), 'errors' => ['not found']], 404);
 
         $address->delete();
 
@@ -441,7 +439,7 @@ class UsersAPI extends Controller {
                     'status' => 200,
                     'message' => trans('messages.success'),
                     'data' => Address::where('user_id', auth()->guard('api')->user()->id)->get()
-        ]);
+        ], 200);
     }
 
     function familyStatics(Request $request) {
@@ -453,7 +451,7 @@ class UsersAPI extends Controller {
         $data['complete'] = \App\Models\Order::where('maintener_id', $request->user()->id)->where('status_id', 11)->count();
         $data['cancel'] = \App\Models\Order::where('maintener_id', $request->user()->id)->where('status_id', '>', 11)->count();
 
-        return response()->json(['status' => 200, 'data' => $data]);
+        return response()->json(['status' => 200, 'data' => $data], 200);
     }
 
     private function uploadfile($file) {

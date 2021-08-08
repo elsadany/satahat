@@ -22,11 +22,11 @@ class HomePageApi extends Controller {
         return response()->json([
             'status'=>200,
             'families'=>$families->toArray(),'banners'=>$banners->toArray(),'categories'=>$categories->toArray()
-            ]);
+            ], 200);
     }
     function tags(Request $request){
         $tags= \App\Models\GeneralTag::all();
-        return response()->json(['status'=>200,'data'=>$tags->toArray()]);
+        return response()->json(['status'=>200,'data'=>$tags->toArray()], 200);
     }
     function setting(){
         $setting= Settings::all();
@@ -36,16 +36,16 @@ class HomePageApi extends Controller {
             $arr[$one->key]=$one->value;
         }
         
-         return response()->json(['status'=>200,'data'=>$arr]);
+         return response()->json(['status'=>200,'data'=>$arr], 200);
     }
     function about(Request $request){
        $staticpage= \App\Models\StaticPage::where('slug','about_us')->first();
         $data=["title" =>$staticpage->lang(session('lang_id'))->title,
             'content'=>$staticpage->lang(session('lang_id'))->description
         ];
-         return response()->json(['status'=>200,'data'=>$data]);
+         return response()->json(['status'=>200,'data'=>$data], 200);
     }
-            function upload(){
+    function upload(){
         foreach (\App\Models\Product::all() as $one){
             foreach (\App\Models\GeneralTag::all() as $row){
                 $tagpr=new \App\Models\TagsProducts();
@@ -63,13 +63,13 @@ class HomePageApi extends Controller {
                     'message' => 'required',
         ]);
         if ($validator->fails())
-            return response()->json(['status' => 500, 'message' => 'Invalide Data', 'errors' => $validator->errors()->all()]);
+            return response()->json(['status' => 422, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()], 422);
         $contact=new ContactUs();
         $contact->name=$request->name;
         $contact->email=$request->email;
         $contact->subject=$request->subject;
         $contact->message=$request->message;
         $contact->save();
-         return response()->json(['status'=>200,'message'=>'success']);
+         return response()->json(['status'=>200,'message'=>'success'], 200);
     }
 }

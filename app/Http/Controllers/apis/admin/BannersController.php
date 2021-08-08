@@ -13,20 +13,18 @@ class BannersController extends Controller {
         $banners =new \App\Models\Banner;
      
         $banners = $banners->orderBy('id', 'desc')->get();
-        return response()->json(['status' => 200, 'data' => $banners->toArray()]);
+        return response()->json(['status' => 200, 'data' => $banners->toArray()], 200);
     }
 
     function add(Request $request) {
         $rules = [
-            
             'image' => 'required|image',
             'title_ar'=>'required',
             'title_en'=>'required',
-         
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
-            return response()->json(['status' => 500, 'message' => 'Invalide Data', 'errors' => $validator->errors()->all()]);
+            return response()->json(['status' => 422, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()], 422);
         $banner = new \App\Models\Banner();
      
         $banner->image = $this->uploadfile($request->image);
@@ -35,7 +33,7 @@ class BannersController extends Controller {
         $banner->description_ar=$request->description_ar;
         $banner->description_en=$request->description_en;
         $banner->save();
-        return response()->json(['status' => 200, 'message' => 'added']);
+        return response()->json(['status' => 201, 'message' => 'banner added'], 201);
     }
 
     function display(Request $request) {
@@ -44,29 +42,28 @@ class BannersController extends Controller {
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
-            return response()->json(['status' => 500, 'message' => 'Invalide Data', 'errors' => $validator->errors()->all()]);
+            return response()->json(['status' => 422, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()], 422);
         $banner = \App\Models\Banner::where('id', $request->banner_id)->first();
         if (!is_object($banner))
-            return response()->json(['status' => 500, 'message' => 'Invalide Data', 'errors' => ['product Not Found']]);
-        return response()->json(['status' => 200, 'data' => $banner->toArray()]);
+            return response()->json(['status' => 404, 'message' => 'banner not found', 'errors' => ['banner Not Found']]);
+        return response()->json(['status' => 200, 'data' => $banner->toArray()], 200);
     }
 
     function edit(Request $request) {
         $rules = [
             'image' => 'required',
-              'title_ar'=>'required',
+            'title_ar'=>'required',
             'title_en'=>'required',
-         
             'banner_id' => 'required|exists:banners,id'
         ];
         if ($request->has('image'))
             $rules['image'] = 'required|image';
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
-            return response()->json(['status' => 500, 'message' => 'Invalide Data', 'errors' => $validator->errors()->all()]);
+            return response()->json(['status' => 422, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()], 422);
         $banner = \App\Models\Banner::where('id', $request->banner_id)->first();
         if (!is_object($banner))
-            return response()->json(['status' => 500, 'message' => 'Invalide Data', 'errors' => ['product Not Found']]);
+            return response()->json(['status' => 404, 'message' => 'banner not found', 'errors' => ['banner Not Found']], 404);
    if ($request->hasFile('image'))
         $banner->image = $this->uploadfile($request->image);
    $banner->title_ar=$request->title_ar;
@@ -74,7 +71,7 @@ class BannersController extends Controller {
         $banner->description_ar=$request->description_ar;
         $banner->description_en=$request->description_en;
         $banner->save();
-        return response()->json(['status' => 200, 'message' => 'updated']);
+        return response()->json(['status' => 200, 'message' => 'updated'], 200);
     }
 
     function delete(Request $request) {
@@ -84,12 +81,12 @@ class BannersController extends Controller {
 
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
-            return response()->json(['status' => 500, 'message' => 'Invalide Data', 'errors' => $validator->errors()->all()]);
+            return response()->json(['status' => 422, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()], 422);
         $banner = \App\Models\Banner::where('id', $request->banner_id)->first();
         if (!is_object($banner))
-            return response()->json(['status' => 500, 'message' => 'Invalide Data', 'errors' => ['product Not Found']]);
+            return response()->json(['status' => 404, 'message' => 'banner not found', 'errors' => ['banner Not Found']], 404);
         $banner = \App\Models\Banner::where('id', $request->banner_id)->delete();
-        return response()->json(['status' => 200, 'message' => 'deleted']);
+        return response()->json(['status' => 200, 'message' => 'deleted'], 200);
     }
 
     function all(Request $request) {
@@ -109,7 +106,7 @@ class BannersController extends Controller {
                     $bannersarr[$key]['is_fav'] = 1;
             }
         }
-        return response()->json(['status' => 200, 'data' => $bannersarr]);
+        return response()->json(['status' => 200, 'data' => $bannersarr], 200);
     }
 
     function show(Request $request) {
@@ -131,7 +128,7 @@ class BannersController extends Controller {
         }
         $related= \App\Models\Product::where('id','!=',$banner->id)->where('user_id',$banner->user_id)->orderBy('id','desc')->get();
         
-        return response()->json(['status' => 200, 'data' => $bannersarr,'related'=>$related->toArray()]);
+        return response()->json(['status' => 200, 'data' => $bannersarr,'related'=>$related->toArray()], 200);
     }
 
     private function uploadfile($file) {

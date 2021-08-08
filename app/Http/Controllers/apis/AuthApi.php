@@ -19,10 +19,8 @@ class AuthApi extends Controller {
         $validator = \Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
-
-            $arr = ['status' => 500, 'errors' => $validator->errors()->all()];
-
-            return response()->json($arr);
+            $arr = ['status' => 422, 'errors' => $validator->errors()->all()];
+            return response()->json($arr, 422);
         }
 //        dd($this->sendSms('123', '201114591647'));
         $phone = new \App\Models\PhoneCode();
@@ -31,9 +29,9 @@ class AuthApi extends Controller {
         $phone->save();
         $user = User::where('phone', $request->phone)->first();
         if (!is_object($user))
-            return response()->json(['status' => 200, 'message' => 'success']);
+            return response()->json(['status' => 404, 'message' => 'phone not found'], 404);
         else
-            return response()->json(['status' => 201, 'message' => 'success']);
+            return response()->json(['status' => 201, 'message' => 'success'], 201);
     }
 
     function confirm(Request $request) {
@@ -44,26 +42,21 @@ class AuthApi extends Controller {
         $validator = \Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
-
-            $arr = ['status' => 500, 'errors' => $validator->errors()->all()];
-
-            return response()->json($arr);
+            $arr = ['status' => 422, 'errors' => $validator->errors()->all()];
+            return response()->json($arr, 422);
         }
 
         $phone = \App\Models\PhoneCode::where('phone', $request->phone)->where('code', $request->confirm_code)->first();
         if (!is_object($phone)) {
-
-
-            $arr = ['status' => 500, 'errors' => ['error']];
-
-            return response()->json($arr);
+            $arr = ['status' => 404, 'errors' => ['phone not found'], 404];
+            return response()->json($arr, 404);
         }
         \App\Models\PhoneCode::where('phone', $request->phone)->delete();
 
         $response['status'] = 200;
         $response['message'] = 'success';
 
-        return response()->json($response);
+        return response()->json($response, 200);
     }
 
     function register(Request $request) {
@@ -77,7 +70,7 @@ class AuthApi extends Controller {
                         //'remember_me' => 'boolean'
         ]);
         if ($validator->fails())
-            return response()->json(['status' => 500, 'message' => 'Invalide Data', 'errors' => $validator->errors()->all()]);
+            return response()->json(['status' => 422, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()], 422);
         $user = new User();
         $user->email = $request->email;
         $user->name = $request->name;
@@ -94,16 +87,16 @@ class AuthApi extends Controller {
         if ($request->remember_me)
             $token->expires_at = Carbon::now()->addWeeks(1);
         $token->save();
-$user= User::find($user->id);
-        $response['status'] = 200;
-        $response['message'] = 'success';
+        $user= User::find($user->id);
+        $response['status'] = 201;
+        $response['message'] = 'client user registered successfully';
         $response['data'] = [
             'access_token' => $tokenResult->accessToken,
             'token_type' => 'Bearer',
             'expires_at' => Carbon::parse($tokenResult->token->expires_at)->toDateTimeString(),
             'user' => $user->toArray()
         ];
-        return response()->json($response);
+        return response()->json($response, 201);
     }
 
     function login(Request $request) {
@@ -113,11 +106,11 @@ $user= User::find($user->id);
                         //'remember_me' => 'boolean'
         ]);
         if ($validator->fails())
-            return response()->json(['status' => 500, 'message' => 'Invalide Data', 'errors' => $validator->errors()->all()]);
+            return response()->json(['status' => 422, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()], 422);
         $user = User::where('phone', $request->phone)->first();
 
         if (!is_object($user) || !Hash::check($request->password, $user->password)) {
-            return response()->json(['status' => 500, 'message' => 'incorrect email or password', 'errors' => ['incorrect email or password']]);
+            return response()->json(['status' => 404, 'message' => 'incorrect email or password', 'errors' => ['incorrect email or password']]);
         }
 
 
@@ -128,7 +121,7 @@ $user= User::find($user->id);
         $token->save();
 
         $response['status'] = 200;
-        $response['message'] = 'success';
+        $response['message'] = 'login successfully';
         $response['data'] = [
             'access_token' => $tokenResult->accessToken,
             'token_type' => 'Bearer',
@@ -136,7 +129,7 @@ $user= User::find($user->id);
             'remember' => $request->remember_me ? true : false,
             'user' => $user->toArray()
         ];
-        return response()->json($response);
+        return response()->json($response, 200);
     }
 
     function delivaryRegister(Request $request) {
@@ -146,7 +139,7 @@ $user= User::find($user->id);
             'confirm_password' => 'required|string|same:password',
             'phone' => 'required|numeric|unique:users,phone',
             'name' => 'required',
-          'main_specialist_id'=>'required|exists:main_specialists,id',
+            'main_specialist_id'=>'required|exists:main_specialists,id',
             'secondary_specialist_id'=>'required|exists:secondary_specialists,id',
             'brand_id'=>'required|exists:brands,id',
             'city_id'=>'required|exists:cities,id',
@@ -162,7 +155,7 @@ $user= User::find($user->id);
 
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
-            return response()->json(['status' => 500, 'message' => 'Invalide Data', 'errors' => $validator->errors()->all()]);
+            return response()->json(['status' => 422, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()], 422);
         $user = new User();
         $user->email = $request->email;
         $user->phone = $request->phone;
@@ -192,10 +185,10 @@ $user= User::find($user->id);
 //        if ($request->remember_me)
         $token->expires_at = Carbon::now()->addWeeks(2);
         $token->save();
-$user= User::find($user->id);
+        $user= User::find($user->id);
 
-        $arr['status'] = 200;
-        $arr['message'] = 'success';
+        $arr['status'] = 201;
+        $arr['message'] = 'delivery user registered successfully';
         $arr['data'] = [
             'access_token' => $tokenResult->accessToken,
             'token_type' => 'Bearer',
@@ -204,10 +197,8 @@ $user= User::find($user->id);
             )->toDateTimeString(),
             'user' => $user->toArray()
         ];
-        return response()->json($arr);
+        return response()->json($arr, 201);
     }
-
-
 
     function loginSocial(Request $request) {
         $validator = Validator::make($request->all(), [
@@ -215,7 +206,7 @@ $user= User::find($user->id);
                     'name' => 'required|string',
         ]);
         if ($validator->fails())
-            return response()->json(['status' => 500, 'message' => 'Invalide Data', 'errors' => $validator->errors()->all()]);
+            return response()->json(['status' => 422, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()], 422);
         $user = User::where('email', $request->email)->first();
 
         if (!is_object($user)) {
@@ -239,11 +230,11 @@ $user= User::find($user->id);
             'access_token' => $tokenResult->accessToken,
             'token_type' => 'Bearer',
             'expires_at' => Carbon::parse(
-                    $tokenResult->token->expires_at
+                $tokenResult->token->expires_at
             )->toDateTimeString(),
             'userdata' => $user->toArray()
         ];
-        return response()->json($arr);
+        return response()->json($arr, 200);
     }
 
     private function uploadfile($file) {

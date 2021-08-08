@@ -17,13 +17,13 @@ class RateApi extends Controller {
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
-            return response()->json(['status' => 500, 'message' => 'Invalide Data', 'errors' => $validator->errors()->all()]);
+            return response()->json(['status' => 422, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()], 422);
         $rate = new \App\Models\Rate;
         $rate->delivery_id = $request->delivery_id;
         $rate->user_id = $request->user()->id;
         $rate->comment = $request->comment;
         $rate->save();
-        return response()->json(['status'=>200,'message'=>'success']);
+        return response()->json(['status'=>201,'message'=>'success'], 201);
     }
 
 }

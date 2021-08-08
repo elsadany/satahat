@@ -20,13 +20,12 @@ class AuthApi extends Controller {
                         //'remember_me' => 'boolean'
         ]);
         if ($validator->fails())
-            return response()->json(['status' => 500, 'message' => 'Invalide Data', 'errors' => $validator->errors()->all()]);
+            return response()->json(['status' => 422, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()], 422);
         $user = User::where('email', $request->email)->where('type', 4)->first();
 
         if (!is_object($user) || !Hash::check($request->password, $user->password)) {
-            return response()->json(['status' => 500, 'message' => 'incorrect email or password', 'errors' => ['incorrect email or password']]);
+            return response()->json(['status' => 404, 'message' => 'incorrect email or password', 'errors' => ['incorrect email or password']], 404);
         }
-
 
         $tokenResult = $user->createToken('Personal Access Token');
         $token = $tokenResult->token;
@@ -35,7 +34,7 @@ class AuthApi extends Controller {
         $token->save();
 
         $response['status'] = 200;
-        $response['message'] = 'success';
+        $response['message'] = 'login success';
         $response['data'] = [
             'access_token' => $tokenResult->accessToken,
             'token_type' => 'Bearer',
@@ -43,12 +42,12 @@ class AuthApi extends Controller {
             'remember' => $request->remember_me ? true : false,
             'user' => $user->toArray()
         ];
-        return response()->json($response);
+        return response()->json($response, 200);
     }
       function myacount(Request $request) {
         $user = $request->user();
         $arr = ['status' => 200, 'message' => '', 'data' => $user->toArray()];
-        return response()->json($arr);
+        return response()->json($arr, 200);
     }
 
 }
