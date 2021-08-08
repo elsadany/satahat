@@ -12,7 +12,7 @@ class DeliveriesController extends Controller
         $delivery_users =new \App\Models\User;
      
         $delivery_users = $delivery_users->where('type', '2')->orderBy('id', 'desc')->get();
-        return response()->json(['status' => 200, 'data' => $delivery_users->toArray()]);
+        return response()->json(['status' => 200, 'data' => $delivery_users->toArray()], 200);
     }
 
     function show(Request $request) {
@@ -22,16 +22,16 @@ class DeliveriesController extends Controller
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()){
-            return response()->json(['status' => 500, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()]);
+            return response()->json(['status' => 422, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()], 422);
         }else{
             $delivery_user = \App\Models\User::where([
                 'id' => $request->delivery_user_id,
                 'type' => '2'
                 ])->first();
             if (!is_object($delivery_user)){
-                return response()->json(['status' => 500, 'message' => 'Invalid Data', 'errors' => ['delivery user Not Found']]);
+                return response()->json(['status' => 404, 'message' => 'delivery user Not Found', 'errors' => ['delivery user Not Found']], 404);
             }else{
-                return response()->json(['status' => 200, 'data' => $delivery_user->toArray()]);
+                return response()->json(['status' => 200, 'data' => $delivery_user->toArray()], 200);
             }
         }
     }

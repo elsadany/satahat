@@ -12,7 +12,7 @@ class BrandsController extends Controller
         $brands =new \App\Models\Brand;
      
         $brands = $brands->orderBy('id', 'desc')->get();
-        return response()->json(['status' => 200, 'data' => $brands->toArray()]);
+        return response()->json(['status' => 200, 'data' => $brands->toArray()], 200);
     }
 
     function create(Request $request) {
@@ -23,16 +23,15 @@ class BrandsController extends Controller
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
-            return response()->json(['status' => 500, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()]);
+            return response()->json(['status' => 422, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()], 422);
         $brand = new \App\Models\Brand();
-             $brand->image = $this->uploadfile($request->image);
+        $brand->image = $this->uploadfile($request->image);
 
         $brand->name_ar = $request->name_ar;
         $brand->name_en = $request->name_en;
         
-        
         $brand->save();
-        return response()->json(['status' => 200, 'message' => 'added']);
+        return response()->json(['status' => 201, 'message' => 'added'], 201);
     }
 
     function show(Request $request) {
@@ -42,13 +41,13 @@ class BrandsController extends Controller
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()){
-            return response()->json(['status' => 500, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()]);
+            return response()->json(['status' => 422, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()], 422);
         }else{
             $brand = \App\Models\Brand::where('id', $request->brand_id)->first();
             if (!is_object($brand)){
-                return response()->json(['status' => 500, 'message' => 'Invalid Data', 'errors' => ['brand Not Found']]);
+                return response()->json(['status' => 404, 'message' => 'brand not found', 'errors' => ['brand Not Found']], 404);
             }else{
-                return response()->json(['status' => 200, 'data' => $brand->toArray()]);
+                return response()->json(['status' => 200, 'data' => $brand->toArray()], 200);
             }
         }
     }
@@ -59,26 +58,26 @@ class BrandsController extends Controller
             'name_ar' => 'required',
             'name_en' => 'required',
         ];
-           if ($request->has('image'))
+        if ($request->has('image'))
             $rules['image'] = 'required|image';
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()){
-            return response()->json(['status' => 500, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()]);
+            return response()->json(['status' => 422, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()], 422);
         }else{
             $brand = \App\Models\Brand::where('id', $request->brand_id)->first();
             if (!is_object($brand)){
-                return response()->json(['status' => 500, 'message' => 'Invalid Data', 'errors' => ['brand Not Found']]);
+                return response()->json(['status' => 404, 'message' => 'brand not found', 'errors' => ['brand Not Found']], 404);
             }else{
                 $image=$brand->image;
-                  if ($request->hasFile('image'))
-        $image = $this->uploadfile($request->image);
+                if ($request->hasFile('image'))
+                    $image = $this->uploadfile($request->image);
                 \App\Models\Brand::where('id', $request->brand_id)->update([
                     'name_ar' => $request->name_ar,
                     'name_en' => $request->name_en,
                     'image'=>$image
                 ]);
 
-                return response()->json(['status' => 200, 'message' => 'updated']);
+                return response()->json(['status' => 200, 'message' => 'updated'], 200);
             }
         }
     }
@@ -90,14 +89,14 @@ class BrandsController extends Controller
 
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()){
-            return response()->json(['status' => 500, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()]);
+            return response()->json(['status' => 422, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()], 422);
         }else{
             $brand = \App\Models\Brand::where('id', $request->brand_id)->first();
             if (!is_object($brand)){
-                return response()->json(['status' => 500, 'message' => 'Invalid Data', 'errors' => ['brand Not Found']]);
+                return response()->json(['status' => 404, 'message' => 'brand not found', 'errors' => ['brand Not Found']], 404);
             }else{
                 $brand = \App\Models\Brand::where('id', $request->brand_id)->delete();
-                return response()->json(['status' => 200, 'message' => 'deleted']);
+                return response()->json(['status' => 200, 'message' => 'deleted'], 200);
             }
         }
     }

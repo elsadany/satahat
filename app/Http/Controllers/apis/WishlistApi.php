@@ -14,7 +14,7 @@ class WishlistApi extends Controller {
     function index(Request $request) {
         $wishlists = Wishlist::where('user_id', $request->user()->id)->pluck('product_id')->toArray();
         $products = \App\Models\Product::whereIn('id', $wishlists)->orderBy('id', 'desc')->get();
-        return response()->json(['status' => 200, 'data' => $products->toArray()]);
+        return response()->json(['status' => 200, 'data' => $products->toArray()], 200);
     }
 
     function add(Request $request) {
@@ -22,7 +22,7 @@ class WishlistApi extends Controller {
                     'product_id' => 'required|exists:products,id',
         ]);
         if ($validator->fails())
-            return response()->json(['status' => 500, 'message' => 'Invalide Data', 'errors' => $validator->errors()->all()]);
+            return response()->json(['status' => 422, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()], 422);
 
         $wishlist = Wishlist::where('user_id', $request->user()->id)->where('product_id', $request->product_id)->first();
         if (!is_object($wishlist))
@@ -30,19 +30,19 @@ class WishlistApi extends Controller {
         $wishlist->user_id = $request->user()->id;
         $wishlist->product_id = $request->product_id;
         $wishlist->save();
-        return response()->json(['status' => 200, 'message' => 'success']);
+        return response()->json(['status' => 201, 'message' => 'success'], 201);
     }
     function delete(Request $request){
        $validator = \Validator::make($request->all(), [
                     'product_id' => 'required|exists:products,id',
         ]);
         if ($validator->fails())
-            return response()->json(['status' => 500, 'message' => 'Invalide Data', 'errors' => $validator->errors()->all()]);
-   $wishlist = Wishlist::where('user_id', $request->user()->id)->where('product_id', $request->product_id)->first();
+            return response()->json(['status' => 422, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()], 422);
+        $wishlist = Wishlist::where('user_id', $request->user()->id)->where('product_id', $request->product_id)->first();
         if (!is_object($wishlist))
-            return response()->json(['status' => 500, 'message' => 'Invalide Data', 'errors' => ['not in wishlist']]);
+            return response()->json(['status' => 404, 'message' => 'Invalid Data', 'errors' => ['not in wishlist']], 404);
         Wishlist::where('user_id', $request->user()->id)->where('product_id', $request->product_id)->delete();
-          return response()->json(['status' => 200, 'message' =>'success' ]);
+          return response()->json(['status' => 200, 'message' =>'success'], 200);
     }
 
 }

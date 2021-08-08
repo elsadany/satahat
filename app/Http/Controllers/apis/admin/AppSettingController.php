@@ -11,7 +11,7 @@ class AppSettingController extends Controller
     public function index(Request $request)
     {
       $setting= \App\Models\AppSetting::first();
-        return response()->json(['status' => 200, 'data' => $setting->toArray()]);
+        return response()->json(['status' => 200, 'data' => $setting->toArray()], 200);
     }
 
     function update(Request $request) {
@@ -21,7 +21,7 @@ class AppSettingController extends Controller
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
-            return response()->json(['status' => 500, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()]);
+            return response()->json(['status' => 422, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()], 422);
         $setting = new \App\Models\AppSetting();
         
 
@@ -29,7 +29,7 @@ class AppSettingController extends Controller
         $setting->app_precent = $request->app_precent;
         
         $setting->save();
-        return response()->json(['status' => 200, 'message' => 'updated']);
+        return response()->json(['status' => 200, 'message' => 'updated'], 200);
     }
 
 

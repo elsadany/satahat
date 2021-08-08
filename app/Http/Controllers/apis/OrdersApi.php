@@ -25,7 +25,7 @@ class OrdersApi extends Controller {
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
-            return response()->json(['status' => 500, 'message' => 'Invalide Data', 'errors' => $validator->errors()->all()]);
+            return response()->json(['status' => 422, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()], 422);
         $order = new \App\Models\Order();
         $order->user_id = $request->user()->id;
         $fromdata=$this->getCityFromLatLng($request->from_lat, $request->from_lng);
@@ -47,7 +47,7 @@ class OrdersApi extends Controller {
 
 
 
-        return response()->json(['status' => 200, 'message' => 'success', 'data' => $order->toArray()]);
+        return response()->json(['status' => 200, 'message' => 'success', 'data' => $order->toArray()], 200);
     }
 
     function cancelOrder(Request $request) {
@@ -56,17 +56,17 @@ class OrdersApi extends Controller {
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
-            return response()->json(['status' => 500, 'message' => 'Invalide Data', 'errors' => $validator->errors()->all()]);
+            return response()->json(['status' => 422, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()], 422);
         $order = \App\Models\Order::where('user_id', $request->user()->id)->where('id', $request->order_id)->first();
         if (!is_object($order))
-            return response()->json(['status' => 500, 'errors' => ['not found']]);
+            return response()->json(['status' => 404, 'errors' => ['not found']], 404);
         if ($order->status_id > 0)
-            return response()->json(['status' => 500, 'errors' => ['it cant be cancelled']]);
+            return response()->json(['status' => 400, 'errors' => ['it cant be cancelled']], 400);
 
         $order->status_id = 3;
         $order->reason = $request->reason;
         $order->save();
-        return response()->json(['status' => 200, 'message' => 'success']);
+        return response()->json(['status' => 200, 'message' => 'success'], 200);
     }
 
     function userOrders(Request $request) {
@@ -74,7 +74,7 @@ class OrdersApi extends Controller {
         if($request->status_id!='')
             $orders=$orders->where('status_id',$request->status_id);
                 $orders=$orders->paginate(15);
-        return response()->json(['status' => 200, 'data' => $orders->toArray()]);
+        return response()->json(['status' => 200, 'data' => $orders->toArray()], 200);
     }
 
     public function notification($token, $title, $order, $status = 0) {
@@ -119,10 +119,10 @@ class OrdersApi extends Controller {
         if($request->offer==1)
         {
             $ids= \App\Models\Offer::where('delivery_id',$request->user()->id)->pluck('order_id')->toArray();
-           $orders=$orders->whereIn('id',$ids); 
+            $orders=$orders->whereIn('id',$ids); 
         }
-                $orders=$orders->get();
-        return response()->json(['status' => 200, 'data' => $orders->toArray()]);
+        $orders=$orders->get();
+        return response()->json(['status' => 200, 'data' => $orders->toArray()], 200);
     }
 
     function DeliveryOrders(Request $request) {
@@ -130,7 +130,7 @@ class OrdersApi extends Controller {
         if ($request->status_id != '')
             $orders = $orders->where('status_id', $request->status_id);
         $orders = $orders->paginate(20);
-        return response()->json(['status' => 200, 'data' => $orders->toArray()]);
+        return response()->json(['status' => 200, 'data' => $orders->toArray()], 200);
     }
 
     function makeOffer(Request $request) {
@@ -139,17 +139,17 @@ class OrdersApi extends Controller {
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
-            return response()->json(['status' => 500, 'message' => 'Invalide Data', 'errors' => $validator->errors()->all()]);
+            return response()->json(['status' => 422, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()], 422);
 
         $offer = \App\Models\Offer::where('delivery_id', $request->user()->id)->where('order_id', $request->order_id)->first();
         if (is_object($offer))
-            return response()->json(['status' => 500, 'errors' => ['You Submitted error before']]);
+            return response()->json(['status' => 409, 'errors' => ['offer is already made']], 409);
         $offer = new \App\Models\Offer();
         $offer->delivery_id = $request->user()->id;
         $offer->offer = $request->offer;
         $offer->order_id = $request->order_id;
         $offer->save();
-        return response()->json(['status' => 200, 'message' => 'success']);
+        return response()->json(['status' => 201, 'message' => 'success'], 201);
     }
 
     function chooseOffer(Request $request) {
@@ -158,22 +158,22 @@ class OrdersApi extends Controller {
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
-            return response()->json(['status' => 500, 'message' => 'Invalide Data', 'errors' => $validator->errors()->all()]);
+            return response()->json(['status' => 422, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()], 422);
         $order = \App\Models\Order::where('id', $request->order_id)->where('user_id', $request->user()->id)->first();
         if (!is_object($order))
-            return response()->json(['status' => 500, 'errors' => ['Order Not Found']]);
+            return response()->json(['status' => 404, 'errors' => ['Order Not Found']], 404);
         if ($order->status_id > 0)
-            return response()->json(['status' => 500, 'errors' => ['Order has Already Offer']]);
+            return response()->json(['status' => 409, 'errors' => ['Order has Already Offer']], 409);
         $offer = \App\Models\Offer::where('id', $request->offer_id)->where('order_id', $request->order_id)->first();
         if (!is_object($offer))
-            return response()->json(['status' => 500, 'errors' => ['Offer Not Found']]);
+            return response()->json(['status' => 404, 'errors' => ['Offer Not Found']], 404);
         $order->offer = $offer->offer;
         $order->delivery_id = $offer->delivery_id;
         $order->status_id = 1;
         $order->save();
         $offer->is_accept = 1;
         $offer->save();
-        return response()->json(['status' => 200, 'message' => 'success']);
+        return response()->json(['status' => 200, 'message' => 'success'], 200);
     }
 
     function finish(Request $request) {
@@ -181,17 +181,15 @@ class OrdersApi extends Controller {
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
-            return response()->json(['status' => 500, 'message' => 'Invalide Data', 'errors' => $validator->errors()->all()]);
+            return response()->json(['status' => 422, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()], 422);
         $order = \App\Models\Order::where('id', $request->order_id)->where('delivery_id', $request->user()->id)->first();
         if (!is_object($order))
-            return response()->json(['status' => 500, 'errors' => ['Order Not Found']]);
-
-
+            return response()->json(['status' => 404, 'errors' => ['Order Not Found']], 404);
 
         $order->status_id = 2;
         $order->save();
 
-        return response()->json(['status' => 200, 'message' => 'success']);
+        return response()->json(['status' => 200, 'message' => 'success'], 200);
     }
 
     function getCityFromLatLng($lat, $lng) {

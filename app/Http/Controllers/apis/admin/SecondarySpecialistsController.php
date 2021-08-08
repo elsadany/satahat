@@ -12,7 +12,7 @@ class SecondarySpecialistsController extends Controller
         $secondary_specialists =new \App\Models\SecondarySpecialist;
      
         $secondary_specialists = $secondary_specialists->orderBy('id', 'desc')->get();
-        return response()->json(['status' => 200, 'data' => $secondary_specialists->toArray()]);
+        return response()->json(['status' => 200, 'data' => $secondary_specialists->toArray()], 200);
     }
 
     function create(Request $request) {
@@ -24,17 +24,16 @@ class SecondarySpecialistsController extends Controller
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()){
-            return response()->json(['status' => 500, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()]);
+            return response()->json(['status' => 422, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()], 422);
         }else{
             $secondary_specialist = new \App\Models\SecondarySpecialist;
-
             $secondary_specialist->name_ar = $request->name_ar;
             $secondary_specialist->name_en = $request->name_en;
             $secondary_specialist->main_specialist_id = $request->main_specialist_id;
             $secondary_specialist->image = $this->uploadfile($request->image);
             
             $secondary_specialist->save();
-            return response()->json(['status' => 200, 'message' => 'added']);
+            return response()->json(['status' => 201, 'message' => 'added'], 201);
         }
     }
 
@@ -44,13 +43,13 @@ class SecondarySpecialistsController extends Controller
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()){
-            return response()->json(['status' => 500, 'message' => 'Invalide Data', 'errors' => $validator->errors()->all()]);
+            return response()->json(['status' => 422, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()], 422);
         }
         $secondary_specialist = \App\Models\SecondarySpecialist::where('id', $request->secondary_specialist_id)->first();
         if (!is_object($secondary_specialist)){
-            return response()->json(['status' => 500, 'message' => 'Invalide Data', 'errors' => ['secondary specialist Not Found']]);
+            return response()->json(['status' => 404, 'message' => 'secondary specialist Not Found', 'errors' => ['secondary specialist Not Found']], 404);
         }
-        return response()->json(['status' => 200, 'data' => $secondary_specialist->toArray()]);
+        return response()->json(['status' => 200, 'data' => $secondary_specialist->toArray()], 200);
     }
 
     function edit(Request $request) {
@@ -65,11 +64,11 @@ class SecondarySpecialistsController extends Controller
         }
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()){
-            return response()->json(['status' => 500, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()]);
+            return response()->json(['status' => 422, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()], 422);
         }else{
             $secondary_specialist = \App\Models\SecondarySpecialist::where('id', $request->secondary_specialist_id)->first();
             if (!is_object($secondary_specialist)){
-                return response()->json(['status' => 500, 'message' => 'Invalid Data', 'errors' => ['secondary specialist Not Found']]);
+                return response()->json(['status' => 404, 'message' => 'secondary specialist Not Found', 'errors' => ['secondary specialist Not Found']], 404);
             }else{
                 if ($request->hasFile('image')){
                     $secondary_specialist->image = $this->uploadfile($request->image);
@@ -81,7 +80,7 @@ class SecondarySpecialistsController extends Controller
                         'image' => $secondary_specialist->image
                     ]);
         
-                    return response()->json(['status' => 200, 'message' => 'updated']);
+                    return response()->json(['status' => 200, 'message' => 'updated'], 200);
                 }else{
                     \App\Models\SecondarySpecialist::where('id', $request->secondary_specialist_id)->update([
                         'name_ar' => $request->name_ar,
@@ -89,7 +88,7 @@ class SecondarySpecialistsController extends Controller
                         'main_specialist_id' => $request->main_specialist_id,
                     ]);
         
-                    return response()->json(['status' => 200, 'message' => 'updated']);
+                    return response()->json(['status' => 200, 'message' => 'updated'], 200);
                 }
             }    
         }  
