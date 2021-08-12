@@ -8,8 +8,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 class SelectsController extends Controller {
 
-   
-   
     function getBrands(Request $request){
         $brands= \App\Models\Brand::all();
         return response()->json(['status' => 200, 'data' => $brands->toArray()], 200);
