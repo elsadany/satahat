@@ -24,8 +24,8 @@ Route::group(['namespace' => 'App\Http\Controllers\apis'], function () {
         Route::get('brands', 'SelectsController@getBrands');
         Route::get('cities', 'SelectsController@getcities');
         Route::get('jobs', 'SelectsController@getJobs');
-                Route::get('specialists', 'SelectsController@getMainspecialists');
-                        Route::get('secondary_specialists', 'SelectsController@getSecondaryspecialists');
+        Route::get('specialists', 'SelectsController@getMainspecialists');
+        Route::get('secondary_specialists', 'SelectsController@getSecondaryspecialists');
         Route::get('colors', 'SelectsController@getColors');
         Route::post('users/register', 'AuthApi@register');
         Route::post('maintaner/register', 'AuthApi@mainanerRegister');
