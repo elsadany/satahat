@@ -71,22 +71,13 @@ class OrdersApi extends Controller {
 
     function userOrders(Request $request) {
 
-        $rules = [
-            'status_id' => 'required|exists:orders,status_id'
-        ];
-
-        $validator = Validator::make($request->all(), $rules);
-
-        if($validator->fails()){
-            return response()->json(['status' => 422, 'message' => 'invalid or missing field', 'errors' => $validator->errors()], 422);
-        }
+       
 
         $orders = \App\Models\Order::where('user_id', $request->user()->id)->orderBy('id', 'desc');
+        if($request->status_id!='')
         $orders=$orders->where('status_id',$request->status_id);
         $orders=$orders->paginate(15);
-        if(!is_object($orders)){
-            dd($orders);
-        }
+       
         return response()->json(['status' => 200, 'data' => $orders->toArray()], 200);   
             
     }

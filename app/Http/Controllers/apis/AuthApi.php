@@ -66,10 +66,10 @@ class AuthApi extends Controller {
 
     function register(Request $request) {
         $validator = Validator::make($request->all(), [
-                    'email' => 'required|string|email|unique:users,email',
+//                    'email' => 'required|string|email|unique:users,email',
                     'phone' => 'required|string|unique:users,phone',
                     'name' => 'required|string',
-                    'job_id' => 'required|exists:jobs,id',
+//                    'job_id' => 'required|exists:jobs,id',
                     'password' => 'required|string',
                     'confirm_password' => 'required|string|same:password',
                         //'remember_me' => 'boolean'
@@ -77,7 +77,7 @@ class AuthApi extends Controller {
         if ($validator->fails())
             return response()->json(['status' => 422, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()], 422);
         $user = new User();
-        $user->email = $request->email;
+//        $user->email = $request->email;
         $user->name = $request->name;
         $user->phone = $request->phone;
         $user->password = Hash::make($request->password);
@@ -85,7 +85,7 @@ class AuthApi extends Controller {
         $user->save();
         $client = new \App\Models\Client;
         $client->user_id = $user->id;
-        $client->job_id = $request->job_id;
+//        $client->job_id = $request->job_id;
         $client->save();
         $tokenResult = $user->createToken('Personal Access Token');
         $token = $tokenResult->token;
@@ -300,5 +300,27 @@ class AuthApi extends Controller {
         return '5555';
         return $randomString;
     }
+ function resetPassword(Request $request) {
+        $rules = [
+            'phone' => 'required|exists:users,phone',
+            'password' => 'required|min:6',
+            'confirm_password' => 'required|same:password'
+        ];
+        $validator = \Validator::make($request->all(), $rules);
 
+        if ($validator->fails()) {
+
+            $arr = ['status' => 422, 'errors' => $validator->errors()->all()];
+
+            return response()->json($arr,422);
+        }
+
+        $user = User::where('phone',$request->phone)->first();
+        $user->password = Hash::make($request->password);
+        $user->save();
+        \App\Models\PhoneCode::where('phone', $request->phone)->delete();
+        $arr = ['status' => 200, 'message' => 'Your password updated successfully, try login now'];
+        return response()->json($arr,200);
+
+    }
 }
