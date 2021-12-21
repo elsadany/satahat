@@ -61,24 +61,26 @@ Route::group(['namespace' => 'App\Http\Controllers\apis'], function () {
             });
 
 
-            Route::group(['middleware' => ['delivery']], function () {
+                  Route::group(['middleware' => ['delivery']], function () {
+                  Route::group(['middleware' => ['active']], function () {
                 Route::post('delivery/update-profile', 'UsersAPI@updateDeliveryProfile');
                 Route::post('delivery/update-car', 'UsersAPI@updateDeliveryCar');
                 Route::post('delivery/update-bank', 'UsersAPI@updateDeliverybank');
+                Route::post('delivery/update-status', 'UsersAPI@updateDeliveryStatus');
 
                 Route::get('orders/finish', 'OrdersApi@finish');
 
                 Route::get('delivery/orders/new', 'OrdersApi@newOrders');
                 Route::get('delivery/orders', 'OrdersApi@DeliveryOrders');
                 Route::post('delivery/make-offer', 'OrdersApi@makeOffer');
-            });
+            }); });
             Route::group(['middleware' => ['admin'], 'prefix' => '/backend'], function () {
 
                 Route::get('orders', 'OrdersApi@all');
                 //users
-                Route::get('users', 'UsersApi@all');
-                Route::get('users/active', 'UsersApi@active');
-                Route::get('users/special', 'UsersApi@special');
+                Route::get('users', 'UsersAPI@all');
+                Route::get('users/active', 'UsersAPI@active');
+                Route::get('users/special', 'UsersAPI@special');
                 //categories
                 Route::get('categories', 'CategoriesController@index');
                 Route::post('categories/add', 'CategoriesController@add');
@@ -125,6 +127,7 @@ Route::group(['namespace' => 'App\Http\Controllers\apis\admin', 'prefix' => 'bac
 
             //main specialists
             Route::get('main-specialists', 'MainSpecialistsController@all');
+            Route::post('main-specialists/reorder', 'MainSpecialistsController@reOrder');
             Route::post('main-specialists/create', 'MainSpecialistsController@create');
             Route::post('main-specialists/edit', 'MainSpecialistsController@edit');
             Route::post('main-specialists/show', 'MainSpecialistsController@show');

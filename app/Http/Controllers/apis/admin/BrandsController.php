@@ -58,7 +58,7 @@ class BrandsController extends Controller
             'name_ar' => 'required',
             'name_en' => 'required',
         ];
-        if ($request->has('image'))
+        if ($request->hasFile('image'))
             $rules['image'] = 'required|image';
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()){

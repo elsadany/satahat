@@ -51,12 +51,12 @@ class BannersController extends Controller {
 
     function edit(Request $request) {
         $rules = [
-            'image' => 'required',
+           
             'title_ar'=>'required',
             'title_en'=>'required',
             'banner_id' => 'required|exists:banners,id'
         ];
-        if ($request->has('image'))
+        if ($request->hasFile('image'))
             $rules['image'] = 'required|image';
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())

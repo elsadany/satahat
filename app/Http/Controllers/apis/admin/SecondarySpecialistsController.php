@@ -59,39 +59,34 @@ class SecondarySpecialistsController extends Controller
             'name_en' => 'required',
             'main_specialist_id' => 'required|exists:main_specialists,id',
         ];
-        if ($request->has('image')){
+        if ($request->hasFile('image')){
             $rules['image'] = 'required|image';
         }
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()){
             return response()->json(['status' => 422, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()], 422);
-        }else{
+        }
             $secondary_specialist = \App\Models\SecondarySpecialist::where('id', $request->secondary_specialist_id)->first();
             if (!is_object($secondary_specialist)){
                 return response()->json(['status' => 404, 'message' => 'secondary specialist Not Found', 'errors' => ['secondary specialist Not Found']], 404);
-            }else{
-                if ($request->hasFile('image')){
-                    $secondary_specialist->image = $this->uploadfile($request->image);
+            }
+            $image=$secondary_specialist->image;
+                if ($request->hasFile('image'))
+                    $image = $this->uploadfile($request->image);
         
                     \App\Models\SecondarySpecialist::where('id', $request->secondary_specialist_id)->update([
                         'name_ar' => $request->name_ar,
                         'name_en' => $request->name_en,
                         'main_specialist_id' => $request->main_specialist_id,
-                        'image' => $secondary_specialist->image
+                        'image' => $image
                     ]);
         
                     return response()->json(['status' => 200, 'message' => 'updated'], 200);
-                }else{
-                    \App\Models\SecondarySpecialist::where('id', $request->secondary_specialist_id)->update([
-                        'name_ar' => $request->name_ar,
-                        'name_en' => $request->name_en,
-                        'main_specialist_id' => $request->main_specialist_id,
-                    ]);
+                
         
-                    return response()->json(['status' => 200, 'message' => 'updated'], 200);
-                }
-            }    
-        }  
+               
+              
+          
     }
 
     function delete(Request $request) {

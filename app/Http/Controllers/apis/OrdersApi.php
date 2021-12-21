@@ -12,7 +12,13 @@ use App\Models\Address;
 use App\Http\Resources\CartsResource;
 
 class OrdersApi extends Controller {
-
+function all(Request $request){
+    $orders=\App\Models\Order::orderBy('id','desc');
+    if($request->status_id!='')
+    $orders=$orders->where('status_id',$request->status_id);
+    $orders=$orders->paginate(20);
+    return response()->json(['status'=>200,'data'=>$orders->toArray()]);
+}
     function index(request $request) {
         $rules = [
             'main_specialist_id' => 'required|exists:main_specialists,id',

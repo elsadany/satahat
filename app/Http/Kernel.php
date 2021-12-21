@@ -69,6 +69,8 @@ class Kernel extends HttpKernel
         'client'=>\App\Http\Middleware\Clientauth::class,
         'family'=>\App\Http\Middleware\Familyauth::class,
         'delivery'=>\App\Http\Middleware\Deliveryauth::class,
+                'active'=>\App\Http\Middleware\apiActive::class,
+
         'admin'=>\App\Http\Middleware\Adminauth::class,
         'start_session'=>\Illuminate\Session\Middleware\StartSession::class
     ];

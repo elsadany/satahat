@@ -12,6 +12,7 @@ class SecondarySpecialist extends Model {
     protected $table = 'secondary_specialists';
     protected $guarded = ['id'];
     public $timestamps = false;
+    protected $with=['mainspecialist'];
    protected $appends = ['name','imagePath'];
    protected $hidden=['main_specialist_id','image'];
            function getImagePathAttribute() {
@@ -26,6 +27,9 @@ class SecondarySpecialist extends Model {
         if(session('language_symbol')=='en')
             return $this->name_en;
         return $this->name_ar;
+    }
+    function mainspecialist(){
+        return $this->belongsTo(MainSpecialist::class,'main_specialist_id');
     }
 
 }

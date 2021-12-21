@@ -80,6 +80,8 @@ class AuthApi extends Controller {
 //        $user->email = $request->email;
         $user->name = $request->name;
         $user->phone = $request->phone;
+             if($request->hasFile('image'))
+            $user->image= $this->uploadfile ($request->file('image'));
         $user->password = Hash::make($request->password);
         $user->type = 1;
         $user->save();

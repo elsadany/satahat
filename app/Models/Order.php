@@ -11,9 +11,12 @@ class Order extends Model {
 
     protected $table = 'orders';
     protected $guarded = ['id'];
-    public $timestamps = false;
+protected $casts = [
+    'created_at'  => 'date:m-d- H:00',
+    // 'updated_at' => 'datetime:Y-m-d H:00',
+];
     protected $appends=['mainSpecialist','secondarySpecialist'];
-    protected $with = ['user','delivery','offers'];
+    protected $with = ['user','delivery','offers','rates'];
 
 
      function delivery() {
@@ -38,5 +41,8 @@ class Order extends Model {
     }
     function offers(){
         return $this->hasMany(Offer::class,'order_id');
+    }
+     function rates(){
+        return $this->hasMany(Rate::class,'order_id')->orderBy('id','desc');
     }
 }

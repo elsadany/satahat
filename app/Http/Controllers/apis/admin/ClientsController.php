@@ -26,7 +26,7 @@ class ClientsController extends Controller
         }else{
             $client = \App\Models\User::where([
                 'id' => $request->client_id,
-                'type' => '1'
+               
                 ])->first();
             if (!is_object($client)){
                 return response()->json(['status' => 404, 'message' => 'Invalid Data', 'errors' => ['client user Not Found']], 404);

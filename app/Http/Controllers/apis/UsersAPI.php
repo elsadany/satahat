@@ -16,11 +16,12 @@ class UsersAPI extends Controller {
 
     function all(request $request) {
         $users = User::where('type', '!=', 4)->orderBy('id', 'desc');
-        if ($request->type != '')
+         if ($request->type != '')
             $users = $users->where('type', $request->type);
-        if ($request->special == 1) {
-            $ids = \App\Models\Family::where('special', 1)->pluck('user_id')->toArray();
-            $users = $users->whereIn('id', $ids);
+      
+        if ($request->active != '') {
+           
+            $users = $users->where('active', $request->active);
         }
         $users = $users->paginate(20);
         $arr = ['status' => 200, 'message' => '', 'data' => $users->toArray()];
@@ -55,7 +56,7 @@ class UsersAPI extends Controller {
 
     function active(Request $request) {
         $rules = ['user_id' => 'required|exists:users,id',
-            'active' => 'boolean'
+            'active' => 'required|integer'
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
@@ -86,13 +87,11 @@ class UsersAPI extends Controller {
     function updateProfile(Request $request) {
         $rules = [
             'name' => 'required',
-            'email' => 'required',
+         
             'phone' => 'required',
-            'job_id' => 'required|exists:jobs,id'
+            //'job_id' => 'required|exists:jobs,id'
         ];
 
-        if ($request->user()->email != $request->email)
-            $rules['email'] = 'required|email|unique:users,email';
         if ($request->user()->phone != $request->phone)
             $rules['phone'] = 'required|unique:users,phone';
         $validator = Validator::make($request->all(), $rules);
@@ -158,7 +157,7 @@ class UsersAPI extends Controller {
             'phone' => 'required',
             'main_specialist_id'=>'required|exists:main_specialists,id',
             'secondary_specialist_id'=>'required|exists:secondary_specialists,id',
-            'city_id' => 'required|exists:cities,id'
+        
         ];
 
         if ($request->user()->email != $request->email)
@@ -181,12 +180,11 @@ class UsersAPI extends Controller {
         $user->save();
         $delivery = \App\Models\Delivery::find($user->id);
      
-        $delivery->city_id = $request->city_id;
+ 
         $delivery->main_specialist_id = $request->main_specialist_id;
         $delivery->secondary_specialist_id = $request->secondary_specialist_id;
          if ($request->hasFile('id_image'))
-            $user->id_image = $this->uploadfile($request->id_image);
-        
+            $delivery->id_image = $this->uploadfile($request->id_image);
         $delivery->save();
         $arr = ['status' => 200, 'message' => 'success', 'data' => $user->toArray()];
         return response()->json($arr, 200);
@@ -231,6 +229,23 @@ class UsersAPI extends Controller {
              $delivery = \App\Models\Delivery::find($request->user()->id);
            $delivery->iban_id=$request->iban_id;
            $delivery->bank_name=$request->bank_name;
+             $delivery->save();
+             $user= User::find($request->user()->id);
+             return response()->json(['status'=>200,'data'=>$user->toArray()], 200);
+    }
+    function updateDeliveryStatus(Request $request){
+        $rules = [
+            'status'=>'required|boolean',
+         
+        ];
+
+     
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails())
+            return response()->json(['status' => 422, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()], 422);  
+             $delivery = \App\Models\Delivery::find($request->user()->id);
+           $delivery->status=$request->status;
+      
              $delivery->save();
              $user= User::find($request->user()->id);
              return response()->json(['status'=>200,'data'=>$user->toArray()], 200);
