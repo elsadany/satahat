@@ -212,7 +212,7 @@ function all(Request $request){
         $response = $client->request('GET', $endpoint, ['query' => [
                 'latlng' => $lat . ',' . $lng,
                 'sensor' => true,
-                'key' => 'AIzaSyAylzC-TDTEVjgHp5EI1ofRN5Jhdrekrhg',
+//                 
         ]]);
 
 
