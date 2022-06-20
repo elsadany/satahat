@@ -7,91 +7,92 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Validator;
 
-class BannersController extends Controller {
+class TestimonialsController extends Controller {
 
     function index(Request $request) {
-        $banners =new \App\Models\Banner;
+        $testimonials =new \App\Models\Testimonial;
      
-        $banners = $banners->orderBy('id', 'desc')->get();
-        return response()->json(['status' => true, 'data' => $banners->toArray()]);
+        $testimonials = $testimonials->orderBy('id', 'desc')->get();
+        return response()->json(['status' => true, 'data' => $testimonials->toArray()]);
     }
 
     function add(Request $request) {
         $rules = [
-            'image' => 'required|image',
-            'title_ar'=>'required',
-            'title_en'=>'required',
+            
+            'name_ar'=>'required',
+            'name_en'=>'required',
+            'description_ar'=>'required',
+            'description_en'=>'required',
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
             return response()->json(['status' => false, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()]);
-        $banner = new \App\Models\Banner();
+        $testimonial = new \App\Models\Testimonial();
      
-        $banner->image = $this->uploadfile($request->image);
-        $banner->title_ar=$request->title_ar;
-        $banner->title_en=$request->title_en;
-        $banner->description_ar=$request->description_ar;
-        $banner->description_en=$request->description_en;
-        $banner->save();
-        return response()->json(['status' => true, 'message' => 'banner added']);
+        $testimonial->name_ar=$request->name_ar;
+        $testimonial->name_en=$request->name_en;
+        $testimonial->description_ar=$request->description_ar;
+        $testimonial->description_en=$request->description_en;
+        $testimonial->save();
+        return response()->json(['status' => true, 'message' => 'testimonial added']);
     }
 
     function display(Request $request) {
         $rules = [
-            'banner_id' => 'required|exists:banners,id'
+            'testimonial_id' => 'required|exists:testimonials,id'
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
             return response()->json(['status' => false, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()]);
-        $banner = \App\Models\Banner::where('id', $request->banner_id)->first();
-        if (!is_object($banner))
-            return response()->json(['status' => false, 'message' => 'banner not found', 'errors' => ['banner Not Found']]);
-        return response()->json(['status' => true, 'data' => $banner->toArray()]);
+        $testimonial = \App\Models\Testimonial::where('id', $request->testimonial_id)->first();
+        if (!is_object($testimonial))
+            return response()->json(['status' => false, 'message' => 'testimonial not found', 'errors' => ['testimonial Not Found']]);
+        return response()->json(['status' => true, 'data' => $testimonial->toArray()]);
     }
 
     function edit(Request $request) {
         $rules = [
-           
-            'title_ar'=>'required',
-            'title_en'=>'required',
-            'banner_id' => 'required|exists:banners,id'
+            'description_ar'=>'required',
+            'description_en'=>'required',
+            'name_ar'=>'required',
+            'name_en'=>'required',
+            'testimonial_id' => 'required|exists:testimonials,id'
         ];
-        if ($request->hasFile('image'))
-            $rules['image'] = 'required|image';
+      
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
             return response()->json(['status' => false, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()]);
-        $banner = \App\Models\Banner::where('id', $request->banner_id)->first();
-        if (!is_object($banner))
-            return response()->json(['status' => false, 'message' => 'banner not found', 'errors' => ['banner Not Found']]);
+        $testimonial = \App\Models\Testimonial::where('id', $request->testimonial_id)->first();
+        if (!is_object($testimonial))
+            return response()->json(['status' => false, 'message' => 'testimonial not found', 'errors' => ['testimonial Not Found']]);
    if ($request->hasFile('image'))
-        $banner->image = $this->uploadfile($request->image);
-   $banner->title_ar=$request->title_ar;
-        $banner->title_en=$request->title_en;
-        $banner->description_ar=$request->description_ar;
-        $banner->description_en=$request->description_en;
-        $banner->save();
+        $testimonial->image = $this->uploadfile($request->image);
+   $testimonial->name_ar=$request->name_ar;
+        $testimonial->name_en=$request->name_en;
+        $testimonial->description_ar=$request->description_ar;
+        $testimonial->description_en=$request->description_en;
+        $testimonial->save();
         return response()->json(['status' => true, 'message' => 'updated']);
     }
 
     function delete(Request $request) {
         $rules = [
-            'banner_id' => 'required|exists:banners,id'
+            'testimonial_id' => 'required|exists:testimonials,id'
         ];
 
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
             return response()->json(['status' => false, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()]);
-        $banner = \App\Models\Banner::where('id', $request->banner_id)->first();
-        if (!is_object($banner))
-            return response()->json(['status' => false, 'message' => 'banner not found', 'errors' => ['banner Not Found']]);
-        $banner = \App\Models\Banner::where('id', $request->banner_id)->delete();
+        $testimonial = \App\Models\Testimonial::where('id', $request->testimonial_id)->first();
+        if (!is_object($testimonial))
+            return response()->json(['status' => false, 'message' => 'testimonial not found', 'errors' => ['testimonial Not Found']]);
+        $testimonial = \App\Models\Testimonial::where('id', $request->testimonial_id)->delete();
         return response()->json(['status' => true, 'message' => 'deleted']);
     }
 
    
     private function uploadfile($file) {
-        $path = 'uploads/banners';
+        $path = 'uploads/testimonials';
         if (!file_exists($path)) {
             mkdir($path, 0775);
         }

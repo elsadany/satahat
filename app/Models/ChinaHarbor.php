@@ -1,23 +1,26 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class City extends Model {
+class ChinaHarbor extends Model {
 
     use HasFactory;
 
-  
+   
+    protected $guarded = ['id'];
     public $timestamps = false;
-
+   
     protected $appends = ['name'];
 
-    function getNameAttribute(){
+ 
+      function getNameattribute(){
         if(session('language_symbol')=='en')
             return $this->name_en;
         return $this->name_ar;
     }
+      
 
 }
-

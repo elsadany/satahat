@@ -15,7 +15,7 @@ class LanguageMiddleWare {
       }  
       \Session::put('language_symbol',$language);
 
-            
+      app()->setLocale($language);   
         return $next($request);
     }
 

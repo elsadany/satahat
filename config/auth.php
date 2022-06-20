@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Admin;
+
 return [
 
     /*
@@ -47,13 +49,10 @@ return [
             'hash' => false,
         ],
         'admin'=>[
-            'driver'=>'session',
-            'provider'=>'myusers'
+            'driver'=>'passport',
+            'provider'=>'admins'
         ],
-        'shop'=>[
-            'driver'=>'session',
-            'provider'=>'users'
-        ]
+     
     ],
 
     /*
@@ -78,9 +77,9 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
-        'myusers'=>[
+        'admins'=>[
             'driver'=>'eloquent',
-            'model'=>ElsayedNofal\BackendUsers\Models\User::class,
+            'model'=>Admin::class,
         ]
 
         // 'users' => [

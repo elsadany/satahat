@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\apis;
+namespace App\Http\Controllers\apis\admin;
 
 use App\Models\User;
 use App\Models\Address;
@@ -10,21 +10,34 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\OrdersResource;
+use App\Models\Admin;
 use Illuminate\Support\Facades\Auth;
 
 class UsersAPI extends Controller {
 
     function all(request $request) {
-        $users = User::where('type', '!=', 4)->orderBy('id', 'desc');
-         if ($request->type != '')
-            $users = $users->where('type', $request->type);
+        $users = User::orderBy('id', 'desc');
       
         if ($request->active != '') {
            
             $users = $users->where('active', $request->active);
         }
         $users = $users->paginate(20);
-        $arr = ['status' => 200, 'message' => '', 'data' => $users->toArray()];
+        $arr = ['status' => true, 'message' => '', 'data' => $users->toArray()];
+        return response()->json($arr, 200);
+    }
+    function active(request $request) {
+      $rules=[
+          'user_id'=>'required|exists:users,id',
+          'active'=>'required|boolean'
+      ];
+      $validator = Validator::make($request->all(), $rules);
+      if ($validator->fails())
+          return response()->json(['status' => false, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()]);
+   $user=User::find($request->user_id);
+   $user->active=$request->active;
+   $user->save();
+        $arr = ['status' => true, 'message' => '', 'data' => $user->toArray()];
         return response()->json($arr, 200);
     }
 
@@ -60,28 +73,15 @@ class UsersAPI extends Controller {
         $rules = [
             'name' => 'required',
          
-            'phone' => 'required',
-            //'job_id' => 'required|exists:jobs,id'
+           
         ];
 
-        if ($request->user()->phone != $request->phone)
-            $rules['phone'] = 'required|unique:users,phone';
-              if ( $request->email!='')
-            $rules['email'] = 'required|unique:users,email,'.$request->user()->id;
-        $validator = Validator::make($request->all(), $rules,['email.required'=>trans('auth.email_required')
-            ,'email.unique'=>trans('auth.email_unique')
-             ,'name.required'=>trans('auth.name_required')
-             ,'phone.required'=>trans('auth.phone_required'),
-            'phone.unique'=>trans('auth.phone_exists'),
-            'password.required'=>trans('auth.password_required'),
-         
-            ]);
+        $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
-            return response()->json(['status' => 422, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()], 422);
+            return response()->json(['status' => false, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()]);
         $user = $request->user();
         $user->name = $request->name;
-            $user->name = $request->name;
-        $user->email = $request->email;
+      
         if($request->password!='')
             $user->password= Hash::make($request->password);
         if ($request->hasFile('image'))
@@ -96,35 +96,30 @@ class UsersAPI extends Controller {
     function updatePassword(Request $request) {
 
         $rules = [
-            'old_password' => 'required',
-            'password' => 'required|min:6',
+            'old_password' => 'required|string',
+            'password' => 'required|string',
             'confirm_password' => 'required|same:password'
         ];
-        $validator = Validator::make($request->all(), $rules,[  
-            'old_password.required'=>trans('auth.old_password_required'),
-            'password.required'=>trans('auth.password_required'),
-         
-              'confirm_password.required'=>trans('auth.confirm_password_required'),
-             'confirm_password.same'=>trans('auth.confirm_password_same')]);
+        $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
-            $arr = ['status' => 422, 'message' => $validator->errors()->all()[0], 'errors' => $validator->errors()->all()];
-            return response()->json($arr, 422);
+            $arr = ['status' => false, 'message' => $validator->errors()->all()[0], 'errors' => $validator->errors()->all()];
+            return response()->json($arr);
         }
 
-        $check_password = User::where([
+        $check_password = Admin::where([
             'id' => Auth::user()->id,
         ])->first();
 
         if(!password_verify($request->old_password, $check_password->password)){
-            $arr = ['status' => 404, 'message' => trans('auth.old_password_wrong'), 'errors' => [trans('auth.old_password_wrong')]];
-            return response()->json($arr, 404);
+            $arr = ['status' => false, 'message' => 'wrong old password', 'errors' => $validator->errors()->all()];
+            return response()->json($arr);
         }
 
         $user = $request->user();
         $user->password = Hash::make($request->password);
         $user->save();
-        $arr = ['status' => 200, 'message' => 'password changed successfully', 'data' => ''];
+        $arr = ['status' => true, 'message' => 'password changed successfully', 'data' => ''];
         return response()->json($arr, 200);
     }
 

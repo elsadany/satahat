@@ -7,13 +7,13 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Validator;
 
-class BannersController extends Controller {
+class ServicesController extends Controller {
 
     function index(Request $request) {
-        $banners =new \App\Models\Banner;
+        $services =new \App\Models\Service;
      
-        $banners = $banners->orderBy('id', 'desc')->get();
-        return response()->json(['status' => true, 'data' => $banners->toArray()]);
+        $services = $services->orderBy('id', 'desc')->get();
+        return response()->json(['status' => true, 'data' => $services->toArray()]);
     }
 
     function add(Request $request) {
@@ -25,28 +25,28 @@ class BannersController extends Controller {
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
             return response()->json(['status' => false, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()]);
-        $banner = new \App\Models\Banner();
+        $service = new \App\Models\Service();
      
-        $banner->image = $this->uploadfile($request->image);
-        $banner->title_ar=$request->title_ar;
-        $banner->title_en=$request->title_en;
-        $banner->description_ar=$request->description_ar;
-        $banner->description_en=$request->description_en;
-        $banner->save();
-        return response()->json(['status' => true, 'message' => 'banner added']);
+        $service->image = $this->uploadfile($request->image);
+        $service->title_ar=$request->title_ar;
+        $service->title_en=$request->title_en;
+        $service->description_ar=$request->description_ar;
+        $service->description_en=$request->description_en;
+        $service->save();
+        return response()->json(['status' => true, 'message' => 'service added']);
     }
 
     function display(Request $request) {
         $rules = [
-            'banner_id' => 'required|exists:banners,id'
+            'service_id' => 'required|exists:services,id'
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
             return response()->json(['status' => false, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()]);
-        $banner = \App\Models\Banner::where('id', $request->banner_id)->first();
-        if (!is_object($banner))
-            return response()->json(['status' => false, 'message' => 'banner not found', 'errors' => ['banner Not Found']]);
-        return response()->json(['status' => true, 'data' => $banner->toArray()]);
+        $service = \App\Models\Service::where('id', $request->service_id)->first();
+        if (!is_object($service))
+            return response()->json(['status' => false, 'message' => 'service not found', 'errors' => ['service Not Found']]);
+        return response()->json(['status' => true, 'data' => $service->toArray()]);
     }
 
     function edit(Request $request) {
@@ -54,44 +54,44 @@ class BannersController extends Controller {
            
             'title_ar'=>'required',
             'title_en'=>'required',
-            'banner_id' => 'required|exists:banners,id'
+            'service_id' => 'required|exists:services,id'
         ];
         if ($request->hasFile('image'))
             $rules['image'] = 'required|image';
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
             return response()->json(['status' => false, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()]);
-        $banner = \App\Models\Banner::where('id', $request->banner_id)->first();
-        if (!is_object($banner))
-            return response()->json(['status' => false, 'message' => 'banner not found', 'errors' => ['banner Not Found']]);
+        $service = \App\Models\Service::where('id', $request->service_id)->first();
+        if (!is_object($service))
+            return response()->json(['status' => false, 'message' => 'service not found', 'errors' => ['service Not Found']]);
    if ($request->hasFile('image'))
-        $banner->image = $this->uploadfile($request->image);
-   $banner->title_ar=$request->title_ar;
-        $banner->title_en=$request->title_en;
-        $banner->description_ar=$request->description_ar;
-        $banner->description_en=$request->description_en;
-        $banner->save();
+        $service->image = $this->uploadfile($request->image);
+   $service->title_ar=$request->title_ar;
+        $service->title_en=$request->title_en;
+        $service->description_ar=$request->description_ar;
+        $service->description_en=$request->description_en;
+        $service->save();
         return response()->json(['status' => true, 'message' => 'updated']);
     }
 
     function delete(Request $request) {
         $rules = [
-            'banner_id' => 'required|exists:banners,id'
+            'service_id' => 'required|exists:services,id'
         ];
 
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
             return response()->json(['status' => false, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()]);
-        $banner = \App\Models\Banner::where('id', $request->banner_id)->first();
-        if (!is_object($banner))
-            return response()->json(['status' => false, 'message' => 'banner not found', 'errors' => ['banner Not Found']]);
-        $banner = \App\Models\Banner::where('id', $request->banner_id)->delete();
+        $service = \App\Models\Service::where('id', $request->service_id)->first();
+        if (!is_object($service))
+            return response()->json(['status' => false, 'message' => 'service not found', 'errors' => ['service Not Found']]);
+        $service = \App\Models\Service::where('id', $request->service_id)->delete();
         return response()->json(['status' => true, 'message' => 'deleted']);
     }
 
    
     private function uploadfile($file) {
-        $path = 'uploads/banners';
+        $path = 'uploads/services';
         if (!file_exists($path)) {
             mkdir($path, 0775);
         }

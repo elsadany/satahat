@@ -15,34 +15,41 @@ protected $casts = [
     'created_at'  => 'date:m-d- H:00',
     // 'updated_at' => 'datetime:Y-m-d H:00',
 ];
-    protected $appends=['mainSpecialist','secondarySpecialist'];
-    protected $with = ['user','delivery','offers','rates'];
+  protected $appends=['remain','invoicefile','listfile'];
+    protected $with = ['user','company','chinaharbor','saudiharbor','shippingType','files'];
 
 
-     function delivery() {
-        return $this->belongsTo(User::class, 'delivery_id');
+     function company() {
+        return $this->belongsTo(Company::class, 'company_id');
     }
   
     function user() {
         return $this->belongsTo(User::class, 'user_id');
     }
-   
-    function getMainSpecialistAttribute(){
-        $specialist= MainSpecialist::find($this->main_specialist_id);
-        if(is_object($specialist))
-            return $specialist->name;
-        return '';
-    }
-    function getSecondarySpecialistAttribute(){
-        $specialist= SecondarySpecialist::find($this->secondary_specialist_id);
-        if(is_object($specialist))
-            return $specialist->name;
-        return '';
-    }
-    function offers(){
-        return $this->hasMany(Offer::class,'order_id');
-    }
-     function rates(){
-        return $this->hasMany(Rate::class,'order_id')->orderBy('id','desc');
-    }
+  function getRemainAttribute(){
+      $payed=OrdersTransaction::where('order_id',$this->id)->sum('payed');
+      return $this->price-$payed;
+  }
+  function getInvoicefileAttribute(){
+      if($this->invoice!='')
+      return url($this->invoice);
+      return 'http://www.africau.edu/images/default/sample.pdf';
+  }
+  function getListfileAttribute(){
+      if($this->invoice!='')
+      return url($this->invoice);
+      return 'http://www.africau.edu/images/default/sample.pdf';
+  }
+  function chinaharbor(){
+      return $this->belongsTo(ChinaHarbor::class,'china_harbor_id');
+  }
+  function saudiharbor(){
+      return $this->belongsTo(SaudiHarbor::class,'saudi_harbor_id');
+  }
+  function shippingType(){
+      return $this->belongsTo(ShipmentType::class,'shipment_type_id');
+  }
+  function files(){
+      return $this->hasMany(OrdersFiles::class,'order_id');
+  }
 }

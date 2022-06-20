@@ -3,99 +3,100 @@
 namespace App\Http\Controllers\apis\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\PromoCode;
 use Illuminate\Http\Request;
 use Validator;
 
-class BrandsController extends Controller
+class PromocodeController extends Controller
 {
     function index(Request $request) {
-        $brands =new \App\Models\CardBrand();
+        $promocodes =new \App\Models\PromoCode();
      
-        $brands = $brands->orderBy('id', 'desc')->get();
-        return response()->json(['status' => true, 'data' => $brands->toArray()], 200);
+        $promocodes = $promocodes->orderBy('id', 'desc')->get();
+        return response()->json(['status' => true, 'data' => $promocodes->toArray()], 200);
     }
 
     function add(Request $request) {
         $rules = [
-            'name_ar' => 'required',
-            'name_en' => 'required',
-            'image'=>'required|image'
+            'code' => 'required|unique:promo_codes,code',
+            'discount_precentage' => 'required|numeric|max:99',
+            'expire_at'=>'required|after:tomorrow|date'
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
             return response()->json(['status' => false, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()]);
-        $brand = new \App\Models\CardBrand();
-        $brand->image = $this->uploadfile($request->image);
+        $promocode = new \App\Models\PromoCode();
+        $promocode->code = $request->code;
 
-        $brand->name_ar = $request->name_ar;
-        $brand->name_en = $request->name_en;
+        $promocode->discount_precentage = $request->discount_precentage;
+        $promocode->expire_at = $request->expire_at;
         
-        $brand->save();
+        $promocode->save();
         return response()->json(['status' => true, 'message' => 'added'] );
     }
 
     function display(Request $request) {
         $rules = [
-            'card_brand_id' => 'required|exists:card_brands,id'
+            'promo_code_id' => 'required|exists:promo_codes,id'
         ];
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()){
             return response()->json(['status' => false, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()]);
         }else{
-            $brand = \App\Models\CardBrand::where('id', $request->card_brand_id)->first();
-            if (!is_object($brand)){
+            $promocode = \App\Models\PromoCode::where('id', $request->promo_code_id)->first();
+            if (!is_object($promocode)){
                 return response()->json(['status' => false, 'message' => 'brand not found', 'errors' => ['brand Not Found']]);
             }else{
-                return response()->json(['status' => true, 'data' => $brand->toArray()]);
+                return response()->json(['status' => true, 'data' => $promocode->toArray()]);
             }
         }
     }
 
     function edit(Request $request) {
+        
         $rules = [
-            'card_brand_id' => 'required|exists:card_brands,id',
-            'name_ar' => 'required',
-            'name_en' => 'required',
+            'promo_code_id' => 'required|exists:promo_codes,id',
+            'discount_precentage' => 'required|numeric|max:99',
+            'expire_at'=>'required|after:tomorrow|date',
+            'code' => 'required',
+
         ];
-        if ($request->hasFile('image'))
-            $rules['image'] = 'required|image';
+      
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()){
             return response()->json(['status' => false, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()]);
-        }else{
-            $brand = \App\Models\CardBrand::where('id', $request->card_brand_id)->first();
-            if (!is_object($brand)){
-                return response()->json(['status' => false, 'message' => 'brand not found', 'errors' => ['brand Not Found']]);
-            }else{
-                $image=$brand->image;
-                if ($request->hasFile('image'))
-                    $image = $this->uploadfile($request->image);
-                \App\Models\CardBrand::where('id', $request->card_brand_id)->update([
-                    'name_ar' => $request->name_ar,
-                    'name_en' => $request->name_en,
-                    'image'=>$image
+        }
+        $promocode=PromoCode::find($request->promo_code_id);
+        $rules['code']='required|unique:promo_codes,code,'.$promocode->id;
+            $promocode = \App\Models\PromoCode::where('id', $request->promo_code_id)->first();
+          
+              
+                \App\Models\PromoCode::where('id', $request->promo_code_id)->update([
+                    'code' => $request->code,
+                    'discount_precentage' => $request->discount_precentage,
+                    'expire_at'=>$request->expire_at
                 ]);
 
                 return response()->json(['status' => 200, 'message' => 'updated'], 200);
-            }
-        }
+            
+        
     }
 
     function delete(Request $request) {
         $rules = [
-            'card_brand_id' => 'required|exists:card_brands,id'
+            'promo_code_id' => 'required|exists:promo_codes,id'
         ];
 
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()){
             return response()->json(['status' => false, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()]);
         }else{
-            $brand = \App\Models\CardBrand::where('id', $request->card_brand_id)->first();
-            if (!is_object($brand)){
+            $promocode = \App\Models\PromoCode::where('id', $request->promo_code_id)->first();
+            if (!is_object($promocode)){
                 return response()->json(['status' => false, 'message' => 'brand not found', 'errors' => ['brand Not Found']]);
             }else{
-                $brand = \App\Models\CardBrand::where('id', $request->card_brand_id)->delete();
+                $promocode = \App\Models\PromoCode::where('id', $request->promo_code_id)->delete();
                 return response()->json(['status' => true, 'message' => 'deleted']);
             }
         }

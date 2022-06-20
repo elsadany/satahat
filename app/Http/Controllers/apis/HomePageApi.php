@@ -11,65 +11,29 @@ use Elsayednofal\BackendLanguages\Models\Languages;
 use App\Models\Settings;
 use App\Models\ContactUs;
 use App\Http\Resources\GeneralTagsResourse;
+use App\Models\Contact;
+
 class HomePageApi extends Controller {
 
-    function index(Request $request){
-        $banners= \App\Models\Banner::all();
-        
-   $ids= \App\Models\Family::where('special',1)->pluck('user_id')->toArray();
-   $families= \App\Models\User::whereIn('id',$ids)->orderBy('id','desc')->get();
-      $categories= \App\Models\Category::orderBy('id','desc')->with(['products'])->get();
-        return response()->json([
-            'status'=>200,
-            'families'=>$families->toArray(),'banners'=>$banners->toArray(),'categories'=>$categories->toArray()
-            ], 200);
-    }
-    function tags(Request $request){
-        $tags= \App\Models\GeneralTag::all();
-        return response()->json(['status'=>200,'data'=>$tags->toArray()], 200);
-    }
-    function setting(){
-        $setting= Settings::all();
-        $arr=[];
-        foreach ($setting as $one)
-        {
-            $arr[$one->key]=$one->value;
-        }
-        
-         return response()->json(['status'=>200,'data'=>$arr], 200);
-    }
-    function about(Request $request){
-       $staticpage= \App\Models\StaticPage::where('slug','about_us')->first();
-        $data=["title" =>$staticpage->lang(session('lang_id'))->title,
-            'content'=>$staticpage->lang(session('lang_id'))->description
-        ];
-         return response()->json(['status'=>200,'data'=>$data], 200);
-    }
-    function upload(){
-        foreach (\App\Models\Product::all() as $one){
-            foreach (\App\Models\GeneralTag::all() as $row){
-                $tagpr=new \App\Models\TagsProducts();
-                $tagpr->tag_id=$row->id;
-                $tagpr->product_id=$one->id;
-                $tagpr->save();
-            }
-        }
-    }
+ 
+   
     function contact(Request $request){
         $validator = \Validator::make($request->all(), [
                     'name' => 'required',
                     'email' => 'required|email',
-                    'subject' => 'required',
+                    'phone' => 'required|numeric',
+                    'title' => 'required',
                     'message' => 'required',
         ]);
         if ($validator->fails())
-            return response()->json(['status' => 422, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()], 422);
-        $contact=new ContactUs();
+            return response()->json(['status' => false, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()]);
+        $contact=new Contact();
         $contact->name=$request->name;
         $contact->email=$request->email;
-        $contact->subject=$request->subject;
+        $contact->email=$request->email;
+        $contact->title=$request->title;
         $contact->message=$request->message;
         $contact->save();
-         return response()->json(['status'=>200,'message'=>'success'], 200);
+         return response()->json(['status'=>true,'message'=>'success'], 200);
     }
 }

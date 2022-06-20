@@ -10,7 +10,7 @@ use Validator;
 use App\Http\Resources\OrdersResource;
 use App\Models\Address;
 use App\Http\Resources\CartsResource;
-
+use Carbon\Carbon;
 class OrdersApi extends Controller {
 function all(Request $request){
     $orders=\App\Models\Order::orderBy('id','desc');
@@ -28,6 +28,7 @@ function all(Request $request){
             'to_lat' => 'required',
             'to_lng' => 'required',
             'pay_method' => 'required',
+            'address'=>'required'
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
@@ -48,9 +49,20 @@ function all(Request $request){
         $order->to_lng = $request->to_lng;
         $order->pay_method = $request->pay_method;
         $order->notes = $request->notes;
-
+    $order->address=$request->address;
+        $order->save();
+        $time=Carbon::now();
+        $order->order_refrence=data('Y',strtotime($time)).date('m',strtotime($time)).date('d',strtotime($time)).$order->id;
         $order->save();
 
+if($request->has('files')&&count($request->files)>0){
+    foreach($request->files as $file){
+        $filerecord=new \App\Models\OrdersFiles();
+        $filerecord->order_id=$order->id;
+        $filerecord->file=$this->uploadfile($file);
+        $filerecord->save();
+    }
+}
 
 
         return response()->json(['status' => 200, 'message' => 'success', 'data' => $order->toArray()], 200);
@@ -243,5 +255,31 @@ function all(Request $request){
 
         return  ['address'=>false,'city'=>false];
     }
+  private function uploadfile($file) {
+        $path = 'uploads/files';
+        if (!file_exists($path)) {
+            mkdir($path, 0775);
+        }
+        $datepath = date('m-Y', strtotime(\Carbon\Carbon::now()));
+        if (!file_exists($path . '/' . $datepath)) {
+            mkdir($path . '/' . $datepath, 0775);
+        }
+        $newdir = $path . '/' . $datepath;
+        $exten = $file->getClientOriginalExtension();
+        $filename = $this->generateRandom($length = 15);
+        $filename = $filename . '.' . $exten;
+        $file->move($newdir, $filename);
+        return $newdir . '/' . $filename;
+    }
 
+    private function generateRandom($length = 11) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = time();
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+
+        return $randomString;
+    }
 }

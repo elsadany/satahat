@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\apis\admin;
 
 use Carbon\Carbon;
-use App\Models\User;
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use Illuminate\Support\Facades\Hash;
 use Validator;
 use App\Models\Cart;
@@ -20,11 +21,11 @@ class AuthApi extends Controller {
                         //'remember_me' => 'boolean'
         ]);
         if ($validator->fails())
-            return response()->json(['status' => 422, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()], 422);
-        $user = User::where('email', $request->email)->where('type', 4)->first();
+            return response()->json(['status' => false, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()]);
+        $user = Admin::where('email', $request->email)->first();
 
         if (!is_object($user) || !Hash::check($request->password, $user->password)) {
-            return response()->json(['status' => 404, 'message' => 'incorrect email or password', 'errors' => ['incorrect email or password']], 404);
+            return response()->json(['status' => false, 'message' => 'incorrect email or password', 'errors' => ['incorrect email or password']]);
         }
 
         $tokenResult = $user->createToken('Personal Access Token');
@@ -33,7 +34,7 @@ class AuthApi extends Controller {
             $token->expires_at = Carbon::now()->addWeeks(1);
         $token->save();
 
-        $response['status'] = 200;
+        $response['status'] = true;
         $response['message'] = 'login success';
         $response['data'] = [
             'access_token' => $tokenResult->accessToken,
@@ -46,7 +47,7 @@ class AuthApi extends Controller {
     }
       function myacount(Request $request) {
         $user = $request->user();
-        $arr = ['status' => 200, 'message' => '', 'data' => $user->toArray()];
+        $arr = ['status' => true, 'message' => '', 'data' => $user->toArray()];
         return response()->json($arr, 200);
     }
 

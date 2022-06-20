@@ -7,91 +7,99 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Validator;
 
-class BannersController extends Controller {
+class InternationalCompaniesController extends Controller {
 
     function index(Request $request) {
-        $banners =new \App\Models\Banner;
+        $companies =new \App\Models\InternationalCompany;
      
-        $banners = $banners->orderBy('id', 'desc')->get();
-        return response()->json(['status' => true, 'data' => $banners->toArray()]);
+        $companies = $companies->orderBy('id', 'desc')->get();
+        return response()->json(['status' => true, 'data' => $companies->toArray()]);
     }
 
     function add(Request $request) {
         $rules = [
             'image' => 'required|image',
-            'title_ar'=>'required',
-            'title_en'=>'required',
+            'name_ar'=>'required',
+            'name_en'=>'required',
+            'price'=>'required',
+            'insaurance'=>'required'
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
             return response()->json(['status' => false, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()]);
-        $banner = new \App\Models\Banner();
+        $company = new \App\Models\InternationalCompany();
      
-        $banner->image = $this->uploadfile($request->image);
-        $banner->title_ar=$request->title_ar;
-        $banner->title_en=$request->title_en;
-        $banner->description_ar=$request->description_ar;
-        $banner->description_en=$request->description_en;
-        $banner->save();
-        return response()->json(['status' => true, 'message' => 'banner added']);
+        $company->image = $this->uploadfile($request->image);
+        $company->name_ar=$request->name_ar;
+        $company->name_en=$request->name_en;
+        $company->description_ar=$request->description_ar;
+        $company->description_en=$request->description_en;
+        $company->insaurance=$request->insaurance;
+        $company->price=$request->price;
+        $company->save();
+        return response()->json(['status' => true, 'message' => 'company added']);
     }
 
     function display(Request $request) {
         $rules = [
-            'banner_id' => 'required|exists:banners,id'
+            'company_id' => 'required|exists:international_companies,id'
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
             return response()->json(['status' => false, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()]);
-        $banner = \App\Models\Banner::where('id', $request->banner_id)->first();
-        if (!is_object($banner))
-            return response()->json(['status' => false, 'message' => 'banner not found', 'errors' => ['banner Not Found']]);
-        return response()->json(['status' => true, 'data' => $banner->toArray()]);
+        $company = \App\Models\InternationalCompany::where('id', $request->company_id)->first();
+        if (!is_object($company))
+            return response()->json(['status' => false, 'message' => 'company not found', 'errors' => ['company Not Found']]);
+        return response()->json(['status' => true, 'data' => $company->toArray()]);
     }
 
     function edit(Request $request) {
         $rules = [
            
-            'title_ar'=>'required',
-            'title_en'=>'required',
-            'banner_id' => 'required|exists:banners,id'
+            'name_ar'=>'required',
+            'name_en'=>'required',
+            'company_id' => 'required|exists:international_companies,id',
+            'price'=>'required',
+            'insaurance'=>'required'
         ];
         if ($request->hasFile('image'))
             $rules['image'] = 'required|image';
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
             return response()->json(['status' => false, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()]);
-        $banner = \App\Models\Banner::where('id', $request->banner_id)->first();
-        if (!is_object($banner))
-            return response()->json(['status' => false, 'message' => 'banner not found', 'errors' => ['banner Not Found']]);
+        $company = \App\Models\InternationalCompany::where('id', $request->company_id)->first();
+        if (!is_object($company))
+            return response()->json(['status' => false, 'message' => 'company not found', 'errors' => ['company Not Found']]);
    if ($request->hasFile('image'))
-        $banner->image = $this->uploadfile($request->image);
-   $banner->title_ar=$request->title_ar;
-        $banner->title_en=$request->title_en;
-        $banner->description_ar=$request->description_ar;
-        $banner->description_en=$request->description_en;
-        $banner->save();
+        $company->image = $this->uploadfile($request->image);
+   $company->name_ar=$request->name_ar;
+        $company->name_en=$request->name_en;
+        $company->description_ar=$request->description_ar;
+        $company->description_en=$request->description_en;
+        $company->insaurance=$request->insaurance;
+        $company->price=$request->price;
+        $company->save();
         return response()->json(['status' => true, 'message' => 'updated']);
     }
 
     function delete(Request $request) {
         $rules = [
-            'banner_id' => 'required|exists:banners,id'
+            'company_id' => 'required|exists:international_companies,id'
         ];
 
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
             return response()->json(['status' => false, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()]);
-        $banner = \App\Models\Banner::where('id', $request->banner_id)->first();
-        if (!is_object($banner))
-            return response()->json(['status' => false, 'message' => 'banner not found', 'errors' => ['banner Not Found']]);
-        $banner = \App\Models\Banner::where('id', $request->banner_id)->delete();
+        $company = \App\Models\InternationalCompany::where('id', $request->company_id)->first();
+        if (!is_object($company))
+            return response()->json(['status' => false, 'message' => 'company not found', 'errors' => ['company Not Found']]);
+        $company = \App\Models\InternationalCompany::where('id', $request->company_id)->delete();
         return response()->json(['status' => true, 'message' => 'deleted']);
     }
 
    
     private function uploadfile($file) {
-        $path = 'uploads/banners';
+        $path = 'uploads/companies';
         if (!file_exists($path)) {
             mkdir($path, 0775);
         }

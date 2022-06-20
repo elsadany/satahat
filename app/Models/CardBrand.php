@@ -5,21 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Brand extends Model {
+class CardBrand extends Model {
 
     use HasFactory;
 
-  
-    public $timestamps = false;
+    protected $table = 'card_brands';
+    protected $guarded = ['id'];
 
-    protected $appends = ['name','imagePath'];
+    protected $hidden=['image'];
+    protected $appends = ['imagePath','name'];
 
-    function getNameAttribute(){
-        if(session('language_symbol')=='en')
-            return $this->name_en;
-        return $this->name_ar;
-    }
- function getImagePathAttribute() {
+    function getImagePathAttribute() {
         if ($this->image != '') {
             if (strpos($this->image, "http") !== false)
                 return $this->image;
@@ -27,4 +23,11 @@ class Brand extends Model {
                 return url($this->image);
         }
     }
+      function getNameattribute(){
+        if(session('language_symbol')=='en')
+            return $this->name_en;
+        return $this->name_ar;
+    }
+     
+
 }

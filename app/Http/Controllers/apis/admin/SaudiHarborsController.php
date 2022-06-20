@@ -7,91 +7,87 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Validator;
 
-class BannersController extends Controller {
+class SaudiHarborsController extends Controller {
 
     function index(Request $request) {
-        $banners =new \App\Models\Banner;
+        $saudi_harbors =new \App\Models\SaudiHarbor;
      
-        $banners = $banners->orderBy('id', 'desc')->get();
-        return response()->json(['status' => true, 'data' => $banners->toArray()]);
+        $saudi_harbors = $saudi_harbors->orderBy('id', 'desc')->get();
+        return response()->json(['status' => true, 'data' => $saudi_harbors->toArray()]);
     }
 
     function add(Request $request) {
         $rules = [
-            'image' => 'required|image',
-            'title_ar'=>'required',
-            'title_en'=>'required',
+            
+            'name_ar'=>'required',
+            'name_en'=>'required',
+      
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
             return response()->json(['status' => false, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()]);
-        $banner = new \App\Models\Banner();
+        $saudi_harbor = new \App\Models\SaudiHarbor();
      
-        $banner->image = $this->uploadfile($request->image);
-        $banner->title_ar=$request->title_ar;
-        $banner->title_en=$request->title_en;
-        $banner->description_ar=$request->description_ar;
-        $banner->description_en=$request->description_en;
-        $banner->save();
-        return response()->json(['status' => true, 'message' => 'banner added']);
+        $saudi_harbor->name_ar=$request->name_ar;
+        $saudi_harbor->name_en=$request->name_en;
+   
+        $saudi_harbor->save();
+        return response()->json(['status' => true, 'message' => 'saudi_harbor added']);
     }
 
     function display(Request $request) {
         $rules = [
-            'banner_id' => 'required|exists:banners,id'
+            'saudi_harbor_id' => 'required|exists:saudi_harbors,id'
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
             return response()->json(['status' => false, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()]);
-        $banner = \App\Models\Banner::where('id', $request->banner_id)->first();
-        if (!is_object($banner))
-            return response()->json(['status' => false, 'message' => 'banner not found', 'errors' => ['banner Not Found']]);
-        return response()->json(['status' => true, 'data' => $banner->toArray()]);
+        $saudi_harbor = \App\Models\SaudiHarbor::where('id', $request->saudi_harbor_id)->first();
+        if (!is_object($saudi_harbor))
+            return response()->json(['status' => false, 'message' => 'saudi_harbor not found', 'errors' => ['saudi_harbor Not Found']]);
+        return response()->json(['status' => true, 'data' => $saudi_harbor->toArray()]);
     }
 
     function edit(Request $request) {
         $rules = [
-           
-            'title_ar'=>'required',
-            'title_en'=>'required',
-            'banner_id' => 'required|exists:banners,id'
+        
+            'name_ar'=>'required',
+            'name_en'=>'required',
+            'saudi_harbor_id' => 'required|exists:saudi_harbors,id'
         ];
-        if ($request->hasFile('image'))
-            $rules['image'] = 'required|image';
+      
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
             return response()->json(['status' => false, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()]);
-        $banner = \App\Models\Banner::where('id', $request->banner_id)->first();
-        if (!is_object($banner))
-            return response()->json(['status' => false, 'message' => 'banner not found', 'errors' => ['banner Not Found']]);
-   if ($request->hasFile('image'))
-        $banner->image = $this->uploadfile($request->image);
-   $banner->title_ar=$request->title_ar;
-        $banner->title_en=$request->title_en;
-        $banner->description_ar=$request->description_ar;
-        $banner->description_en=$request->description_en;
-        $banner->save();
+        $saudi_harbor = \App\Models\SaudiHarbor::where('id', $request->saudi_harbor_id)->first();
+        if (!is_object($saudi_harbor))
+            return response()->json(['status' => false, 'message' => 'saudi_harbor not found', 'errors' => ['saudi_harbor Not Found']]);
+
+   $saudi_harbor->name_ar=$request->name_ar;
+        $saudi_harbor->name_en=$request->name_en;
+
+        $saudi_harbor->save();
         return response()->json(['status' => true, 'message' => 'updated']);
     }
 
     function delete(Request $request) {
         $rules = [
-            'banner_id' => 'required|exists:banners,id'
+            'saudi_harbor_id' => 'required|exists:saudi_harbors,id'
         ];
 
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
             return response()->json(['status' => false, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()]);
-        $banner = \App\Models\Banner::where('id', $request->banner_id)->first();
-        if (!is_object($banner))
-            return response()->json(['status' => false, 'message' => 'banner not found', 'errors' => ['banner Not Found']]);
-        $banner = \App\Models\Banner::where('id', $request->banner_id)->delete();
+        $saudi_harbor = \App\Models\SaudiHarbor::where('id', $request->saudi_harbor_id)->first();
+        if (!is_object($saudi_harbor))
+            return response()->json(['status' => false, 'message' => 'Saudi_harbor not found', 'errors' => ['saudi_harbor Not Found']]);
+        $saudi_harbor = \App\Models\saudiHarbor::where('id', $request->saudi_harbor_id)->delete();
         return response()->json(['status' => true, 'message' => 'deleted']);
     }
 
    
     private function uploadfile($file) {
-        $path = 'uploads/banners';
+        $path = 'uploads/testimonials';
         if (!file_exists($path)) {
             mkdir($path, 0775);
         }

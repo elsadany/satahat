@@ -2,96 +2,120 @@
 
 namespace App\Http\Controllers\apis\admin;
 
-use App\Models\User;
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use Validator;
-
-class BannersController extends Controller {
+use App\Models\AdminSections;
+class AdminsController extends Controller {
 
     function index(Request $request) {
-        $banners =new \App\Models\Banner;
+        $admins =\App\Models\Admin::where('role',2);
      
-        $banners = $banners->orderBy('id', 'desc')->get();
-        return response()->json(['status' => true, 'data' => $banners->toArray()]);
+        $admins = $admins->orderBy('id', 'desc')->get();
+        return response()->json(['status' => true, 'data' => $admins->toArray()]);
     }
 
     function add(Request $request) {
         $rules = [
             'image' => 'required|image',
-            'title_ar'=>'required',
-            'title_en'=>'required',
+            'name'=>'required',
+            'email'=>'required|unique:admins,email',
+            'password' => 'required|string',
+            'confirm_password' => 'required|same:password',
+            'company_id'=>'required|exists:companies,id'
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
             return response()->json(['status' => false, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()]);
-        $banner = new \App\Models\Banner();
+        $admin = new \App\Models\Admin();
      
-        $banner->image = $this->uploadfile($request->image);
-        $banner->title_ar=$request->title_ar;
-        $banner->title_en=$request->title_en;
-        $banner->description_ar=$request->description_ar;
-        $banner->description_en=$request->description_en;
-        $banner->save();
-        return response()->json(['status' => true, 'message' => 'banner added']);
+        $admin->image = $this->uploadfile($request->image);
+        $admin->name=$request->name;
+        $admin->email=$request->email;
+        $admin->password=Hash::make($request->password);
+        $admin->company_id=$request->company_id;
+        $admin->role=2;
+        $admin->save();
+        return response()->json(['status' => true, 'message' => 'admin added']);
     }
 
     function display(Request $request) {
         $rules = [
-            'banner_id' => 'required|exists:banners,id'
+            'admin_id' => 'required|exists:admins,id'
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
             return response()->json(['status' => false, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()]);
-        $banner = \App\Models\Banner::where('id', $request->banner_id)->first();
-        if (!is_object($banner))
-            return response()->json(['status' => false, 'message' => 'banner not found', 'errors' => ['banner Not Found']]);
-        return response()->json(['status' => true, 'data' => $banner->toArray()]);
+        $admin = \App\Models\Admin::where('id', $request->admin_id)->first();
+        if (!is_object($admin))
+            return response()->json(['status' => false, 'message' => 'admin not found', 'errors' => ['admin Not Found']]);
+        return response()->json(['status' => true, 'data' => $admin->toArray()]);
     }
 
     function edit(Request $request) {
         $rules = [
            
-            'title_ar'=>'required',
-            'title_en'=>'required',
-            'banner_id' => 'required|exists:banners,id'
+            'name'=>'required',
+            'email'=>'required',
+            'role'=>'required',
+         
+            'admin_id' => 'required|exists:admins,id',
+            'sections'=>'required|array',
+            'sections.*'=>'required'
         ];
         if ($request->hasFile('image'))
             $rules['image'] = 'required|image';
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
             return response()->json(['status' => false, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()]);
-        $banner = \App\Models\Banner::where('id', $request->banner_id)->first();
-        if (!is_object($banner))
-            return response()->json(['status' => false, 'message' => 'banner not found', 'errors' => ['banner Not Found']]);
+        $admin = \App\Models\Admin::where('id', $request->admin_id)->where('id','!=',$request->user()->id)->first();
+        if (!is_object($admin))
+            return response()->json(['status' => false, 'message' => 'admin not found', 'errors' => ['admin Not Found']]);
+            if($request->email!=$admin->email)
+            $rules['email']='required|unique:admins,email';
+            $validator = Validator::make($request->all(), $rules);
+            if ($validator->fails())
+                return response()->json(['status' => false, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()]);
    if ($request->hasFile('image'))
-        $banner->image = $this->uploadfile($request->image);
-   $banner->title_ar=$request->title_ar;
-        $banner->title_en=$request->title_en;
-        $banner->description_ar=$request->description_ar;
-        $banner->description_en=$request->description_en;
-        $banner->save();
+        $admin->image = $this->uploadfile($request->image);
+  
+        $admin->name=$request->name;
+        $admin->email=$request->email;
+        if($request->password!='')
+        $admin->password=Hash::make($request->password);
+        $admin->role=$request->role;
+
+        $admin->save();
+        AdminSections::where('admin_id',$admin->id)->delete();
+        foreach($request->sections as $saction){
+            $section=new AdminSections();
+            $section->section=$saction;
+            $section->admin_id=$admin->id;
+            $section->save();
+        }
         return response()->json(['status' => true, 'message' => 'updated']);
     }
 
     function delete(Request $request) {
         $rules = [
-            'banner_id' => 'required|exists:banners,id'
+            'admin_id' => 'required|exists:admins,id'
         ];
 
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
             return response()->json(['status' => false, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()]);
-        $banner = \App\Models\Banner::where('id', $request->banner_id)->first();
-        if (!is_object($banner))
-            return response()->json(['status' => false, 'message' => 'banner not found', 'errors' => ['banner Not Found']]);
-        $banner = \App\Models\Banner::where('id', $request->banner_id)->delete();
+        $admin = \App\Models\Admin::where('id', $request->admin_id)->where('id','!=',$request->user()->id)->first();
+        if (!is_object($admin))
+            return response()->json(['status' => false, 'message' => 'admin not found', 'errors' => ['admin Not Found']]);
+        $admin = \App\Models\Admin::where('id', $request->admin_id)->where('id','!=',$request->user()->id)->delete();
         return response()->json(['status' => true, 'message' => 'deleted']);
     }
 
    
     private function uploadfile($file) {
-        $path = 'uploads/banners';
+        $path = 'uploads/admins';
         if (!file_exists($path)) {
             mkdir($path, 0775);
         }

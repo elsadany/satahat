@@ -9,34 +9,37 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Validator;
 use App\Models\Cart;
+use App\Models\PhoneCode;
 
 class AuthApi extends Controller {
-
-    function send(Request $request) {
+    function sendSms(Request $request) {
         $rules = [
-            'phone' => 'required',
+            'phone' => 'required|numeric',
         ];
         $validator = \Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
-            $arr = ['status' => 422, 'errors' => $validator->errors()->all()];
-            return response()->json($arr, 422);
+
+            $arr = ['status' => 500, 'errors' => $validator->errors()->all()];
+
+            return response()->json($arr);
         }
-//        dd($this->sendSms('123', '201114591647'));
+        $code = $this->generatemobie(4);
         $phone = new \App\Models\PhoneCode();
-        $phone->code = $this->generatemobie(4);
+        $phone->code = $code;
         $phone->phone = $request->phone;
         $phone->save();
+      
+        // if($response!=false||$response->ErrorCode!='000')
+        //     return response ()->json(['status'=>200,'errors'=>['there are error in sms provider']]);
         $user = User::where('phone', $request->phone)->first();
-        // if (is_object($user))
-        //     return response()->json(['status' => 404, 'message' => 'phone is already used'], 404);
-        // else
-            // return response()->json(['status' => 201, 'message' => 'success'], 201);
-        return response()->json([
-            'status' => 201, 
-            'message' => 'success', 
-            'verification_code' =>  $phone->code
-        ], 201);
+        if (is_object($user))
+            $arr = ['status' => 200, 'message' => 'exists'];
+        else
+            $arr = ['status' => 200, 'message' => 'success'];
+
+
+        return response()->json($arr);
     }
 
     function confirm(Request $request) {
@@ -47,56 +50,67 @@ class AuthApi extends Controller {
         $validator = \Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
-            $arr = ['status' => 422, 'errors' => $validator->errors()->all()];
-            return response()->json($arr, 422);
+
+            $arr = ['status' => 500, 'errors' => $validator->errors()->all()];
+
+            return response()->json($arr);
         }
 
         $phone = \App\Models\PhoneCode::where('phone', $request->phone)->where('code', $request->confirm_code)->first();
         if (!is_object($phone)) {
-            $arr = ['status' => 404, 'errors' => ['phone not found'], 404];
-            return response()->json($arr, 404);
+
+
+            $arr = ['status' => 500, 'errors' => ['error']];
+
+            return response()->json($arr);
         }
         \App\Models\PhoneCode::where('phone', $request->phone)->delete();
-
-        $response['status'] = 200;
-        $response['message'] = 'phone is confirmed successfully';
-
-        return response()->json($response, 200);
+        return response()->json(['status' => 200, 'message' => 'success']);
     }
+    
+
+
 
     function register(Request $request) {
         $validator = Validator::make($request->all(), [
-//                    'email' => 'required|string|email|unique:users,email',
+                   'email' => 'required|string|email|unique:users,email',
                     'phone' => 'required|string|unique:users,phone',
                     'name' => 'required|string',
-//                    'job_id' => 'required|exists:jobs,id',
-                    'password' => 'required|string',
+                    'password' => 'required|string|min:6',
                     'confirm_password' => 'required|string|same:password',
-                        //'remember_me' => 'boolean'
-        ]);
+        ],['email.required'=>trans('auth.email_required')
+            ,'email.unique'=>trans('auth.email_unique')
+            ,'phone.required'=>trans('auth.phone_required'),
+            'phone.unique'=>trans('auth.phone_unique'),
+            'password.required'=>trans('auth.password_required'),
+            'confirm_password.required'=>trans('auth.confirm_password_required'),
+             'confirm_password.same'=>trans('auth.confirm_password_same')
+            ]);
         if ($validator->fails())
-            return response()->json(['status' => 422, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()], 422);
+            return response()->json(['status' => false, 'message' =>$validator->errors()->all()[0], 'errors' => $validator->errors()->all()]);
         $user = new User();
-//        $user->email = $request->email;
+       $user->email = $request->email;
         $user->name = $request->name;
         $user->phone = $request->phone;
              if($request->hasFile('image'))
             $user->image= $this->uploadfile ($request->file('image'));
         $user->password = Hash::make($request->password);
-        $user->type = 1;
+        $user->active=0;
         $user->save();
-        $client = new \App\Models\Client;
-        $client->user_id = $user->id;
-//        $client->job_id = $request->job_id;
-        $client->save();
+       $phonecode=new PhoneCode();
+       $phonecode->code=$this->generatemobie();
+       $phonecode->email=$request->email;
+       $phonecode->user_id=$user->id;
+       $phonecode->save();
+       $this->sendActivationEmail($phonecode->email,$phonecode->code);
         $tokenResult = $user->createToken('Personal Access Token');
         $token = $tokenResult->token;
         if ($request->remember_me)
             $token->expires_at = Carbon::now()->addWeeks(1);
         $token->save();
         $user= User::find($user->id);
-        $response['status'] = 201;
-        $response['message'] = 'client user registered successfully';
+        $response['status'] = true;
+        $response['message'] = trans('auth.success');
         $response['data'] = [
             'access_token' => $tokenResult->accessToken,
             'token_type' => 'Bearer',
@@ -105,19 +119,45 @@ class AuthApi extends Controller {
         ];
         return response()->json($response, 201);
     }
+    function active(Request $request){
+        $validator = Validator::make($request->all(), [
+            'code' => 'required|string|exists:phone_codes,code',
+          
+ ]);
+ if ($validator->fails())
+     return response()->json(['status' => false, 'message' => $validator->errors()->all()[0], 'errors' => $validator->errors()->all()]);
+
+        $phonecode=PhoneCode::where('user_id',$request->user()->id)->where('code',$request->code)->first();
+        if(!is_object($phonecode))
+        return response()->json(['status'=>false,'message'=>'Active code wrong']);
+        $user=User::find($request->user()->id);
+        $user->active=1;
+        $user->save();
+        PhoneCode::where('user_id',$request->user()->id)->delete();
+        return response()->json(['status'=>true,'message'=>'Email Actived Successfully']);
+        
+
+
+
+    }
 
     function login(Request $request) {
         $validator = Validator::make($request->all(), [
                     'phone' => 'required|string|exists:users,phone',
                     'password' => 'required|string',
                         //'remember_me' => 'boolean'
-        ]);
+        ],['email.required'=>trans('auth.email_required')
+            ,'email.exists'=>trans('auth.email_exists')
+           ,
+            'password.required'=>trans('auth.password_required'),
+      
+            ]);
         if ($validator->fails())
             return response()->json(['status' => 422, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()], 422);
-        $user = User::where('phone', $request->phone)->first();
+        $user = User::where('email', $request->email)->first();
 
         if (!is_object($user) || !Hash::check($request->password, $user->password)) {
-            return response()->json(['status' => 404, 'message' => 'incorrect email or password', 'errors' => ['incorrect email or password']], 404);
+            return response()->json(['status' => 404, 'message' =>trans('auth.incorrect_email'), 'errors' => [trans('auth.incorrect_email')]], 404);
         }
 
 
@@ -127,7 +167,7 @@ class AuthApi extends Controller {
             $token->expires_at = Carbon::now()->addWeeks(1);
         $token->save();
 
-        $response['status'] = 200;
+        $response['status'] = true;
         $response['message'] = 'login successfully';
         $response['data'] = [
             'access_token' => $tokenResult->accessToken,
@@ -137,74 +177,6 @@ class AuthApi extends Controller {
             'user' => $user->toArray()
         ];
         return response()->json($response, 200);
-    }
-
-    function delivaryRegister(Request $request) {
-        $rules = [
-            'email' => 'required|string|email|unique:users,email',
-            'password' => 'required|string',
-            'confirm_password' => 'required|string|same:password',
-            'phone' => 'required|numeric|unique:users,phone',
-            'name' => 'required',
-            'main_specialist_id'=>'required|exists:main_specialists,id',
-            'secondary_specialist_id'=>'required|exists:secondary_specialists,id',
-            'brand_id'=>'required|exists:brands,id',
-            'city_id'=>'required|exists:cities,id',
-            'id_image'=>'required|image',
-            'driving_licence'=>'required|image',
-            'image'=>'required|image',
-            'model'=>'required',
-            'car_number'=>'required',
-            'insurance_number'=>'required',
-            'iban_id'=>'required|unique:delivery,iban_id',
-            'bank_name'=>'required'
-        ];
-
-        $validator = Validator::make($request->all(), $rules);
-        if ($validator->fails())
-            return response()->json(['status' => 422, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()], 422);
-        $user = new User();
-        $user->email = $request->email;
-        $user->phone = $request->phone;
-        $user->name = $request->name;
-        $user->image= $this->uploadfile($request->image);
-        $user->type = 2;
-        $user->password = Hash::make($request->password);
-        $user->save();
-        $delivery = new \App\Models\Delivery();
-        $delivery->user_id=$user->id;
-        $delivery->main_specialist_id = $request->main_specialist_id;
-        $delivery->secondary_specialist_id = $request->secondary_specialist_id;
-        $delivery->brand_id = $request->brand_id;
-        $delivery->city_id = $request->city_id;
-        $delivery->model = $request->model;
-        $delivery->iban_id = $request->iban_id;
-        $delivery->bank_name = $request->bank_name;
-        $delivery->car_number = $request->car_number;
-        $delivery->insurance_number = $request->insurance_number;
-        $delivery->id_image= $this->uploadfile($request->id_image);
-        $delivery->driving_licence= $this->uploadfile($request->driving_licence);
-        if($request->hasFile('authorize_image'))
-            $delivery->authorize_image= $this->uploadfile ($request->authorize_image);
-        $delivery->save();
-        $tokenResult = $user->createToken('Personal Access Token');
-        $token = $tokenResult->token;
-//        if ($request->remember_me)
-        $token->expires_at = Carbon::now()->addWeeks(2);
-        $token->save();
-        $user= User::find($user->id);
-
-        $arr['status'] = 201;
-        $arr['message'] = 'delivery user registered successfully';
-        $arr['data'] = [
-            'access_token' => $tokenResult->accessToken,
-            'token_type' => 'Bearer',
-            'expires_at' => Carbon::parse(
-                    $tokenResult->token->expires_at
-            )->toDateTimeString(),
-            'user' => $user->toArray()
-        ];
-        return response()->json($arr, 201);
     }
 
     function loginSocial(Request $request) {
@@ -217,7 +189,7 @@ class AuthApi extends Controller {
         $user = User::where('email', $request->email)->first();
 
         if (!is_object($user)) {
-            $data = $request->all();
+            $data = $request->only('email','name');
 
             $user = User::create($data);
         } else {
@@ -302,6 +274,32 @@ class AuthApi extends Controller {
         return '5555';
         return $randomString;
     }
+    function ForgetPassword(Request $request){
+        $rules = [
+            'email' => 'required|exists:users,email',
+          
+        ];
+        $validator = \Validator::make($request->all(), $rules
+        ,['email.required'=>'البريد ألالكترونى ألزامى'
+            ,'email.exists'=>'هذا البريد غير موجود '
+             ]);
+
+        if ($validator->fails()) {
+
+            $arr = ['status' => false, 'errors' => $validator->errors()->all()];
+
+            return response()->json($arr);
+        } 
+        $user=User::where('email',$request->email)->first();
+        $phonecode=new PhoneCode();
+       $phonecode->code=$this->generatemobie();
+       $phonecode->email=$request->email;
+       $phonecode->user_id=$user->id;
+       $phonecode->save();
+       $this->sendResetEmail($phonecode->email,$phonecode->code);
+       $arr = ['status' => true, 'message' => 'Your Reset Code Sent successfully.'];
+       return response()->json($arr);
+    }
  function resetPassword(Request $request) {
         $rules = [
             'phone' => 'required|exists:users,phone',
@@ -321,8 +319,40 @@ class AuthApi extends Controller {
         $user->password = Hash::make($request->password);
         $user->save();
         \App\Models\PhoneCode::where('phone', $request->phone)->delete();
-        $arr = ['status' => 200, 'message' => 'Your password updated successfully, try login now'];
-        return response()->json($arr,200);
+        $arr = ['status' => true, 'message' => 'Your password updated successfully, try login now'];
+        return response()->json($arr);
 
+    }
+    function sendActivationEmail($email,$code){
+        $text="<h2>Dear </h2>
+        <br>
+        <p>Your Activation Code is</p>
+        <p>$code</p>
+        <br>";
+      
+
+            $headers = 'MIME-Version: 1.0' . "\r\n";
+            $headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
+            $headers .= 'From: info@sha7n.com ' . "\r\n" .
+                    'X-Mailer: PHP/' . phpversion();
+    
+            @mail($email, 'Activation Code', $text,$headers);
+        
+    }
+    function sendResetEmail($email,$code){
+        $text="<h2>Dear </h2>
+        <br>
+        <p>Your Reset Code is</p>
+        <p>$code</p>
+        <br>";
+      
+
+            $headers = 'MIME-Version: 1.0' . "\r\n";
+            $headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
+            $headers .= 'From: info@sha7n.com ' . "\r\n" .
+                    'X-Mailer: PHP/' . phpversion();
+    
+            @mail($email, 'Reset Code', $text,$headers);
+        
     }
 }

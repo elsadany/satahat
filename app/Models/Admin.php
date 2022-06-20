@@ -2,20 +2,18 @@
 
 namespace App\Models;
 
-use App\Models\Cart;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class Admin extends Authenticatable
 {
     use HasApiTokens,HasFactory;
     protected $guarded=['password','id'];
-    protected $appends=['imagePath','orders','shipped'];
+  protected $appends=['sections','imagePath'];
     protected $hidden=['password','parent','created_at','updated_at','mail_confirmed',
         'reset_password_token','remember_token','image'];
    
-    
             function getImagePathAttribute() {
         if ($this->image != '') {
             if (strpos($this->image, "http") !== false)
@@ -26,13 +24,10 @@ class User extends Authenticatable
         }
         return 'https://www.w3schools.com/howto/img_avatar.png';
     }
-    function getOrdersAttribute(){
-        return Order::where('status_id','<',8)->count();
+    function getSectionsAttribute(){
+        return AdminSections::where('admin_id',$this->id)->pluck('section')->toArray();
     }
-    function getShippedAttribute(){
-        return Order::where('status_id',8)->count();
-    }
-    
+ 
  
     
 }

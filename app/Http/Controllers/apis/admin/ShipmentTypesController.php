@@ -7,91 +7,88 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Validator;
 
-class BannersController extends Controller {
+class ShipmentTypesController extends Controller {
 
     function index(Request $request) {
-        $banners =new \App\Models\Banner;
+        $shipment_types =new \App\Models\ShipmentType;
      
-        $banners = $banners->orderBy('id', 'desc')->get();
-        return response()->json(['status' => true, 'data' => $banners->toArray()]);
+        $shipment_types = $shipment_types->orderBy('id', 'desc')->get();
+        return response()->json(['status' => true, 'data' => $shipment_types->toArray()]);
     }
 
     function add(Request $request) {
         $rules = [
-            'image' => 'required|image',
-            'title_ar'=>'required',
-            'title_en'=>'required',
+       
+            'name_ar'=>'required',
+            'name_en'=>'required',
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
             return response()->json(['status' => false, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()]);
-        $banner = new \App\Models\Banner();
+        $shipment_type = new \App\Models\ShipmentType();
      
-        $banner->image = $this->uploadfile($request->image);
-        $banner->title_ar=$request->title_ar;
-        $banner->title_en=$request->title_en;
-        $banner->description_ar=$request->description_ar;
-        $banner->description_en=$request->description_en;
-        $banner->save();
-        return response()->json(['status' => true, 'message' => 'banner added']);
+      
+        $shipment_type->name_ar=$request->name_ar;
+        $shipment_type->name_en=$request->name_en;
+       
+        $shipment_type->save();
+        return response()->json(['status' => true, 'message' => 'shipment_type added']);
     }
 
     function display(Request $request) {
         $rules = [
-            'banner_id' => 'required|exists:banners,id'
+            'shipment_type_id' => 'required|exists:shipment_types,id'
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
             return response()->json(['status' => false, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()]);
-        $banner = \App\Models\Banner::where('id', $request->banner_id)->first();
-        if (!is_object($banner))
-            return response()->json(['status' => false, 'message' => 'banner not found', 'errors' => ['banner Not Found']]);
-        return response()->json(['status' => true, 'data' => $banner->toArray()]);
+        $shipment_type = \App\Models\ShipmentType::where('id', $request->shipment_type_id)->first();
+        if (!is_object($shipment_type))
+            return response()->json(['status' => false, 'message' => 'shipment_type not found', 'errors' => ['shipment_type Not Found']]);
+        return response()->json(['status' => true, 'data' => $shipment_type->toArray()]);
     }
 
     function edit(Request $request) {
         $rules = [
            
-            'title_ar'=>'required',
-            'title_en'=>'required',
-            'banner_id' => 'required|exists:banners,id'
+            'name_ar'=>'required',
+            'name_en'=>'required',
+            'shipment_type_id' => 'required|exists:shipment_types,id'
         ];
         if ($request->hasFile('image'))
             $rules['image'] = 'required|image';
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
             return response()->json(['status' => false, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()]);
-        $banner = \App\Models\Banner::where('id', $request->banner_id)->first();
-        if (!is_object($banner))
-            return response()->json(['status' => false, 'message' => 'banner not found', 'errors' => ['banner Not Found']]);
-   if ($request->hasFile('image'))
-        $banner->image = $this->uploadfile($request->image);
-   $banner->title_ar=$request->title_ar;
-        $banner->title_en=$request->title_en;
-        $banner->description_ar=$request->description_ar;
-        $banner->description_en=$request->description_en;
-        $banner->save();
+        $shipment_type = \App\Models\ShipmentType::where('id', $request->shipment_type_id)->first();
+        if (!is_object($shipment_type))
+            return response()->json(['status' => false, 'message' => 'shipment_type not found', 'errors' => ['shipment_type Not Found']]);
+  
+   $shipment_type->name_ar=$request->name_ar;
+        $shipment_type->name_en=$request->name_en;
+      
+        $shipment_type->save();
         return response()->json(['status' => true, 'message' => 'updated']);
     }
 
     function delete(Request $request) {
         $rules = [
-            'banner_id' => 'required|exists:banners,id'
+            'shipment_type_id' => 'required|exists:shipment_types,id'
         ];
 
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails())
             return response()->json(['status' => false, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()]);
-        $banner = \App\Models\Banner::where('id', $request->banner_id)->first();
-        if (!is_object($banner))
-            return response()->json(['status' => false, 'message' => 'banner not found', 'errors' => ['banner Not Found']]);
-        $banner = \App\Models\Banner::where('id', $request->banner_id)->delete();
+        $shipment_type = \App\Models\ShipmentType::where('id', $request->shipment_type_id)->first();
+        if (!is_object($shipment_type))
+            return response()->json(['status' => false, 'message' => 'shipment_type not found', 'errors' => ['shipment_type Not Found']]);
+        $shipment_type = \App\Models\ShipmentType::where('id', $request->shipment_type_id)->delete();
         return response()->json(['status' => true, 'message' => 'deleted']);
     }
 
    
     private function uploadfile($file) {
-        $path = 'uploads/banners';
+        $path = 'uploads/shipment_types';
         if (!file_exists($path)) {
             mkdir($path, 0775);
         }
