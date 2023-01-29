@@ -36,8 +36,8 @@ protected $casts = [
       return 'http://www.africau.edu/images/default/sample.pdf';
   }
   function getListfileAttribute(){
-      if($this->invoice!='')
-      return url($this->invoice);
+      if($this->list!='')
+      return url($this->list);
       return 'http://www.africau.edu/images/default/sample.pdf';
   }
   function chinaharbor(){

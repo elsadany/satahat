@@ -124,17 +124,20 @@ class OrdersController extends Controller
 
         if ($request->calculated_price == $order->price)
             return response()->json(['status' => false, 'message' => 'Invalid Data', 'errors' => ['Calculated Price must not equal to current price']]);
-        $order->is_changed = $request->is_changed;
-        $order->calculated_price = $request->calculated_price;
-        $order->calculated_price_after_discount = $request->calculated_price - ($request->calculated_price * $order->discount_precentage / 100);
-        $order->save();
+          $order->status_id=2;
+      if($request->is_changed==1) {
+          $order->is_changed = $request->is_changed;
+          $order->calculated_price = $request->calculated_price;
+          $order->calculated_price_after_discount = $request->calculated_price - ($request->calculated_price * $order->discount_precentage / 100);
+      }
+          $order->save();
         return response()->json(['status' => true, 'data' => $order->toArray()], 200);
     }
     function changeStatus(Request $request)
     {
         $rules = [
             'order_id' => 'required|exists:orders,id',
-            'status_id' => 'required|numeric|min:|max:8',
+            'status_id' => 'required|numeric|min:|max:6',
 
 
         ];
@@ -169,14 +172,14 @@ class OrdersController extends Controller
         if ($validator->fails())
             return response()->json(['status' => false, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()]);
         $order = Order::where('id', $request->order_id)->first();
-        if ($order->status_id != 1)
+        if ($order->status_id != 7)
             return response()->json(['status' => false, 'message' => 'Invalid Data', 'errors' => ['change to deliver  First']]);
         if ($order->canceled == 1)
             return response()->json(['status' => false, 'message' => 'Invalid Data', 'errors' => ['already Order Canceled']]);
 
         if ($order->payed != 1)
             return response()->json(['status' => false, 'message' => 'Invalid Data', 'errors' => ['Order didn`t payed']]);
-        $order->status_id = 2;
+        $order->status_id = 7;
         $order->save();
 
         return response()->json(['status' => true, 'data' => $order->toArray()], 200);

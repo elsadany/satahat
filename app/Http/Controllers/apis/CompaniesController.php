@@ -31,7 +31,7 @@ class CompaniesController extends Controller
         if ($request->type == 1)
             $price = 14 * $request->weight;
         else
-            $price = 480 * $request->weight;
+            $price = 368 * $request->weight;
         $company = \App\Models\Company::first();
 
         return response()->json(['status' => true, 'price' => $price, 'data' => $company->toArray()]);
@@ -94,14 +94,14 @@ class CompaniesController extends Controller
         if ($request->hasFile('list'))
             $order->list = $this->uploadfile($request->file('list'));
         $price = 0;
-        if ($request->type == 0)
+        if ($request->type == 1)
             $price = 14 * $request->weight;
         else
-            $price = 480 * $request->weight;
+            $price = 368 * $request->weight;
         $order->shipping_price = $price;
         if ($request->code != '') {
             $order->discount_precentage = $promo->discount_precentage;
-            $order->price = $price - ($price * $promo->discount_precentage) / 100;
+            $order->price = $price - (($price * $promo->discount_precentage) / 100);
         } else {
             $order->price = $price;
         }
@@ -124,7 +124,7 @@ class CompaniesController extends Controller
     }
     function getUserOrders(Request $request)
     {
-        $orders = Order::where('user_id', $request->user()->id)->latest('id');
+        $orders = Order::where('user_id', $request->user()->id)->where('payed',1)->latest('id');
         if ($request->status_id != '')
             $orders = $orders->where('status_id', $request->status_id);
         $orders = $orders->paginate(10);
@@ -169,7 +169,7 @@ class CompaniesController extends Controller
         $password = "ip_7554@URWAY"; // Will be provided by URWAY
         $merchant_key = "19fa802b3a3656020a650c60e2d7f5f3bef5bd38fa1dfafede94a84d1b11d62d"; // Will be provided by URWAY
         $currencycode = "SAR";
-        $amount = $order->price * 3.7575 *.25;
+        $amount = $order->price * 3.7575 *.5;
         $amount = number_format((float)$amount, 2, '.', '');
         $ipp = $this->get_server_ip();
         //Generate Hash

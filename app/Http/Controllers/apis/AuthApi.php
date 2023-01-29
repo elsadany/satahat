@@ -29,7 +29,7 @@ class AuthApi extends Controller {
         $phone->code = $code;
         $phone->phone = $request->phone;
         $phone->save();
-      
+        $this->send($phone->phone,$phone->code);
         // if($response!=false||$response->ErrorCode!='000')
         //     return response ()->json(['status'=>200,'errors'=>['there are error in sms provider']]);
         $user = User::where('phone', $request->phone)->first();
@@ -40,6 +40,35 @@ class AuthApi extends Controller {
 
 
         return response()->json($arr);
+    }
+    function send($phone,$code){
+        $ch = curl_init();
+
+curl_setopt($ch, CURLOPT_URL, "https://www.msegat.com/gw/sendsms.php");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+curl_setopt($ch, CURLOPT_HEADER, TRUE);
+
+curl_setopt($ch, CURLOPT_POST, TRUE);
+
+$fields = <<<EOT
+{
+  "userName": "Majedalharthi",
+  "numbers": "966$phone",
+  "userSender": "ipe2w.com",
+  "apiKey": "e789a760c22840443a789061c8edd40f",
+  "msg": "your confirm code is $code"
+}
+EOT;
+curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
+
+curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+  "Content-Type: application/json"
+));
+
+$response = curl_exec($ch);
+$info = curl_getinfo($ch);
+curl_close($ch);
+
     }
 
     function confirm(Request $request) {
@@ -97,12 +126,12 @@ class AuthApi extends Controller {
         $user->password = Hash::make($request->password);
         $user->active=0;
         $user->save();
-       $phonecode=new PhoneCode();
-       $phonecode->code=$this->generatemobie();
-       $phonecode->email=$request->email;
-       $phonecode->user_id=$user->id;
-       $phonecode->save();
-       $this->sendActivationEmail($phonecode->email,$phonecode->code);
+    //   $phonecode=new PhoneCode();
+    //   $phonecode->code=$this->generatemobie();
+    //   $phonecode->email=$request->email;
+    //   $phonecode->user_id=$user->id;
+    //   $phonecode->save();
+    //   $this->sendActivationEmail($phonecode->email,$phonecode->code);
         $tokenResult = $user->createToken('Personal Access Token');
         $token = $tokenResult->token;
         if ($request->remember_me)
@@ -154,7 +183,7 @@ class AuthApi extends Controller {
             ]);
         if ($validator->fails())
             return response()->json(['status' => 422, 'message' => 'Invalid Data', 'errors' => $validator->errors()->all()], 422);
-        $user = User::where('email', $request->email)->first();
+        $user = User::where('phone', $request->phone)->first();
 
         if (!is_object($user) || !Hash::check($request->password, $user->password)) {
             return response()->json(['status' => 404, 'message' =>trans('auth.incorrect_email'), 'errors' => [trans('auth.incorrect_email')]], 404);
@@ -271,7 +300,7 @@ class AuthApi extends Controller {
         for ($i = 0; $i < $length; $i++) {
             $randomString .= $characters[rand(0, $charactersLength - 1)];
         }
-        return '5555';
+      
         return $randomString;
     }
     function ForgetPassword(Request $request){
